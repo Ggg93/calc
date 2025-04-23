@@ -1,0 +1,286 @@
+package dev.gl.calc;
+
+import java.awt.Image;
+import javax.swing.ImageIcon;
+
+/**
+ *
+ * @author gl
+ */
+public class MainWindow extends javax.swing.JFrame {
+
+    public MainWindow() {
+        this.setLocationRelativeTo(null);
+        ImageIcon icon = new ImageIcon(".\\src\\main\\resources\\icons8-calculator-40.png");
+        this.setIconImage(icon.getImage());
+        initComponents();
+    }
+
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        mainPanel = new javax.swing.JPanel();
+        historyDataPanel = new javax.swing.JPanel();
+        historyTextField = new javax.swing.JTextField();
+        resultPanel = new javax.swing.JPanel();
+        resultTextField = new javax.swing.JTextField();
+        memoryMenuPanel = new javax.swing.JPanel();
+        mcButton = new javax.swing.JButton();
+        mrButton = new javax.swing.JButton();
+        mAddButton = new javax.swing.JButton();
+        mSubtractButton = new javax.swing.JButton();
+        buttonsPanel = new javax.swing.JPanel();
+        percentButton = new javax.swing.JButton();
+        ceButton = new javax.swing.JButton();
+        cButton = new javax.swing.JButton();
+        delButton = new javax.swing.JButton();
+        dividerButton = new javax.swing.JButton();
+        squaringButton = new javax.swing.JButton();
+        squareRootButton = new javax.swing.JButton();
+        divideButton = new javax.swing.JButton();
+        sevenButton = new javax.swing.JButton();
+        eightButton = new javax.swing.JButton();
+        nineButton = new javax.swing.JButton();
+        multiplyButton = new javax.swing.JButton();
+        fourButton = new javax.swing.JButton();
+        fiveButton = new javax.swing.JButton();
+        sixButton = new javax.swing.JButton();
+        subtractButton = new javax.swing.JButton();
+        oneButton = new javax.swing.JButton();
+        twoButton = new javax.swing.JButton();
+        threeButton = new javax.swing.JButton();
+        addButton = new javax.swing.JButton();
+        signButton = new javax.swing.JButton();
+        zeroButton = new javax.swing.JButton();
+        separatorButton = new javax.swing.JButton();
+        equalsButton = new javax.swing.JButton();
+        menuBar = new javax.swing.JMenuBar();
+        mainMenu = new javax.swing.JMenu();
+        settingsMenuItem = new javax.swing.JMenuItem();
+        saveMenuItem = new javax.swing.JMenuItem();
+        aboutMenuItem = new javax.swing.JMenuItem();
+        exitMenuItem = new javax.swing.JMenuItem();
+        historyMenu = new javax.swing.JMenu();
+        langMenu = new javax.swing.JMenu();
+        langEnMenuItem = new javax.swing.JMenuItem();
+        langRuMenuItem = new javax.swing.JMenuItem();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Calculator");
+        setMinimumSize(new java.awt.Dimension(450, 350));
+        setPreferredSize(new java.awt.Dimension(450, 350));
+        getContentPane().setLayout(new java.awt.BorderLayout(0, 5));
+
+        mainPanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        mainPanel.setLayout(new javax.swing.BoxLayout(mainPanel, javax.swing.BoxLayout.PAGE_AXIS));
+
+        historyDataPanel.setMinimumSize(new java.awt.Dimension(100, 35));
+        historyDataPanel.setPreferredSize(new java.awt.Dimension(100, 35));
+        historyDataPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 5, 0));
+
+        historyTextField.setEditable(false);
+        historyTextField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        historyTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        historyTextField.setText("125");
+        historyTextField.setToolTipText("");
+        historyTextField.setBorder(null);
+        historyTextField.setMargin(null);
+        historyTextField.setMinimumSize(new java.awt.Dimension(64, 30));
+        historyTextField.setPreferredSize(new java.awt.Dimension(64, 30));
+        historyDataPanel.add(historyTextField);
+
+        mainPanel.add(historyDataPanel);
+
+        resultPanel.setMinimumSize(new java.awt.Dimension(100, 35));
+        resultPanel.setPreferredSize(new java.awt.Dimension(100, 35));
+        resultPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
+
+        resultTextField.setEditable(false);
+        resultTextField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        resultTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        resultTextField.setText("0");
+        resultTextField.setBorder(null);
+        resultTextField.setMinimumSize(new java.awt.Dimension(64, 30));
+        resultTextField.setPreferredSize(new java.awt.Dimension(64, 30));
+        resultPanel.add(resultTextField);
+
+        mainPanel.add(resultPanel);
+
+        memoryMenuPanel.setLayout(new java.awt.GridLayout(1, 4, 4, 2));
+
+        mcButton.setText("MC");
+        memoryMenuPanel.add(mcButton);
+
+        mrButton.setText("MR");
+        memoryMenuPanel.add(mrButton);
+
+        mAddButton.setText("M+");
+        memoryMenuPanel.add(mAddButton);
+
+        mSubtractButton.setText("M-");
+        memoryMenuPanel.add(mSubtractButton);
+
+        mainPanel.add(memoryMenuPanel);
+
+        buttonsPanel.setPreferredSize(new java.awt.Dimension(250, 100));
+        buttonsPanel.setLayout(new java.awt.GridLayout(6, 4, 2, 2));
+
+        percentButton.setText("%");
+        buttonsPanel.add(percentButton);
+
+        ceButton.setText("CE");
+        buttonsPanel.add(ceButton);
+
+        cButton.setText("C");
+        buttonsPanel.add(cButton);
+
+        delButton.setText("DEL");
+        buttonsPanel.add(delButton);
+
+        dividerButton.setText("1/x");
+        buttonsPanel.add(dividerButton);
+
+        squaringButton.setText("x^2");
+        buttonsPanel.add(squaringButton);
+
+        squareRootButton.setText("2√x");
+        buttonsPanel.add(squareRootButton);
+
+        divideButton.setText("÷");
+        buttonsPanel.add(divideButton);
+
+        sevenButton.setText("7");
+        buttonsPanel.add(sevenButton);
+
+        eightButton.setText("8");
+        buttonsPanel.add(eightButton);
+
+        nineButton.setText("9");
+        buttonsPanel.add(nineButton);
+
+        multiplyButton.setText("x");
+        buttonsPanel.add(multiplyButton);
+
+        fourButton.setText("4");
+        buttonsPanel.add(fourButton);
+
+        fiveButton.setText("5");
+        buttonsPanel.add(fiveButton);
+
+        sixButton.setText("6");
+        buttonsPanel.add(sixButton);
+
+        subtractButton.setText("-");
+        buttonsPanel.add(subtractButton);
+
+        oneButton.setText("1");
+        buttonsPanel.add(oneButton);
+
+        twoButton.setText("2");
+        buttonsPanel.add(twoButton);
+
+        threeButton.setText("3");
+        buttonsPanel.add(threeButton);
+
+        addButton.setText("+");
+        buttonsPanel.add(addButton);
+
+        signButton.setText("+/-");
+        buttonsPanel.add(signButton);
+
+        zeroButton.setText("0");
+        buttonsPanel.add(zeroButton);
+
+        separatorButton.setText(".");
+        buttonsPanel.add(separatorButton);
+
+        equalsButton.setText("=");
+        buttonsPanel.add(equalsButton);
+
+        mainPanel.add(buttonsPanel);
+
+        getContentPane().add(mainPanel, java.awt.BorderLayout.CENTER);
+
+        mainMenu.setText("Main");
+
+        settingsMenuItem.setText("Settings");
+        mainMenu.add(settingsMenuItem);
+
+        saveMenuItem.setText("Save...");
+        mainMenu.add(saveMenuItem);
+
+        aboutMenuItem.setText("About");
+        mainMenu.add(aboutMenuItem);
+
+        exitMenuItem.setText("Exit");
+        mainMenu.add(exitMenuItem);
+
+        menuBar.add(mainMenu);
+
+        historyMenu.setText("History");
+        menuBar.add(historyMenu);
+
+        langMenu.setText("Lang");
+
+        langEnMenuItem.setText("En");
+        langMenu.add(langEnMenuItem);
+
+        langRuMenuItem.setText("Ru");
+        langMenu.add(langRuMenuItem);
+
+        menuBar.add(langMenu);
+
+        setJMenuBar(menuBar);
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem aboutMenuItem;
+    private javax.swing.JButton addButton;
+    private javax.swing.JPanel buttonsPanel;
+    private javax.swing.JButton cButton;
+    private javax.swing.JButton ceButton;
+    private javax.swing.JButton delButton;
+    private javax.swing.JButton divideButton;
+    private javax.swing.JButton dividerButton;
+    private javax.swing.JButton eightButton;
+    private javax.swing.JButton equalsButton;
+    private javax.swing.JMenuItem exitMenuItem;
+    private javax.swing.JButton fiveButton;
+    private javax.swing.JButton fourButton;
+    private javax.swing.JPanel historyDataPanel;
+    private javax.swing.JMenu historyMenu;
+    private javax.swing.JTextField historyTextField;
+    private javax.swing.JMenuItem langEnMenuItem;
+    private javax.swing.JMenu langMenu;
+    private javax.swing.JMenuItem langRuMenuItem;
+    private javax.swing.JButton mAddButton;
+    private javax.swing.JButton mSubtractButton;
+    private javax.swing.JMenu mainMenu;
+    private javax.swing.JPanel mainPanel;
+    private javax.swing.JButton mcButton;
+    private javax.swing.JPanel memoryMenuPanel;
+    private javax.swing.JMenuBar menuBar;
+    private javax.swing.JButton mrButton;
+    private javax.swing.JButton multiplyButton;
+    private javax.swing.JButton nineButton;
+    private javax.swing.JButton oneButton;
+    private javax.swing.JButton percentButton;
+    private javax.swing.JPanel resultPanel;
+    private javax.swing.JTextField resultTextField;
+    private javax.swing.JMenuItem saveMenuItem;
+    private javax.swing.JButton separatorButton;
+    private javax.swing.JMenuItem settingsMenuItem;
+    private javax.swing.JButton sevenButton;
+    private javax.swing.JButton signButton;
+    private javax.swing.JButton sixButton;
+    private javax.swing.JButton squareRootButton;
+    private javax.swing.JButton squaringButton;
+    private javax.swing.JButton subtractButton;
+    private javax.swing.JButton threeButton;
+    private javax.swing.JButton twoButton;
+    private javax.swing.JButton zeroButton;
+    // End of variables declaration//GEN-END:variables
+}
