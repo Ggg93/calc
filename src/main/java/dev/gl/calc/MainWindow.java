@@ -20,11 +20,13 @@ public class MainWindow extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        mainPanel = new javax.swing.JPanel();
+        jSplitPane1 = new javax.swing.JSplitPane();
+        upperPanel = new javax.swing.JPanel();
         historyDataPanel = new javax.swing.JPanel();
         historyTextField = new javax.swing.JTextField();
         resultPanel = new javax.swing.JPanel();
         resultTextField = new javax.swing.JTextField();
+        bottomPanel = new javax.swing.JPanel();
         memoryMenuPanel = new javax.swing.JPanel();
         mcButton = new javax.swing.JButton();
         mrButton = new javax.swing.JButton();
@@ -70,10 +72,15 @@ public class MainWindow extends javax.swing.JFrame {
         setTitle("Calculator");
         setMinimumSize(new java.awt.Dimension(450, 350));
         setPreferredSize(new java.awt.Dimension(450, 350));
-        getContentPane().setLayout(new java.awt.BorderLayout(0, 5));
+        getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
 
-        mainPanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        mainPanel.setLayout(new javax.swing.BoxLayout(mainPanel, javax.swing.BoxLayout.PAGE_AXIS));
+        jSplitPane1.setDividerLocation(70);
+        jSplitPane1.setDividerSize(0);
+        jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
+        jSplitPane1.setResizeWeight(0.15);
+        jSplitPane1.setEnabled(false);
+
+        upperPanel.setLayout(new java.awt.BorderLayout());
 
         historyDataPanel.setMinimumSize(new java.awt.Dimension(100, 35));
         historyDataPanel.setPreferredSize(new java.awt.Dimension(100, 35));
@@ -81,8 +88,8 @@ public class MainWindow extends javax.swing.JFrame {
 
         historyTextField.setEditable(false);
         historyTextField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        historyTextField.setForeground(new java.awt.Color(102, 102, 102));
         historyTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        historyTextField.setText("125");
         historyTextField.setToolTipText("");
         historyTextField.setBorder(null);
         historyTextField.setMargin(null);
@@ -90,14 +97,14 @@ public class MainWindow extends javax.swing.JFrame {
         historyTextField.setPreferredSize(new java.awt.Dimension(64, 30));
         historyDataPanel.add(historyTextField);
 
-        mainPanel.add(historyDataPanel);
+        upperPanel.add(historyDataPanel, java.awt.BorderLayout.NORTH);
 
         resultPanel.setMinimumSize(new java.awt.Dimension(100, 35));
         resultPanel.setPreferredSize(new java.awt.Dimension(100, 35));
         resultPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
 
         resultTextField.setEditable(false);
-        resultTextField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        resultTextField.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         resultTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         resultTextField.setText("0");
         resultTextField.setBorder(null);
@@ -105,23 +112,35 @@ public class MainWindow extends javax.swing.JFrame {
         resultTextField.setPreferredSize(new java.awt.Dimension(64, 30));
         resultPanel.add(resultTextField);
 
-        mainPanel.add(resultPanel);
+        upperPanel.add(resultPanel, java.awt.BorderLayout.CENTER);
+
+        jSplitPane1.setTopComponent(upperPanel);
+
+        bottomPanel.setLayout(new javax.swing.BoxLayout(bottomPanel, javax.swing.BoxLayout.PAGE_AXIS));
 
         memoryMenuPanel.setLayout(new java.awt.GridLayout(1, 4, 4, 2));
 
+        mcButton.setBackground(new java.awt.Color(204, 204, 204));
+        mcButton.setForeground(new java.awt.Color(0, 0, 0));
         mcButton.setText("MC");
         memoryMenuPanel.add(mcButton);
 
+        mrButton.setBackground(new java.awt.Color(204, 204, 204));
+        mrButton.setForeground(new java.awt.Color(0, 0, 0));
         mrButton.setText("MR");
         memoryMenuPanel.add(mrButton);
 
+        mAddButton.setBackground(new java.awt.Color(204, 204, 204));
+        mAddButton.setForeground(new java.awt.Color(0, 0, 0));
         mAddButton.setText("M+");
         memoryMenuPanel.add(mAddButton);
 
+        mSubtractButton.setBackground(new java.awt.Color(204, 204, 204));
+        mSubtractButton.setForeground(new java.awt.Color(0, 0, 0));
         mSubtractButton.setText("M-");
         memoryMenuPanel.add(mSubtractButton);
 
-        mainPanel.add(memoryMenuPanel);
+        bottomPanel.add(memoryMenuPanel);
 
         buttonsPanel.setPreferredSize(new java.awt.Dimension(250, 100));
         buttonsPanel.setLayout(new java.awt.GridLayout(6, 4, 2, 2));
@@ -195,12 +214,16 @@ public class MainWindow extends javax.swing.JFrame {
         separatorButton.setText(".");
         buttonsPanel.add(separatorButton);
 
+        equalsButton.setBackground(new java.awt.Color(204, 204, 255));
+        equalsButton.setForeground(new java.awt.Color(0, 0, 0));
         equalsButton.setText("=");
         buttonsPanel.add(equalsButton);
 
-        mainPanel.add(buttonsPanel);
+        bottomPanel.add(buttonsPanel);
 
-        getContentPane().add(mainPanel, java.awt.BorderLayout.CENTER);
+        jSplitPane1.setRightComponent(bottomPanel);
+
+        getContentPane().add(jSplitPane1);
 
         mainMenu.setText("Main");
 
@@ -239,6 +262,7 @@ public class MainWindow extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem aboutMenuItem;
     private javax.swing.JButton addButton;
+    private javax.swing.JPanel bottomPanel;
     private javax.swing.JPanel buttonsPanel;
     private javax.swing.JButton cButton;
     private javax.swing.JButton ceButton;
@@ -253,13 +277,13 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JPanel historyDataPanel;
     private javax.swing.JMenu historyMenu;
     private javax.swing.JTextField historyTextField;
+    private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JMenuItem langEnMenuItem;
     private javax.swing.JMenu langMenu;
     private javax.swing.JMenuItem langRuMenuItem;
     private javax.swing.JButton mAddButton;
     private javax.swing.JButton mSubtractButton;
     private javax.swing.JMenu mainMenu;
-    private javax.swing.JPanel mainPanel;
     private javax.swing.JButton mcButton;
     private javax.swing.JPanel memoryMenuPanel;
     private javax.swing.JMenuBar menuBar;
@@ -281,6 +305,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JButton subtractButton;
     private javax.swing.JButton threeButton;
     private javax.swing.JButton twoButton;
+    private javax.swing.JPanel upperPanel;
     private javax.swing.JButton zeroButton;
     // End of variables declaration//GEN-END:variables
 }
