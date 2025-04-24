@@ -116,6 +116,8 @@ public class MainWindow extends javax.swing.JFrame {
         operationTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         operationTextField.setToolTipText("");
         operationTextField.setBorder(null);
+        operationTextField.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        operationTextField.setFocusable(false);
         operationTextField.setMargin(null);
         operationTextField.setMinimumSize(new java.awt.Dimension(64, 30));
         operationTextField.setPreferredSize(new java.awt.Dimension(500, 30));
@@ -132,6 +134,7 @@ public class MainWindow extends javax.swing.JFrame {
         operandTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         operandTextField.setText("0");
         operandTextField.setBorder(null);
+        operandTextField.setFocusable(false);
         operandTextField.setMinimumSize(new java.awt.Dimension(64, 30));
         operandTextField.setPreferredSize(new java.awt.Dimension(250, 30));
         resultPanel.add(operandTextField);
