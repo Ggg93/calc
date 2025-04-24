@@ -1,4 +1,4 @@
-package dev.gl.calc.enums;
+package dev.gl.calc.main.enums;
 
 /**
  *

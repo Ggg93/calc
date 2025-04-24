@@ -1,6 +1,17 @@
-package dev.gl.calc;
+package dev.gl.calc.main.gui;
 
-import dev.gl.calc.enums.CalculatorState;
+import dev.gl.calc.ButtonActions;
+import dev.gl.calc.Operation;
+import dev.gl.calc.menu.History;
+import dev.gl.calc.main.actions.DecimalPressedAction;
+import dev.gl.calc.main.actions.ClearPressedAction;
+import dev.gl.calc.main.actions.DigitPressedAction;
+import dev.gl.calc.main.actions.PlusPressedAction;
+import dev.gl.calc.main.actions.ClearEntryPressedAction;
+import dev.gl.calc.main.actions.BackspacePressedAction;
+import dev.gl.calc.main.actions.SignPressedAction;
+import dev.gl.calc.main.enums.CalculatorState;
+import dev.gl.calc.menu.ExitButtonActionListener;
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
@@ -12,86 +23,22 @@ import javax.swing.text.PlainDocument;
  * @author gl
  */
 public class MainWindow extends javax.swing.JFrame {
+
+    private CalculatorState state;
     private Operation operation;
-    private History history = new History();
-    private CalculatorState state = CalculatorState.OK;
+    private History history;
+    private ButtonActions buttonActions;
 
     public MainWindow() {
-        this.setLocationRelativeTo(null);
-        ImageIcon icon = new ImageIcon(".\\src\\main\\resources\\icons8-calculator-40.png");
-        this.setIconImage(icon.getImage());
+        configureFrame();
         initComponents();
+        configureComponents();
+        initClassFields();
+        initButtonActions();
+        bindActionsToButtons();
+        createKeyBindings();
+        initMenuItems();
         
-        operation = new Operation(state);
-        
-        PlainDocument pd = (PlainDocument) resultTextField.getDocument();
-        pd.setDocumentFilter(new LimitedLengthDocumentFilter(15));
-        
-        DigitPressedAction digitPressedAction = new DigitPressedAction(resultTextField, operation);
-        BackspacePressedAction backspacePressedAction = new BackspacePressedAction(resultTextField);
-        DecimalPressedAction decimalPressedAction = new DecimalPressedAction(resultTextField);
-        ClearEntryPressedAction clearEntryPressedAction = new ClearEntryPressedAction(resultTextField);
-        ClearPressedAction clearPressedAction = new ClearPressedAction(resultTextField);
-        SignPressedAction signPressedAction = new SignPressedAction(resultTextField);
-        
-        PlusPressedAction plusPressedAction = new PlusPressedAction(historyTextField, resultTextField, operation, history);
-        
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("0"), "digit");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("1"), "digit");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("2"), "digit");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("3"), "digit");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("4"), "digit");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("5"), "digit");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("6"), "digit");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("7"), "digit");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("8"), "digit");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("9"), "digit");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD0, 0), "digit");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD1, 0), "digit");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD2, 0), "digit");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD3, 0), "digit");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD4, 0), "digit");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD5, 0), "digit");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD6, 0), "digit");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD7, 0), "digit");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD8, 0), "digit");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD9, 0), "digit");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_BACK_SPACE, 0), "back_space");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_DECIMAL, 0), "decimal");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0), "clear_entry");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "clear");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_F9, 0), "sign");
-        
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_PLUS, 0), "addition");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_ADD, 0), "addition");
-        
-        this.getRootPane().getActionMap().put("digit", digitPressedAction);
-        this.getRootPane().getActionMap().put("back_space", backspacePressedAction);
-        this.getRootPane().getActionMap().put("decimal", decimalPressedAction);
-        this.getRootPane().getActionMap().put("clear_entry", clearEntryPressedAction);
-        this.getRootPane().getActionMap().put("clear", clearPressedAction);
-        this.getRootPane().getActionMap().put("sign", signPressedAction);
-        this.getRootPane().getActionMap().put("addition", plusPressedAction);
-        
-        
-        zeroButton.addActionListener(digitPressedAction);
-        oneButton.addActionListener(digitPressedAction);
-        twoButton.addActionListener(digitPressedAction);
-        threeButton.addActionListener(digitPressedAction);
-        fourButton.addActionListener(digitPressedAction);
-        fiveButton.addActionListener(digitPressedAction);
-        sixButton.addActionListener(digitPressedAction);
-        sevenButton.addActionListener(digitPressedAction);
-        eightButton.addActionListener(digitPressedAction);
-        nineButton.addActionListener(digitPressedAction);
-        
-        delButton.addActionListener(backspacePressedAction);
-        ceButton.addActionListener(clearEntryPressedAction);
-        cButton.addActionListener(clearPressedAction);
-        signButton.addActionListener(signPressedAction);
-        decimalButton.addActionListener(decimalPressedAction);
-        
-        addButton.addActionListener(plusPressedAction);
     }
 
     @SuppressWarnings("unchecked")
@@ -101,9 +48,9 @@ public class MainWindow extends javax.swing.JFrame {
         jSplitPane1 = new javax.swing.JSplitPane();
         upperPanel = new javax.swing.JPanel();
         historyDataPanel = new javax.swing.JPanel();
-        historyTextField = new javax.swing.JTextField();
+        operationTextField = new javax.swing.JTextField();
         resultPanel = new javax.swing.JPanel();
-        resultTextField = new javax.swing.JTextField();
+        operandTextField = new javax.swing.JTextField();
         bottomPanel = new javax.swing.JPanel();
         memoryMenuPanel = new javax.swing.JPanel();
         mcButton = new javax.swing.JButton();
@@ -149,7 +96,6 @@ public class MainWindow extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Calculator");
         setMinimumSize(new java.awt.Dimension(450, 350));
-        setPreferredSize(new java.awt.Dimension(450, 350));
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
 
         jSplitPane1.setDividerLocation(70);
@@ -164,16 +110,16 @@ public class MainWindow extends javax.swing.JFrame {
         historyDataPanel.setPreferredSize(new java.awt.Dimension(100, 35));
         historyDataPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 5, 0));
 
-        historyTextField.setEditable(false);
-        historyTextField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        historyTextField.setForeground(new java.awt.Color(102, 102, 102));
-        historyTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        historyTextField.setToolTipText("");
-        historyTextField.setBorder(null);
-        historyTextField.setMargin(null);
-        historyTextField.setMinimumSize(new java.awt.Dimension(64, 30));
-        historyTextField.setPreferredSize(new java.awt.Dimension(500, 30));
-        historyDataPanel.add(historyTextField);
+        operationTextField.setEditable(false);
+        operationTextField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        operationTextField.setForeground(new java.awt.Color(102, 102, 102));
+        operationTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        operationTextField.setToolTipText("");
+        operationTextField.setBorder(null);
+        operationTextField.setMargin(null);
+        operationTextField.setMinimumSize(new java.awt.Dimension(64, 30));
+        operationTextField.setPreferredSize(new java.awt.Dimension(500, 30));
+        historyDataPanel.add(operationTextField);
 
         upperPanel.add(historyDataPanel, java.awt.BorderLayout.NORTH);
 
@@ -181,14 +127,14 @@ public class MainWindow extends javax.swing.JFrame {
         resultPanel.setPreferredSize(new java.awt.Dimension(100, 35));
         resultPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
 
-        resultTextField.setEditable(false);
-        resultTextField.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        resultTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        resultTextField.setText("0");
-        resultTextField.setBorder(null);
-        resultTextField.setMinimumSize(new java.awt.Dimension(64, 30));
-        resultTextField.setPreferredSize(new java.awt.Dimension(250, 30));
-        resultPanel.add(resultTextField);
+        operandTextField.setEditable(false);
+        operandTextField.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        operandTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        operandTextField.setText("0");
+        operandTextField.setBorder(null);
+        operandTextField.setMinimumSize(new java.awt.Dimension(64, 30));
+        operandTextField.setPreferredSize(new java.awt.Dimension(250, 30));
+        resultPanel.add(operandTextField);
 
         upperPanel.add(resultPanel, java.awt.BorderLayout.CENTER);
 
@@ -315,11 +261,6 @@ public class MainWindow extends javax.swing.JFrame {
         mainMenu.add(aboutMenuItem);
 
         exitMenuItem.setText("Exit");
-        exitMenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                exitMenuItemActionPerformed(evt);
-            }
-        });
         mainMenu.add(exitMenuItem);
 
         menuBar.add(mainMenu);
@@ -342,11 +283,6 @@ public class MainWindow extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
-//        this.dispose();
-        System.exit(0);
-    }//GEN-LAST:event_exitMenuItemActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem aboutMenuItem;
     private javax.swing.JButton addButton;
@@ -365,7 +301,6 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JButton fourButton;
     private javax.swing.JPanel historyDataPanel;
     private javax.swing.JMenu historyMenu;
-    private javax.swing.JTextField historyTextField;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JMenuItem langEnMenuItem;
     private javax.swing.JMenu langMenu;
@@ -380,9 +315,10 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JButton multiplyButton;
     private javax.swing.JButton nineButton;
     private javax.swing.JButton oneButton;
+    private javax.swing.JTextField operandTextField;
+    private javax.swing.JTextField operationTextField;
     private javax.swing.JButton percentButton;
     private javax.swing.JPanel resultPanel;
-    private javax.swing.JTextField resultTextField;
     private javax.swing.JMenuItem saveMenuItem;
     private javax.swing.JMenuItem settingsMenuItem;
     private javax.swing.JButton sevenButton;
@@ -396,4 +332,117 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JPanel upperPanel;
     private javax.swing.JButton zeroButton;
     // End of variables declaration//GEN-END:variables
+
+    private void configureFrame() {
+        // set location of frame in the middle of screen
+        this.setLocationRelativeTo(null);
+
+        // set frame icon
+        ImageIcon icon = new ImageIcon(".\\src\\main\\resources\\icons8-calculator-40.png");
+        this.setIconImage(icon.getImage());
+    }
+
+    private void configureComponents() {
+        // set length limit to operandTextField
+        PlainDocument pd = (PlainDocument) operandTextField.getDocument();
+        pd.setDocumentFilter(new LimitedLengthDocumentFilter(15));
+    }
+
+    public void updateOperationTextField() {
+
+    }
+
+    public void updateOperandTextField() {
+
+    }
+
+    private void initButtonActions() {
+        buttonActions.digitPressedAction = new DigitPressedAction(operandTextField, operation);
+        buttonActions.backspacePressedAction = new BackspacePressedAction(operandTextField);
+        buttonActions.decimalPressedAction = new DecimalPressedAction(operandTextField);
+        buttonActions.clearEntryPressedAction = new ClearEntryPressedAction(operandTextField);
+        buttonActions.clearPressedAction = new ClearPressedAction(operandTextField);
+        buttonActions.signPressedAction = new SignPressedAction(operandTextField);
+        buttonActions.plusPressedAction = new PlusPressedAction(operationTextField, operandTextField, operation, history);
+    }
+
+    private void createKeyBindings() {
+
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("0"), "digit");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("1"), "digit");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("2"), "digit");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("3"), "digit");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("4"), "digit");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("5"), "digit");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("6"), "digit");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("7"), "digit");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("8"), "digit");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("9"), "digit");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD0, 0), "digit");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD1, 0), "digit");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD2, 0), "digit");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD3, 0), "digit");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD4, 0), "digit");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD5, 0), "digit");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD6, 0), "digit");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD7, 0), "digit");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD8, 0), "digit");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD9, 0), "digit");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_BACK_SPACE, 0), "back_space");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_DECIMAL, 0), "decimal");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0), "clear_entry");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "clear");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_F9, 0), "sign");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_PLUS, 0), "addition");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_ADD, 0), "addition");
+
+        this.getRootPane().getActionMap().put("digit", buttonActions.digitPressedAction);
+        this.getRootPane().getActionMap().put("back_space", buttonActions.backspacePressedAction);
+        this.getRootPane().getActionMap().put("decimal", buttonActions.decimalPressedAction);
+        this.getRootPane().getActionMap().put("clear_entry", buttonActions.clearEntryPressedAction);
+        this.getRootPane().getActionMap().put("clear", buttonActions.clearPressedAction);
+        this.getRootPane().getActionMap().put("sign", buttonActions.signPressedAction);
+        this.getRootPane().getActionMap().put("addition", buttonActions.plusPressedAction);
+    }
+
+    private void bindActionsToButtons() {
+
+        // digit buttons
+        zeroButton.addActionListener(buttonActions.digitPressedAction);
+        oneButton.addActionListener(buttonActions.digitPressedAction);
+        twoButton.addActionListener(buttonActions.digitPressedAction);
+        threeButton.addActionListener(buttonActions.digitPressedAction);
+        fourButton.addActionListener(buttonActions.digitPressedAction);
+        fiveButton.addActionListener(buttonActions.digitPressedAction);
+        sixButton.addActionListener(buttonActions.digitPressedAction);
+        sevenButton.addActionListener(buttonActions.digitPressedAction);
+        eightButton.addActionListener(buttonActions.digitPressedAction);
+        nineButton.addActionListener(buttonActions.digitPressedAction);
+
+        // auxiliary fuctions buttons
+        delButton.addActionListener(buttonActions.backspacePressedAction);
+        ceButton.addActionListener(buttonActions.clearEntryPressedAction);
+        cButton.addActionListener(buttonActions.clearPressedAction);
+        signButton.addActionListener(buttonActions.signPressedAction);
+        decimalButton.addActionListener(buttonActions.decimalPressedAction);
+
+        // main operators buttons
+        addButton.addActionListener(buttonActions.plusPressedAction);
+
+        // auxiliary operators buttons
+        //...
+        // memory buttons
+    }
+
+    private void initClassFields() {
+        state = CalculatorState.OK;
+        operation = new Operation(state);
+        history = new History();
+        buttonActions = new ButtonActions();
+    }
+
+    private void initMenuItems() {
+        exitMenuItem.addActionListener(new ExitButtonActionListener());
+    }
+
 }

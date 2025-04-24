@@ -1,4 +1,4 @@
-package dev.gl.calc;
+package dev.gl.calc.main.actions;
 
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;

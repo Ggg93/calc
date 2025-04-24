@@ -1,8 +1,8 @@
-package dev.gl.calc;
+package dev.gl.calc.menu;
 
+import dev.gl.calc.Operation;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 /**
  *

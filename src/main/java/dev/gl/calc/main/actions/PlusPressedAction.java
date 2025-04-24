@@ -1,6 +1,8 @@
-package dev.gl.calc;
+package dev.gl.calc.main.actions;
 
-import dev.gl.calc.enums.OperatorType;
+import dev.gl.calc.menu.History;
+import dev.gl.calc.Operation;
+import dev.gl.calc.main.enums.OperatorType;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.JTextField;

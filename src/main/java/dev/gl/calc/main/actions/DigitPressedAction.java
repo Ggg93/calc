@@ -1,5 +1,6 @@
-package dev.gl.calc;
+package dev.gl.calc.main.actions;
 
+import dev.gl.calc.Operation;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.JTextField;

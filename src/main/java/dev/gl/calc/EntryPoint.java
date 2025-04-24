@@ -1,5 +1,6 @@
 package dev.gl.calc;
 
+import dev.gl.calc.main.gui.MainWindow;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
@@ -7,7 +8,7 @@ import javax.swing.UIManager;
  *
  * @author gl
  */
-public class Calc {
+public class EntryPoint {
 
     public static void main(String[] args) {
         try {

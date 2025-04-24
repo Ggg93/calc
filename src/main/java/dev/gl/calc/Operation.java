@@ -1,7 +1,7 @@
 package dev.gl.calc;
 
-import dev.gl.calc.enums.CalculatorState;
-import dev.gl.calc.enums.OperatorType;
+import dev.gl.calc.main.enums.CalculatorState;
+import dev.gl.calc.main.enums.OperatorType;
 
 /**
  *
