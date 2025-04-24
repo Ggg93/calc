@@ -1,11 +1,10 @@
 package dev.gl.calc.main.actions;
 
-import dev.gl.calc.menu.History;
 import dev.gl.calc.Operation;
 import dev.gl.calc.main.enums.OperatorType;
+import dev.gl.calc.main.gui.MainWindow;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
-import javax.swing.JTextField;
 
 /**
  *
@@ -13,46 +12,33 @@ import javax.swing.JTextField;
  */
 public class PlusPressedAction extends AbstractAction {
 
-    private JTextField historyTextField;
-    private JTextField resultTextField;
-    private Operation operation;
-    private History history;
+    private MainWindow mw;
 
-    public PlusPressedAction(JTextField historyTextField, JTextField resultTextField, Operation operation, History history) {
-        this.historyTextField = historyTextField;
-        this.resultTextField = resultTextField;
-        this.operation = operation;
-        this.history = history;
+    public PlusPressedAction(MainWindow mw) {
+        this.mw = mw;
     }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        
+        Operation operation = mw.getOperation();
 
-        // init operation with ADDITION
-        if (operation.operandLeft == null) {
-            operation.operandLeft = Double.parseDouble(resultTextField.getText());
-            operation.operator = OperatorType.ADDITION;
-            historyTextField.setText(operation.toString());
-            return;
-        }
-
-        // update operation: set operator to ADDITION
         if (operation.operandRight == null) {
             operation.operator = OperatorType.ADDITION;
-            historyTextField.setText(operation.toString());
-            return;
+        } else {
+            // calculate operation; save it into history; update operation
+            operation.result = Double.parseDouble(operation.operandLeft) 
+                    + Double.parseDouble(operation.operandRight);
+            Operation finalizedOperation = new Operation(operation);
+            mw.getHistory().getOperations().add(finalizedOperation);
+
+            operation.operandLeft = operation.result.toString();
+            operation.operandRight = null;
+            operation.result = null;
         }
-
-        // calculate operation; save it into history; update operation
-        operation.result = operation.operandLeft + operation.operandRight;
-        Operation finalizedOperation = new Operation(operation);
-        history.getOperations().add(finalizedOperation);
-
-        operation.operandLeft = Double.valueOf(operation.result);
-        operation.operandRight = null;
-        operation.result = null;
-        historyTextField.setText(operation.toString());
-        resultTextField.setText(operation.operandLeft.toString());
+        
+        mw.updateTextFields();
     }
 
 }

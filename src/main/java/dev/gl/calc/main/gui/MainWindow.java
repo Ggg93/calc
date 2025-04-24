@@ -23,12 +23,12 @@ import javax.swing.text.PlainDocument;
  * @author gl
  */
 public class MainWindow extends javax.swing.JFrame {
-
+    
     private CalculatorState state;
     private Operation operation;
     private History history;
     private ButtonActions buttonActions;
-
+    
     public MainWindow() {
         configureFrame();
         initComponents();
@@ -40,7 +40,7 @@ public class MainWindow extends javax.swing.JFrame {
         initMenuItems();
         
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -341,33 +341,34 @@ public class MainWindow extends javax.swing.JFrame {
         ImageIcon icon = new ImageIcon(".\\src\\main\\resources\\icons8-calculator-40.png");
         this.setIconImage(icon.getImage());
     }
-
+    
     private void configureComponents() {
         // set length limit to operandTextField
         PlainDocument pd = (PlainDocument) operandTextField.getDocument();
         pd.setDocumentFilter(new LimitedLengthDocumentFilter(15));
     }
-
-    public void updateOperationTextField() {
-
+    
+    public void updateTextFields() {
+        operationTextField.setText(operation.toString());
+        
+        String showedOperand = operation.getActiveOperand() != null 
+                ? operation.getActiveOperand() 
+                : operation.operandLeft;
+        operandTextField.setText(showedOperand);
     }
-
-    public void updateOperandTextField() {
-
-    }
-
+    
     private void initButtonActions() {
-        buttonActions.digitPressedAction = new DigitPressedAction(operandTextField, operation);
-        buttonActions.backspacePressedAction = new BackspacePressedAction(operandTextField);
+        buttonActions.digitPressedAction = new DigitPressedAction(this);
+        buttonActions.backspacePressedAction = new BackspacePressedAction(this);
         buttonActions.decimalPressedAction = new DecimalPressedAction(operandTextField);
         buttonActions.clearEntryPressedAction = new ClearEntryPressedAction(operandTextField);
         buttonActions.clearPressedAction = new ClearPressedAction(operandTextField);
         buttonActions.signPressedAction = new SignPressedAction(operandTextField);
-        buttonActions.plusPressedAction = new PlusPressedAction(operationTextField, operandTextField, operation, history);
+        buttonActions.plusPressedAction = new PlusPressedAction(this);
     }
-
+    
     private void createKeyBindings() {
-
+        
         this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("0"), "digit");
         this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("1"), "digit");
         this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("2"), "digit");
@@ -395,7 +396,7 @@ public class MainWindow extends javax.swing.JFrame {
         this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_F9, 0), "sign");
         this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_PLUS, 0), "addition");
         this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_ADD, 0), "addition");
-
+        
         this.getRootPane().getActionMap().put("digit", buttonActions.digitPressedAction);
         this.getRootPane().getActionMap().put("back_space", buttonActions.backspacePressedAction);
         this.getRootPane().getActionMap().put("decimal", buttonActions.decimalPressedAction);
@@ -404,7 +405,7 @@ public class MainWindow extends javax.swing.JFrame {
         this.getRootPane().getActionMap().put("sign", buttonActions.signPressedAction);
         this.getRootPane().getActionMap().put("addition", buttonActions.plusPressedAction);
     }
-
+    
     private void bindActionsToButtons() {
 
         // digit buttons
@@ -433,16 +434,24 @@ public class MainWindow extends javax.swing.JFrame {
         //...
         // memory buttons
     }
-
+    
     private void initClassFields() {
         state = CalculatorState.OK;
         operation = new Operation(state);
         history = new History();
         buttonActions = new ButtonActions();
     }
-
+    
     private void initMenuItems() {
         exitMenuItem.addActionListener(new ExitButtonActionListener());
     }
+    
+    public Operation getOperation() {
+        return operation;
+    }
 
+    public History getHistory() {
+        return history;
+    }
+    
 }

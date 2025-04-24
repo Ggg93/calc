@@ -1,9 +1,8 @@
 package dev.gl.calc.main.actions;
 
-import dev.gl.calc.Operation;
+import dev.gl.calc.main.gui.MainWindow;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
-import javax.swing.JTextField;
 
 /**
  *
@@ -11,30 +10,28 @@ import javax.swing.JTextField;
  */
 public class DigitPressedAction extends AbstractAction {
 
-    private JTextField resultTextField;
-    private Operation operation;
+    private MainWindow mw;
 
-    public DigitPressedAction(JTextField resultTextField, Operation operation) {
-        this.resultTextField = resultTextField;
-        this.operation = operation;
+    public DigitPressedAction(MainWindow mw) {
+        this.mw = mw;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        String numberAsString = e.getActionCommand();
-        String currentResultString = resultTextField.getText();
 
-        if (operation.operandRight == null) {
-            resultTextField.setText(numberAsString);
-        } else if (currentResultString.equals("0")) {
-            resultTextField.setText(numberAsString);
+//        Integer pressedDigit = Integer.valueOf(e.getActionCommand());
+        String pressedDigit = e.getActionCommand();
+        String operand = mw.getOperation().getActiveOperand();
+
+        if (operand == null || operand.equals("0")) {
+            mw.getOperation().setActiveOperand(pressedDigit);
         } else {
-            resultTextField.setText(currentResultString + numberAsString);
+            StringBuilder sb = new StringBuilder();
+            sb.append(operand);
+            sb.append(pressedDigit);
+            mw.getOperation().setActiveOperand(sb.toString());
         }
 
-        if (operation.operandLeft != null && operation.operator != null) {
-            operation.operandRight = Double.valueOf(resultTextField.getText());
-        }
+        mw.updateTextFields();
     }
-
 }

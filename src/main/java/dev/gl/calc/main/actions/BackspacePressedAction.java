@@ -1,5 +1,7 @@
 package dev.gl.calc.main.actions;
 
+import dev.gl.calc.Operation;
+import dev.gl.calc.main.gui.MainWindow;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.JTextField;
@@ -10,19 +12,22 @@ import javax.swing.JTextField;
  */
 public class BackspacePressedAction extends AbstractAction {
 
-    private JTextField resultTextField;
+    private MainWindow mw;
 
-    public BackspacePressedAction(JTextField resultTextField) {
-        this.resultTextField = resultTextField;
+    public BackspacePressedAction(MainWindow mw) {
+        this.mw = mw;
     }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (resultTextField.getText().isEmpty()) {
-            return;
+        Operation operation = mw.getOperation();
+        String operand = operation.getActiveOperand();
+        if (operand == null) {
+            operand = operation.operandLeft;
         }
 
-        StringBuilder sb = new StringBuilder(resultTextField.getText());
+        StringBuilder sb = new StringBuilder(operand);
 
         if (sb.length() == 1) {
             sb.setLength(0);
@@ -36,7 +41,9 @@ public class BackspacePressedAction extends AbstractAction {
         } else {
             sb.deleteCharAt(sb.length() - 1);
         }
-        resultTextField.setText(sb.toString());
+        operation.setActiveOperand(sb.toString());
+        
+        mw.updateTextFields();
     }
 
 }

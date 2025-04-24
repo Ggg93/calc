@@ -9,13 +9,14 @@ import dev.gl.calc.main.enums.OperatorType;
  */
 public class Operation {
 
-    public Double operandLeft;
-    public Double operandRight;
+    public String operandLeft; // should be String?
+    public String operandRight; // should be String?
     public Double result;
     public OperatorType operator;
     public CalculatorState state;
 
     public Operation(CalculatorState state) {
+        operandLeft = "0";
         this.state = state;
     }
 
@@ -33,29 +34,34 @@ public class Operation {
             return state.getMessage();
         }
 
-        if (operandLeft == null) {
+        if (operator == null) {
             return "";
         }
-
-        StringBuilder sb = new StringBuilder(operandLeft.toString());
-        if (operator == null) {
-            return sb.toString();
-        }
-
-        sb.append(" ").append(operator.getCharacter()).append(" ");
-
-        if (operandRight == null) {
-            return sb.toString();
-        }
-
-        sb.append(operandRight);
-
+        StringBuilder sb = new StringBuilder();
+        sb.append(operandLeft);
+        sb.append(" ");
+        sb.append(operator.getCharacter());
+        sb.append(" ");
+        
         if (result == null) {
             return sb.toString();
         }
 
+        sb.append(operandRight);
         sb.append(" = ").append(result);
         return sb.toString();
+    }
+
+    public String getActiveOperand() {
+        return operator != null ? operandRight : operandLeft;
+    }
+
+    public void setActiveOperand(String newValue) {
+        if (operator != null) {
+            operandRight = newValue;
+        } else {
+            operandLeft = newValue;
+        }
     }
 
 }
