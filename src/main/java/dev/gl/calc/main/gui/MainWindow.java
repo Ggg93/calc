@@ -361,8 +361,8 @@ public class MainWindow extends javax.swing.JFrame {
         buttonActions.digitPressedAction = new DigitPressedAction(this);
         buttonActions.backspacePressedAction = new BackspacePressedAction(this);
         buttonActions.decimalPressedAction = new DecimalPressedAction(operandTextField);
-        buttonActions.clearEntryPressedAction = new ClearEntryPressedAction(operandTextField);
-        buttonActions.clearPressedAction = new ClearPressedAction(operandTextField);
+        buttonActions.clearEntryPressedAction = new ClearEntryPressedAction(this);
+        buttonActions.clearPressedAction = new ClearPressedAction(this);
         buttonActions.signPressedAction = new SignPressedAction(operandTextField);
         buttonActions.plusPressedAction = new PlusPressedAction(this);
     }

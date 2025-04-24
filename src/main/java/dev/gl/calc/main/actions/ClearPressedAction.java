@@ -1,8 +1,9 @@
 package dev.gl.calc.main.actions;
 
+import dev.gl.calc.Operation;
+import dev.gl.calc.main.gui.MainWindow;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
-import javax.swing.JTextField;
 
 /**
  *
@@ -10,15 +11,21 @@ import javax.swing.JTextField;
  */
 public class ClearPressedAction extends AbstractAction {
 
-    private JTextField resultTextField;
+    private MainWindow mw;
 
-    public ClearPressedAction(JTextField resultTextField) {
-        this.resultTextField = resultTextField;
+    public ClearPressedAction(MainWindow mw) {
+        this.mw = mw;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        resultTextField.setText("0");
+        Operation operation = mw.getOperation();
+        operation.operandLeft = "0";
+        operation.operator = null;
+        operation.operandRight = null;
+        operation.result = null;
+        
+        mw.updateTextFields();
     }
 
 }
