@@ -10,11 +10,11 @@ import javax.swing.AbstractAction;
  *
  * @author gl
  */
-public class PlusPressedAction extends AbstractAction {
+public class MultiplyPressedAction extends AbstractAction {
 
     private MainWindow mw;
 
-    public PlusPressedAction(MainWindow mw) {
+    public MultiplyPressedAction(MainWindow mw) {
         this.mw = mw;
     }
 
@@ -24,9 +24,9 @@ public class PlusPressedAction extends AbstractAction {
         Operation operation = mw.getOperation();
 
         if (operation.operandRight == null) {
-            operation.operator = OperatorType.ADDITION;
+            operation.operator = OperatorType.MULTIPLICATION;
         } else {
-            operation.performOperation(OperatorType.ADDITION);
+            operation.performOperation(OperatorType.MULTIPLICATION);
         }
 
         mw.updateTextFields();

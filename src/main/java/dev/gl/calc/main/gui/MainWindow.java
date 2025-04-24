@@ -3,15 +3,9 @@ package dev.gl.calc.main.gui;
 import dev.gl.calc.ButtonActions;
 import dev.gl.calc.Operation;
 import dev.gl.calc.menu.History;
-import dev.gl.calc.main.actions.DecimalPressedAction;
-import dev.gl.calc.main.actions.ClearPressedAction;
-import dev.gl.calc.main.actions.DigitPressedAction;
-import dev.gl.calc.main.actions.PlusPressedAction;
-import dev.gl.calc.main.actions.ClearEntryPressedAction;
-import dev.gl.calc.main.actions.BackspacePressedAction;
-import dev.gl.calc.main.actions.SignPressedAction;
 import dev.gl.calc.main.enums.CalculatorState;
 import dev.gl.calc.menu.ExitButtonActionListener;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
@@ -24,7 +18,7 @@ import javax.swing.text.PlainDocument;
  */
 public class MainWindow extends javax.swing.JFrame {
     
-    private CalculatorState state;
+    private CalculatorState calculatorState;
     private Operation operation;
     private History history;
     private ButtonActions buttonActions;
@@ -34,7 +28,6 @@ public class MainWindow extends javax.swing.JFrame {
         initComponents();
         configureComponents();
         initClassFields();
-        initButtonActions();
         bindActionsToButtons();
         createKeyBindings();
         initMenuItems();
@@ -360,16 +353,6 @@ public class MainWindow extends javax.swing.JFrame {
         operandTextField.setText(showedOperand);
     }
     
-    private void initButtonActions() {
-        buttonActions.digitPressedAction = new DigitPressedAction(this);
-        buttonActions.backspacePressedAction = new BackspacePressedAction(this);
-        buttonActions.decimalPressedAction = new DecimalPressedAction(this);
-        buttonActions.clearEntryPressedAction = new ClearEntryPressedAction(this);
-        buttonActions.clearPressedAction = new ClearPressedAction(this);
-        buttonActions.signPressedAction = new SignPressedAction(this);
-        buttonActions.plusPressedAction = new PlusPressedAction(this);
-    }
-    
     private void createKeyBindings() {
         
         this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("0"), "digit");
@@ -399,6 +382,12 @@ public class MainWindow extends javax.swing.JFrame {
         this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_F9, 0), "sign");
         this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_PLUS, 0), "addition");
         this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_ADD, 0), "addition");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_MINUS, 0), "subtraction");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_SUBTRACT, 0), "subtraction");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_MULTIPLY, 0), "multiplication");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_8, InputEvent.SHIFT_DOWN_MASK), "multiplication");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_DIVIDE, 0), "division");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_SLASH, 0), "division");
         
         this.getRootPane().getActionMap().put("digit", buttonActions.digitPressedAction);
         this.getRootPane().getActionMap().put("back_space", buttonActions.backspacePressedAction);
@@ -407,6 +396,9 @@ public class MainWindow extends javax.swing.JFrame {
         this.getRootPane().getActionMap().put("clear", buttonActions.clearPressedAction);
         this.getRootPane().getActionMap().put("sign", buttonActions.signPressedAction);
         this.getRootPane().getActionMap().put("addition", buttonActions.plusPressedAction);
+        this.getRootPane().getActionMap().put("subtraction", buttonActions.minusPressedAction);
+        this.getRootPane().getActionMap().put("multiplication", buttonActions.multiplyPressedAction);
+        this.getRootPane().getActionMap().put("division", buttonActions.divisionPressedAction);
     }
     
     private void bindActionsToButtons() {
@@ -432,6 +424,9 @@ public class MainWindow extends javax.swing.JFrame {
 
         // main operators buttons
         addButton.addActionListener(buttonActions.plusPressedAction);
+        subtractButton.addActionListener(buttonActions.minusPressedAction);
+        multiplyButton.addActionListener(buttonActions.multiplyPressedAction);
+        divideButton.addActionListener(buttonActions.divisionPressedAction);
 
         // auxiliary operators buttons
         //...
@@ -439,10 +434,10 @@ public class MainWindow extends javax.swing.JFrame {
     }
     
     private void initClassFields() {
-        state = CalculatorState.OK;
-        operation = new Operation(state);
+        calculatorState = CalculatorState.OK;
+        operation = new Operation(this);
         history = new History();
-        buttonActions = new ButtonActions();
+        buttonActions = new ButtonActions(this);
     }
     
     private void initMenuItems() {
@@ -455,6 +450,10 @@ public class MainWindow extends javax.swing.JFrame {
 
     public History getHistory() {
         return history;
+    }
+
+    public CalculatorState getCalculatorState() {
+        return calculatorState;
     }
     
 }
