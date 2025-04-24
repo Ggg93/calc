@@ -1,5 +1,6 @@
 package dev.gl.calc;
 
+import dev.gl.calc.enums.CalculatorState;
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
@@ -11,6 +12,9 @@ import javax.swing.text.PlainDocument;
  * @author gl
  */
 public class MainWindow extends javax.swing.JFrame {
+    private Operation operation;
+    private History history = new History();
+    private CalculatorState state = CalculatorState.OK;
 
     public MainWindow() {
         this.setLocationRelativeTo(null);
@@ -18,15 +22,19 @@ public class MainWindow extends javax.swing.JFrame {
         this.setIconImage(icon.getImage());
         initComponents();
         
+        operation = new Operation(state);
+        
         PlainDocument pd = (PlainDocument) resultTextField.getDocument();
         pd.setDocumentFilter(new LimitedLengthDocumentFilter(15));
         
-        DigitPressedAction digitPressedAction = new DigitPressedAction(resultTextField);
+        DigitPressedAction digitPressedAction = new DigitPressedAction(resultTextField, operation);
         BackspacePressedAction backspacePressedAction = new BackspacePressedAction(resultTextField);
         DecimalPressedAction decimalPressedAction = new DecimalPressedAction(resultTextField);
         ClearEntryPressedAction clearEntryPressedAction = new ClearEntryPressedAction(resultTextField);
         ClearPressedAction clearPressedAction = new ClearPressedAction(resultTextField);
         SignPressedAction signPressedAction = new SignPressedAction(resultTextField);
+        
+        PlusPressedAction plusPressedAction = new PlusPressedAction(historyTextField, resultTextField, operation, history);
         
         this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("0"), "digit");
         this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("1"), "digit");
@@ -53,12 +61,17 @@ public class MainWindow extends javax.swing.JFrame {
         this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0), "clear_entry");
         this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "clear");
         this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_F9, 0), "sign");
+        
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_PLUS, 0), "addition");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_ADD, 0), "addition");
+        
         this.getRootPane().getActionMap().put("digit", digitPressedAction);
         this.getRootPane().getActionMap().put("back_space", backspacePressedAction);
         this.getRootPane().getActionMap().put("decimal", decimalPressedAction);
         this.getRootPane().getActionMap().put("clear_entry", clearEntryPressedAction);
         this.getRootPane().getActionMap().put("clear", clearPressedAction);
         this.getRootPane().getActionMap().put("sign", signPressedAction);
+        this.getRootPane().getActionMap().put("addition", plusPressedAction);
         
         
         zeroButton.addActionListener(digitPressedAction);
@@ -77,6 +90,8 @@ public class MainWindow extends javax.swing.JFrame {
         cButton.addActionListener(clearPressedAction);
         signButton.addActionListener(signPressedAction);
         decimalButton.addActionListener(decimalPressedAction);
+        
+        addButton.addActionListener(plusPressedAction);
     }
 
     @SuppressWarnings("unchecked")
