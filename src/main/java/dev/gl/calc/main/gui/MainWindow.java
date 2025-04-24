@@ -360,7 +360,7 @@ public class MainWindow extends javax.swing.JFrame {
     private void initButtonActions() {
         buttonActions.digitPressedAction = new DigitPressedAction(this);
         buttonActions.backspacePressedAction = new BackspacePressedAction(this);
-        buttonActions.decimalPressedAction = new DecimalPressedAction(operandTextField);
+        buttonActions.decimalPressedAction = new DecimalPressedAction(this);
         buttonActions.clearEntryPressedAction = new ClearEntryPressedAction(this);
         buttonActions.clearPressedAction = new ClearPressedAction(this);
         buttonActions.signPressedAction = new SignPressedAction(this);
