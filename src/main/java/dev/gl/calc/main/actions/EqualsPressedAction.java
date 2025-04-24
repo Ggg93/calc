@@ -1,6 +1,7 @@
 package dev.gl.calc.main.actions;
 
 import dev.gl.calc.Operation;
+import dev.gl.calc.main.enums.OperatorType;
 import dev.gl.calc.main.gui.MainWindow;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
@@ -9,23 +10,26 @@ import javax.swing.AbstractAction;
  *
  * @author gl
  */
-public class ClearEntryPressedAction extends AbstractAction {
+public class EqualsPressedAction extends AbstractAction {
 
     private MainWindow mw;
 
-    public ClearEntryPressedAction(MainWindow mw) {
+    public EqualsPressedAction(MainWindow mw) {
         this.mw = mw;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
         Operation operation = mw.getOperation();
-        if (operation.result == null) {
-            mw.getOperation().setActiveOperand("0");
-            mw.updateTextFields();
+
+        if (operation.operandRight != null) {
+            operation.performOperation(null);
         } else {
-            mw.getButtonActions().clearPressedAction.actionPerformed(e);
+            operation.result = Double.valueOf(operation.operandLeft);
         }
+
+        mw.updateTextFields();
     }
 
 }

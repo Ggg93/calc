@@ -7,6 +7,7 @@ import dev.gl.calc.main.actions.PlusPressedAction;
 import dev.gl.calc.main.actions.ClearEntryPressedAction;
 import dev.gl.calc.main.actions.BackspacePressedAction;
 import dev.gl.calc.main.actions.DivisionPressedAction;
+import dev.gl.calc.main.actions.EqualsPressedAction;
 import dev.gl.calc.main.actions.MinusPressedAction;
 import dev.gl.calc.main.actions.MultiplyPressedAction;
 import dev.gl.calc.main.actions.SignPressedAction;
@@ -28,6 +29,7 @@ public class ButtonActions {
     public MinusPressedAction minusPressedAction;
     public MultiplyPressedAction multiplyPressedAction;
     public DivisionPressedAction divisionPressedAction;
+    public EqualsPressedAction equalsPressedAction;
 
     public ButtonActions(MainWindow mw) {
         digitPressedAction = new DigitPressedAction(mw);
@@ -40,6 +42,7 @@ public class ButtonActions {
         minusPressedAction = new MinusPressedAction(mw);
         multiplyPressedAction = new MultiplyPressedAction(mw);
         divisionPressedAction = new DivisionPressedAction(mw);
+        equalsPressedAction = new EqualsPressedAction(mw);
     }
 
 }

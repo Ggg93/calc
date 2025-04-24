@@ -20,7 +20,7 @@ public class Operation {
     public Operation(MainWindow mw) {
         this.mw = mw;
         this.state = mw.getCalculatorState();
-        
+
         operandLeft = "0";
     }
 
@@ -31,35 +31,39 @@ public class Operation {
         this.operator = operation.operator;
         this.state = operation.state;
     }
-    
+
     public void performOperation(OperatorType nextOperationType) {
         Double calculationResult = null;
-            switch (operator) {
-                case ADDITION:
-                    calculationResult = Double.parseDouble(operandLeft)
-                            + Double.parseDouble(operandRight);
-                    break;
-                case SUBTRACTION:
-                    calculationResult = Double.parseDouble(operandLeft)
-                            - Double.parseDouble(operandRight);
-                    break;
-                case MULTIPLICATION:
-                    calculationResult = Double.parseDouble(operandLeft)
-                            * Double.parseDouble(operandRight);
-                    break;
-                case DIVISION:
-                    calculationResult = Double.parseDouble(operandLeft)
-                            / Double.parseDouble(operandRight);
-                    break;
-            }
-            result = calculationResult;
-            Operation finalizedOperation = new Operation(this);
-            mw.getHistory().getOperations().add(finalizedOperation);
+        switch (operator) {
+            case ADDITION:
+                calculationResult = Double.parseDouble(operandLeft)
+                        + Double.parseDouble(operandRight);
+                break;
+            case SUBTRACTION:
+                calculationResult = Double.parseDouble(operandLeft)
+                        - Double.parseDouble(operandRight);
+                break;
+            case MULTIPLICATION:
+                calculationResult = Double.parseDouble(operandLeft)
+                        * Double.parseDouble(operandRight);
+                break;
+            case DIVISION:
+                calculationResult = Double.parseDouble(operandLeft)
+                        / Double.parseDouble(operandRight);
+                break;
+        }
+        result = calculationResult;
+        Operation finalizedOperation = new Operation(this);
+        mw.getHistory().getOperations().add(finalizedOperation);
 
-            operandLeft = result.toString();
+        operandLeft = result.toString();
+        
+        if (nextOperationType != null) {
             operandRight = null;
             result = null;
             operator = nextOperationType;
+        }
+
     }
 
     @Override
@@ -69,20 +73,21 @@ public class Operation {
         }
 
         if (operator == null) {
-            return "";
+            return result == null ? "" : operandLeft + " = ";
         }
+        
         StringBuilder sb = new StringBuilder();
         sb.append(operandLeft);
         sb.append(" ");
         sb.append(operator.getCharacter());
         sb.append(" ");
-        
+
         if (result == null) {
             return sb.toString();
         }
 
         sb.append(operandRight);
-        sb.append(" = ").append(result);
+        sb.append(" = ");
         return sb.toString();
     }
 

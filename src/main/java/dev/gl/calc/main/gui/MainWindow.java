@@ -388,6 +388,7 @@ public class MainWindow extends javax.swing.JFrame {
         this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_8, InputEvent.SHIFT_DOWN_MASK), "multiplication");
         this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_DIVIDE, 0), "division");
         this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_SLASH, 0), "division");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "equals");
         
         this.getRootPane().getActionMap().put("digit", buttonActions.digitPressedAction);
         this.getRootPane().getActionMap().put("back_space", buttonActions.backspacePressedAction);
@@ -399,6 +400,7 @@ public class MainWindow extends javax.swing.JFrame {
         this.getRootPane().getActionMap().put("subtraction", buttonActions.minusPressedAction);
         this.getRootPane().getActionMap().put("multiplication", buttonActions.multiplyPressedAction);
         this.getRootPane().getActionMap().put("division", buttonActions.divisionPressedAction);
+        this.getRootPane().getActionMap().put("equals", buttonActions.equalsPressedAction);
     }
     
     private void bindActionsToButtons() {
@@ -427,6 +429,7 @@ public class MainWindow extends javax.swing.JFrame {
         subtractButton.addActionListener(buttonActions.minusPressedAction);
         multiplyButton.addActionListener(buttonActions.multiplyPressedAction);
         divideButton.addActionListener(buttonActions.divisionPressedAction);
+        equalsButton.addActionListener(buttonActions.equalsPressedAction);
 
         // auxiliary operators buttons
         //...
@@ -454,6 +457,10 @@ public class MainWindow extends javax.swing.JFrame {
 
     public CalculatorState getCalculatorState() {
         return calculatorState;
+    }
+
+    public ButtonActions getButtonActions() {
+        return buttonActions;
     }
     
 }
