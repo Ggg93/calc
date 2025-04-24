@@ -1,7 +1,10 @@
 package dev.gl.calc;
 
-import java.awt.Image;
+import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
+import javax.swing.JComponent;
+import javax.swing.KeyStroke;
+import javax.swing.text.PlainDocument;
 
 /**
  *
@@ -14,6 +17,66 @@ public class MainWindow extends javax.swing.JFrame {
         ImageIcon icon = new ImageIcon(".\\src\\main\\resources\\icons8-calculator-40.png");
         this.setIconImage(icon.getImage());
         initComponents();
+        
+        PlainDocument pd = (PlainDocument) resultTextField.getDocument();
+        pd.setDocumentFilter(new LimitedLengthDocumentFilter(15));
+        
+        DigitPressedAction digitPressedAction = new DigitPressedAction(resultTextField);
+        BackspacePressedAction backspacePressedAction = new BackspacePressedAction(resultTextField);
+        DecimalPressedAction decimalPressedAction = new DecimalPressedAction(resultTextField);
+        ClearEntryPressedAction clearEntryPressedAction = new ClearEntryPressedAction(resultTextField);
+        ClearPressedAction clearPressedAction = new ClearPressedAction(resultTextField);
+        SignPressedAction signPressedAction = new SignPressedAction(resultTextField);
+        
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("0"), "digit");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("1"), "digit");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("2"), "digit");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("3"), "digit");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("4"), "digit");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("5"), "digit");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("6"), "digit");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("7"), "digit");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("8"), "digit");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("9"), "digit");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD0, 0), "digit");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD1, 0), "digit");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD2, 0), "digit");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD3, 0), "digit");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD4, 0), "digit");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD5, 0), "digit");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD6, 0), "digit");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD7, 0), "digit");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD8, 0), "digit");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD9, 0), "digit");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_BACK_SPACE, 0), "back_space");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_DECIMAL, 0), "decimal");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0), "clear_entry");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "clear");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_F9, 0), "sign");
+        this.getRootPane().getActionMap().put("digit", digitPressedAction);
+        this.getRootPane().getActionMap().put("back_space", backspacePressedAction);
+        this.getRootPane().getActionMap().put("decimal", decimalPressedAction);
+        this.getRootPane().getActionMap().put("clear_entry", clearEntryPressedAction);
+        this.getRootPane().getActionMap().put("clear", clearPressedAction);
+        this.getRootPane().getActionMap().put("sign", signPressedAction);
+        
+        
+        zeroButton.addActionListener(digitPressedAction);
+        oneButton.addActionListener(digitPressedAction);
+        twoButton.addActionListener(digitPressedAction);
+        threeButton.addActionListener(digitPressedAction);
+        fourButton.addActionListener(digitPressedAction);
+        fiveButton.addActionListener(digitPressedAction);
+        sixButton.addActionListener(digitPressedAction);
+        sevenButton.addActionListener(digitPressedAction);
+        eightButton.addActionListener(digitPressedAction);
+        nineButton.addActionListener(digitPressedAction);
+        
+        delButton.addActionListener(backspacePressedAction);
+        ceButton.addActionListener(clearEntryPressedAction);
+        cButton.addActionListener(clearPressedAction);
+        signButton.addActionListener(signPressedAction);
+        decimalButton.addActionListener(decimalPressedAction);
     }
 
     @SuppressWarnings("unchecked")
@@ -55,7 +118,7 @@ public class MainWindow extends javax.swing.JFrame {
         addButton = new javax.swing.JButton();
         signButton = new javax.swing.JButton();
         zeroButton = new javax.swing.JButton();
-        separatorButton = new javax.swing.JButton();
+        decimalButton = new javax.swing.JButton();
         equalsButton = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
         mainMenu = new javax.swing.JMenu();
@@ -94,7 +157,7 @@ public class MainWindow extends javax.swing.JFrame {
         historyTextField.setBorder(null);
         historyTextField.setMargin(null);
         historyTextField.setMinimumSize(new java.awt.Dimension(64, 30));
-        historyTextField.setPreferredSize(new java.awt.Dimension(64, 30));
+        historyTextField.setPreferredSize(new java.awt.Dimension(500, 30));
         historyDataPanel.add(historyTextField);
 
         upperPanel.add(historyDataPanel, java.awt.BorderLayout.NORTH);
@@ -109,7 +172,7 @@ public class MainWindow extends javax.swing.JFrame {
         resultTextField.setText("0");
         resultTextField.setBorder(null);
         resultTextField.setMinimumSize(new java.awt.Dimension(64, 30));
-        resultTextField.setPreferredSize(new java.awt.Dimension(64, 30));
+        resultTextField.setPreferredSize(new java.awt.Dimension(250, 30));
         resultPanel.add(resultTextField);
 
         upperPanel.add(resultPanel, java.awt.BorderLayout.CENTER);
@@ -211,8 +274,8 @@ public class MainWindow extends javax.swing.JFrame {
         zeroButton.setText("0");
         buttonsPanel.add(zeroButton);
 
-        separatorButton.setText(".");
-        buttonsPanel.add(separatorButton);
+        decimalButton.setText(".");
+        buttonsPanel.add(decimalButton);
 
         equalsButton.setBackground(new java.awt.Color(204, 204, 255));
         equalsButton.setForeground(new java.awt.Color(0, 0, 0));
@@ -237,6 +300,11 @@ public class MainWindow extends javax.swing.JFrame {
         mainMenu.add(aboutMenuItem);
 
         exitMenuItem.setText("Exit");
+        exitMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitMenuItemActionPerformed(evt);
+            }
+        });
         mainMenu.add(exitMenuItem);
 
         menuBar.add(mainMenu);
@@ -259,6 +327,11 @@ public class MainWindow extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
+//        this.dispose();
+        System.exit(0);
+    }//GEN-LAST:event_exitMenuItemActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem aboutMenuItem;
     private javax.swing.JButton addButton;
@@ -266,6 +339,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JPanel buttonsPanel;
     private javax.swing.JButton cButton;
     private javax.swing.JButton ceButton;
+    private javax.swing.JButton decimalButton;
     private javax.swing.JButton delButton;
     private javax.swing.JButton divideButton;
     private javax.swing.JButton dividerButton;
@@ -295,7 +369,6 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JPanel resultPanel;
     private javax.swing.JTextField resultTextField;
     private javax.swing.JMenuItem saveMenuItem;
-    private javax.swing.JButton separatorButton;
     private javax.swing.JMenuItem settingsMenuItem;
     private javax.swing.JButton sevenButton;
     private javax.swing.JButton signButton;
