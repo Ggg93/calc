@@ -1,8 +1,9 @@
 package dev.gl.calc.main.actions;
 
+import dev.gl.calc.Operation;
+import dev.gl.calc.main.gui.MainWindow;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
-import javax.swing.JTextField;
 
 /**
  *
@@ -10,25 +11,33 @@ import javax.swing.JTextField;
  */
 public class SignPressedAction extends AbstractAction {
 
-    private JTextField resultTextField;
+    private MainWindow mw;
 
-    public SignPressedAction(JTextField resultTextField) {
-        this.resultTextField = resultTextField;
+    public SignPressedAction(MainWindow mw) {
+        this.mw = mw;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (resultTextField.getText().equals("0")) {
+        Operation operation = mw.getOperation();
+        String operand = operation.getActiveOperand();
+        if (operand == null) {
+            operand = operation.operandLeft;
+        }
+
+        if (operand.equals("0")) {
             return;
         }
 
-        StringBuilder sb = new StringBuilder(resultTextField.getText());
+        StringBuilder sb = new StringBuilder(operand);
         if (sb.charAt(0) == '-') {
             sb.deleteCharAt(0);
         } else {
             sb.insert(0, "-");
         }
 
-        resultTextField.setText(sb.toString());
+        operation.setActiveOperand(sb.toString());
+        
+        mw.updateTextFields();
     }
 }
