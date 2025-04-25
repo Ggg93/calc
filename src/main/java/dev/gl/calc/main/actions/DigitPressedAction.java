@@ -19,8 +19,12 @@ public class DigitPressedAction extends AbstractAction {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-//        Integer pressedDigit = Integer.valueOf(e.getActionCommand());
         String pressedDigit = e.getActionCommand();
+        
+        if (mw.getOperation().result != null) {
+            mw.getButtonActions().clearPressedAction.actionPerformed(null);
+        }
+        
         String operand = mw.getOperation().getActiveOperand();
 
         if (operand == null || operand.equals("0")) {

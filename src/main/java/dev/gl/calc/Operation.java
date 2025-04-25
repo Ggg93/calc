@@ -3,6 +3,7 @@ package dev.gl.calc;
 import dev.gl.calc.main.enums.CalculatorState;
 import dev.gl.calc.main.enums.OperatorType;
 import dev.gl.calc.main.gui.MainWindow;
+import dev.gl.calc.main.gui.NumberFormatter;
 
 /**
  *
@@ -56,9 +57,8 @@ public class Operation {
         Operation finalizedOperation = new Operation(this);
         mw.getHistory().getOperations().add(finalizedOperation);
 
-        operandLeft = result.toString();
-        
         if (nextOperationType != null) {
+            operandLeft = result.toString();
             operandRight = null;
             result = null;
             operator = nextOperationType;
@@ -72,12 +72,17 @@ public class Operation {
             return state.getMessage();
         }
 
+        String showedOperandLeft = NumberFormatter.convertDoubleToIntegerIfNoDecimalPart(operandLeft);
+        String showedOperandRight = operandRight != null
+                ? showedOperandRight = NumberFormatter.convertDoubleToIntegerIfNoDecimalPart(operandRight)
+                : null;
+
         if (operator == null) {
-            return result == null ? "" : operandLeft + " = ";
+            return result == null ? "" : showedOperandLeft + " = ";
         }
-        
+
         StringBuilder sb = new StringBuilder();
-        sb.append(operandLeft);
+        sb.append(showedOperandLeft);
         sb.append(" ");
         sb.append(operator.getCharacter());
         sb.append(" ");
@@ -86,7 +91,7 @@ public class Operation {
             return sb.toString();
         }
 
-        sb.append(operandRight);
+        sb.append(showedOperandRight);
         sb.append(" = ");
         return sb.toString();
     }

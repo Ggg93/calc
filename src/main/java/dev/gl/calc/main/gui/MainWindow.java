@@ -17,12 +17,12 @@ import javax.swing.text.PlainDocument;
  * @author gl
  */
 public class MainWindow extends javax.swing.JFrame {
-    
+
     private CalculatorState calculatorState;
     private Operation operation;
     private History history;
     private ButtonActions buttonActions;
-    
+
     public MainWindow() {
         configureFrame();
         initComponents();
@@ -31,9 +31,9 @@ public class MainWindow extends javax.swing.JFrame {
         bindActionsToButtons();
         createKeyBindings();
         initMenuItems();
-        
+
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -337,24 +337,35 @@ public class MainWindow extends javax.swing.JFrame {
         ImageIcon icon = new ImageIcon(".\\src\\main\\resources\\icons8-calculator-40.png");
         this.setIconImage(icon.getImage());
     }
-    
+
     private void configureComponents() {
         // set length limit to operandTextField
         PlainDocument pd = (PlainDocument) operandTextField.getDocument();
         pd.setDocumentFilter(new LimitedLengthDocumentFilter(15));
     }
-    
+
     public void updateTextFields() {
+        // update text in operationTextField
         operationTextField.setText(operation.toString());
-        
-        String showedOperand = operation.getActiveOperand() != null 
-                ? operation.getActiveOperand() 
-                : operation.operandLeft;
+
+        // update text in operandTextField
+        String showedOperand = null;
+
+        if (operation.result == null) {
+            showedOperand = operation.getActiveOperand() != null
+                    ? operation.getActiveOperand()
+                    : operation.operandLeft;
+        } else {
+            showedOperand = operation.result.toString();
+        }
+
+        showedOperand = NumberFormatter.convertDoubleToIntegerIfNoDecimalPart(showedOperand);
         operandTextField.setText(showedOperand);
+
     }
-    
+
     private void createKeyBindings() {
-        
+
         this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("0"), "digit");
         this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("1"), "digit");
         this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("2"), "digit");
@@ -389,7 +400,7 @@ public class MainWindow extends javax.swing.JFrame {
         this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_DIVIDE, 0), "division");
         this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_SLASH, 0), "division");
         this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "equals");
-        
+
         this.getRootPane().getActionMap().put("digit", buttonActions.digitPressedAction);
         this.getRootPane().getActionMap().put("back_space", buttonActions.backspacePressedAction);
         this.getRootPane().getActionMap().put("decimal", buttonActions.decimalPressedAction);
@@ -402,7 +413,7 @@ public class MainWindow extends javax.swing.JFrame {
         this.getRootPane().getActionMap().put("division", buttonActions.divisionPressedAction);
         this.getRootPane().getActionMap().put("equals", buttonActions.equalsPressedAction);
     }
-    
+
     private void bindActionsToButtons() {
 
         // digit buttons
@@ -435,18 +446,18 @@ public class MainWindow extends javax.swing.JFrame {
         //...
         // memory buttons
     }
-    
+
     private void initClassFields() {
         calculatorState = CalculatorState.OK;
         operation = new Operation(this);
         history = new History();
         buttonActions = new ButtonActions(this);
     }
-    
+
     private void initMenuItems() {
         exitMenuItem.addActionListener(new ExitButtonActionListener());
     }
-    
+
     public Operation getOperation() {
         return operation;
     }
@@ -462,5 +473,5 @@ public class MainWindow extends javax.swing.JFrame {
     public ButtonActions getButtonActions() {
         return buttonActions;
     }
-    
+
 }
