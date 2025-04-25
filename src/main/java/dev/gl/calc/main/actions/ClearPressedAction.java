@@ -18,7 +18,7 @@ public class ClearPressedAction extends AbstractAction {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent ignored) {
         Operation operation = mw.getOperation();
         operation.operandLeft = "0";
         operation.operator = null;
