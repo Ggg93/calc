@@ -77,7 +77,7 @@ public class LimitedLengthDocumentFilter extends DocumentFilter {
             // show it in scientific notation
             String preparedString = sb.toString().replaceAll(" ", "");
             preparedString = preparedString.replaceAll(",", ".");
-            String exponentialOutput = String.format("%.3e", Double.parseDouble(preparedString));
+            String exponentialOutput = SCIENTIFIC_FORMATTER.format(Double.parseDouble(preparedString));
             super.replace(fb, offset, length, exponentialOutput, attrs);
         }
     }
