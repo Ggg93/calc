@@ -46,6 +46,11 @@ public class LimitedLengthDocumentFilter extends DocumentFilter {
          sb.replace(offset, offset + length, text);
          if (isEnoughSpace(sb.toString())) {
             super.replace(fb, offset, length, text, attrs);
+         } else {
+             // if value is more then lengthLimit (see MainWindow.OPERAND_LENGTH_LIMIT),
+             // show it in scientific notation
+             String exponentialOutput = String.format("%6.3e", Double.parseDouble(sb.toString()));
+             super.replace(fb, offset, length, exponentialOutput, attrs);
          }
       }
 
