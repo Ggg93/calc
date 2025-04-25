@@ -31,8 +31,8 @@ public class ButtonActions {
     public DivisionPressedAction divisionPressedAction;
     public EqualsPressedAction equalsPressedAction;
 
-    public ButtonActions(MainWindow mw) {
-        digitPressedAction = new DigitPressedAction(mw);
+    public ButtonActions(MainWindow mw, int lengthLimit) {
+        digitPressedAction = new DigitPressedAction(mw, lengthLimit);
         backspacePressedAction = new BackspacePressedAction(mw);
         decimalPressedAction = new DecimalPressedAction(mw);
         clearEntryPressedAction = new ClearEntryPressedAction(mw);

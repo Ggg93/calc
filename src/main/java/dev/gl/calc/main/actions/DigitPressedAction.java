@@ -11,9 +11,11 @@ import javax.swing.AbstractAction;
 public class DigitPressedAction extends AbstractAction {
 
     private MainWindow mw;
+    private int lengthLimit;
 
-    public DigitPressedAction(MainWindow mw) {
+    public DigitPressedAction(MainWindow mw, int lengthLimit) {
         this.mw = mw;
+        this.lengthLimit = lengthLimit;
     }
 
     @Override
@@ -32,7 +34,9 @@ public class DigitPressedAction extends AbstractAction {
         } else {
             StringBuilder sb = new StringBuilder();
             sb.append(operand);
-            sb.append(pressedDigit);
+            if (sb.length() < lengthLimit) {
+                sb.append(pressedDigit);
+            }
             mw.getOperation().setActiveOperand(sb.toString());
         }
 

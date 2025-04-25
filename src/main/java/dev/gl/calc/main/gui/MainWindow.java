@@ -18,6 +18,7 @@ import javax.swing.text.PlainDocument;
  */
 public class MainWindow extends javax.swing.JFrame {
 
+    private static final int OPERAND_LENGTH_LIMIT = 15;
     private CalculatorState calculatorState;
     private Operation operation;
     private History history;
@@ -341,7 +342,7 @@ public class MainWindow extends javax.swing.JFrame {
     private void configureComponents() {
         // set length limit to operandTextField
         PlainDocument pd = (PlainDocument) operandTextField.getDocument();
-        pd.setDocumentFilter(new LimitedLengthDocumentFilter(15));
+        pd.setDocumentFilter(new LimitedLengthDocumentFilter(OPERAND_LENGTH_LIMIT));
     }
 
     public void updateTextFields() {
@@ -451,7 +452,7 @@ public class MainWindow extends javax.swing.JFrame {
         calculatorState = CalculatorState.OK;
         operation = new Operation(this);
         history = new History();
-        buttonActions = new ButtonActions(this);
+        buttonActions = new ButtonActions(this, OPERAND_LENGTH_LIMIT);
     }
 
     private void initMenuItems() {
