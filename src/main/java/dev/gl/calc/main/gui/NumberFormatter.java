@@ -11,7 +11,7 @@ public class NumberFormatter {
         
         // all other cases
         return Double.parseDouble(doubleVal) % 1 == 0
-                ? String.valueOf(((Double) Double.parseDouble(doubleVal)).intValue())
+                ? String.valueOf(((Double) Double.parseDouble(doubleVal)).longValue())
                 : String.valueOf(Double.parseDouble(doubleVal));
     }
 }
