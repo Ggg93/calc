@@ -22,15 +22,18 @@ public class DigitPressedAction extends AbstractAction {
     public void actionPerformed(ActionEvent e) {
 
         String pressedDigit = e.getActionCommand();
-        
-        if (mw.getOperation().result != null) {
+        // clearing operation and start again from scratch if the previous operation ended by entering 'equals'
+        if (mw.getOperation().result != null && mw.getOperation().operandRight != null) {
             mw.getButtonActions().clearPressedAction.actionPerformed(null);
         }
-        
+
         String operand = mw.getOperation().getActiveOperand();
 
         if (operand == null || operand.equals("0")) {
             mw.getOperation().setActiveOperand(pressedDigit);
+            if (mw.getOperation().result != null) {
+                mw.getOperation().result = null;
+            }
         } else {
             StringBuilder sb = new StringBuilder();
             sb.append(operand);

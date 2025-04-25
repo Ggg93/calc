@@ -35,6 +35,10 @@ public class Operation {
 
     public void performOperation(OperatorType nextOperationType) {
         Double calculationResult = null;
+        if (operator == null) {
+            operator = nextOperationType;
+        }
+        
         switch (operator) {
             case ADDITION:
                 calculationResult = Double.parseDouble(operandLeft)
@@ -87,7 +91,7 @@ public class Operation {
         sb.append(operator.getCharacter());
         sb.append(" ");
 
-        if (result == null) {
+        if (result == null || operandRight == null) {
             return sb.toString();
         }
 

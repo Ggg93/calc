@@ -22,8 +22,17 @@ public class EqualsPressedAction extends AbstractAction {
     public void actionPerformed(ActionEvent e) {
 
         Operation operation = mw.getOperation();
+        
+        // repeated 'equals' entering after the initial completion of operation
+        if (operation.result != null && operation.operandRight != null) {
+            operation.operandLeft = String.valueOf(operation.result);
+        }
+        
+        if (operation.result != null && operation.operandRight == null && operation.operator != null) {
+            operation.operandRight = String.valueOf(operation.result);
+        }
 
-        if (operation.operandRight != null) {
+        if (operation.operandRight != null && operation.operator != null) {
             operation.performOperation(null);
         } else {
             operation.result = Double.valueOf(operation.operandLeft);
