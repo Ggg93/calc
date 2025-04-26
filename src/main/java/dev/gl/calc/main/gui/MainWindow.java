@@ -18,7 +18,7 @@ import javax.swing.text.PlainDocument;
  */
 public class MainWindow extends javax.swing.JFrame {
 
-    private static final int OPERAND_LENGTH_LIMIT = 15;
+    public static final int OPERAND_LENGTH_LIMIT = 15;
     private CalculatorState calculatorState;
     private Operation operation;
     private History history;
