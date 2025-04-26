@@ -60,13 +60,7 @@ public class NumberFormatter {
             // if value is more then lengthLimit (see MainWindow.OPERAND_LENGTH_LIMIT),
             // show it in scientific notation
             String preparedString = sb.toString().replaceAll(" ", "");
-            preparedString = preparedString.replaceAll(",", ".");
-            long dots = preparedString.chars()
-                    .filter(ch -> ch == '.')
-                    .count();
-            if (dots > 1) {
-                System.out.println("dots: " + dots);
-            }
+            preparedString = preparedString.replaceAll(",", "."); // in case for not US locales
             if (preparedString.length() > MainWindow.OPERAND_LENGTH_LIMIT) {
                 String exponentialOutput = SCIENTIFIC_FORMATTER.format(new BigDecimal(preparedString));
                 sb = new StringBuilder(exponentialOutput);
