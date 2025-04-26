@@ -77,9 +77,9 @@ public class Operation {
             return state.getMessage();
         }
 
-        String showedOperandLeft = NumberFormatter.convertDoubleToIntegerIfNoDecimalPart(operandLeft);
+        String showedOperandLeft = NumberFormatter.format(operandLeft);
         String showedOperandRight = operandRight != null
-                ? showedOperandRight = NumberFormatter.convertDoubleToIntegerIfNoDecimalPart(operandRight)
+                ? showedOperandRight = NumberFormatter.format(operandRight)
                 : null;
 
         if (operator == null) {

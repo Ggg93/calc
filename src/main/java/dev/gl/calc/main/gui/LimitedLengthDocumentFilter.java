@@ -12,12 +12,22 @@ import javax.swing.text.DocumentFilter;
 public class LimitedLengthDocumentFilter extends DocumentFilter {
 
     private int lengthLimit;
+    private boolean ignoreLimit = false;
 
     public LimitedLengthDocumentFilter(int lengthLimit) {
         this.lengthLimit = lengthLimit;
     }
 
+    public void ignoreLengthLimitForNextOperation() {
+        ignoreLimit = true;
+    }
+
     private boolean isEnoughSpace(String text) {
+        if (ignoreLimit) {
+            ignoreLimit = true;
+            return true;
+        }
+
         return text.replaceAll("\\D", "").length() <= lengthLimit;
     }
 

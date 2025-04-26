@@ -19,16 +19,18 @@ import javax.swing.text.PlainDocument;
 public class MainWindow extends javax.swing.JFrame {
 
     public static final int OPERAND_LENGTH_LIMIT = 15;
+
     private CalculatorState calculatorState;
     private Operation operation;
     private History history;
     private ButtonActions buttonActions;
+    private LimitedLengthDocumentFilter docFilter;
 
     public MainWindow() {
         configureFrame();
         initComponents();
-        configureComponents();
         initClassFields();
+        configureComponents();
         bindActionsToButtons();
         createKeyBindings();
         initMenuItems();
@@ -130,7 +132,7 @@ public class MainWindow extends javax.swing.JFrame {
         operandTextField.setBorder(null);
         operandTextField.setFocusable(false);
         operandTextField.setMinimumSize(new java.awt.Dimension(64, 30));
-        operandTextField.setPreferredSize(new java.awt.Dimension(250, 30));
+        operandTextField.setPreferredSize(new java.awt.Dimension(500, 30));
         resultPanel.add(operandTextField);
 
         upperPanel.add(resultPanel, java.awt.BorderLayout.CENTER);
@@ -342,7 +344,7 @@ public class MainWindow extends javax.swing.JFrame {
     private void configureComponents() {
         // set length limit to operandTextField
         PlainDocument pd = (PlainDocument) operandTextField.getDocument();
-        pd.setDocumentFilter(new LimitedLengthDocumentFilter(OPERAND_LENGTH_LIMIT));
+        pd.setDocumentFilter(docFilter);
     }
 
     public void updateTextFields() {
@@ -356,13 +358,13 @@ public class MainWindow extends javax.swing.JFrame {
             showedOperand = operation.getActiveOperand() != null
                     ? operation.getActiveOperand()
                     : operation.operandLeft;
+            operandTextField.setText(NumberFormatter.format(showedOperand));
         } else {
             showedOperand = operation.result.toString();
+            showedOperand = NumberFormatter.format(showedOperand);
+            docFilter.ignoreLengthLimitForNextOperation(); // make it possible to show very big or very small numbers
+            operandTextField.setText(showedOperand);
         }
-
-        showedOperand = NumberFormatter.convertDoubleToIntegerIfNoDecimalPart(showedOperand);
-        operandTextField.setText(showedOperand);
-
     }
 
     private void createKeyBindings() {
@@ -453,6 +455,7 @@ public class MainWindow extends javax.swing.JFrame {
         operation = new Operation(this);
         history = new History();
         buttonActions = new ButtonActions(this, OPERAND_LENGTH_LIMIT);
+        docFilter = new LimitedLengthDocumentFilter(OPERAND_LENGTH_LIMIT);
     }
 
     private void initMenuItems() {

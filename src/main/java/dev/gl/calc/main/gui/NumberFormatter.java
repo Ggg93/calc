@@ -21,7 +21,7 @@ public class NumberFormatter {
         SCIENTIFIC_FORMATTER = new DecimalFormat("0.##########E0###");
     }
 
-    public static String convertDoubleToIntegerIfNoDecimalPart(String doubleVal) {
+    public static String format(String doubleVal) {
 
         // check for (1) last char is '.' and calculate amount of tralinig zeros
         boolean isTheLastCharacterADot = doubleVal.charAt(doubleVal.length() - 1) == '.';
