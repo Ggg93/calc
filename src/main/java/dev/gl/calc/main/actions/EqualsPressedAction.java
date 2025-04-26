@@ -4,6 +4,7 @@ import dev.gl.calc.Operation;
 import dev.gl.calc.main.enums.OperatorType;
 import dev.gl.calc.main.gui.MainWindow;
 import java.awt.event.ActionEvent;
+import java.math.BigDecimal;
 import javax.swing.AbstractAction;
 
 /**
@@ -35,7 +36,7 @@ public class EqualsPressedAction extends AbstractAction {
         if (operation.operandRight != null && operation.operator != null) {
             operation.performOperation(null);
         } else {
-            operation.result = Double.valueOf(operation.operandLeft);
+            operation.result = new BigDecimal(operation.operandLeft);
         }
 
         mw.updateTextFields();

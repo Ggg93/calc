@@ -4,6 +4,7 @@ import dev.gl.calc.main.enums.CalculatorState;
 import dev.gl.calc.main.enums.OperatorType;
 import dev.gl.calc.main.gui.MainWindow;
 import dev.gl.calc.main.gui.NumberFormatter;
+import java.math.BigDecimal;
 
 /**
  *
@@ -14,7 +15,7 @@ public class Operation {
     private MainWindow mw;
     public String operandLeft; // should be String?
     public String operandRight; // should be String?
-    public Double result;
+    public BigDecimal result;
     public OperatorType operator;
     public CalculatorState state;
 
@@ -34,27 +35,27 @@ public class Operation {
     }
 
     public void performOperation(OperatorType nextOperationType) {
-        Double calculationResult = null;
+        BigDecimal calculationResult = null;
         if (operator == null) {
             operator = nextOperationType;
         }
         
         switch (operator) {
             case ADDITION:
-                calculationResult = Double.parseDouble(operandLeft)
-                        + Double.parseDouble(operandRight);
+                calculationResult = new BigDecimal(operandLeft)
+                        .add(new BigDecimal(operandRight));
                 break;
             case SUBTRACTION:
-                calculationResult = Double.parseDouble(operandLeft)
-                        - Double.parseDouble(operandRight);
+                calculationResult = new BigDecimal(operandLeft)
+                        .subtract(new BigDecimal(operandRight));
                 break;
             case MULTIPLICATION:
-                calculationResult = Double.parseDouble(operandLeft)
-                        * Double.parseDouble(operandRight);
+                calculationResult = new BigDecimal(operandLeft)
+                        .multiply(new BigDecimal(operandRight));
                 break;
             case DIVISION:
-                calculationResult = Double.parseDouble(operandLeft)
-                        / Double.parseDouble(operandRight);
+                calculationResult = new BigDecimal(operandLeft)
+                        .divide(new BigDecimal(operandRight));
                 break;
         }
         result = calculationResult;
