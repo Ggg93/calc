@@ -2,6 +2,7 @@ package dev.gl.calc.main.actions;
 
 import dev.gl.calc.Operation;
 import dev.gl.calc.main.enums.CalculatorState;
+import dev.gl.calc.main.enums.OperationStage;
 import dev.gl.calc.main.gui.MainWindow;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
@@ -21,6 +22,8 @@ public class BackspacePressedAction extends AbstractAction {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        
+        mw.getOperation().stage = OperationStage.TYPING_NUMBER;
         
         if (mw.getCalculatorState() != CalculatorState.OK) {
             mw.getButtonActions().clearPressedAction.actionPerformed(null);

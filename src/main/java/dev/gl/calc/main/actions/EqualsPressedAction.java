@@ -2,6 +2,7 @@ package dev.gl.calc.main.actions;
 
 import dev.gl.calc.Operation;
 import dev.gl.calc.main.enums.CalculatorState;
+import dev.gl.calc.main.enums.OperationStage;
 import dev.gl.calc.main.gui.MainWindow;
 import java.awt.event.ActionEvent;
 import java.math.BigDecimal;
@@ -28,6 +29,7 @@ public class EqualsPressedAction extends AbstractAction {
         }
 
         Operation operation = mw.getOperation();
+        operation.stage = OperationStage.USING_OPERATORS;
         
         // repeated 'equals' entering after the initial completion of operation
         if (operation.result != null && operation.operandRight != null) {

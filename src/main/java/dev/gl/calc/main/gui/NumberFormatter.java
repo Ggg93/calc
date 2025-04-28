@@ -1,5 +1,6 @@
 package dev.gl.calc.main.gui;
 
+import dev.gl.calc.main.enums.OperationStage;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -21,34 +22,37 @@ public class NumberFormatter {
         SCIENTIFIC_FORMATTER = new DecimalFormat("0.##########E0###");
     }
 
-    public static String format(String doubleVal) {
-
-        // check for (1) last char is '.' and calculate amount of tralinig zeros
-        boolean isTheLastCharacterADot = doubleVal.charAt(doubleVal.length() - 1) == '.';
-        int trailingZeros = 0;
-        if (!isTheLastCharacterADot && doubleVal.contains(".")) {
-            char c = '0';
-            int idx = doubleVal.length() - 1;
-            while (c == '0') {
-                c = doubleVal.charAt(idx--);
-                if (c == '0') {
-                    trailingZeros++;
-                }
-            }
-        }
+    public static String format(String doubleVal, OperationStage stage) {
 
         String formatted = DEFAULT_FORMATTER.format(new BigDecimal(doubleVal));
-
         StringBuilder sb = new StringBuilder(formatted);
-        if (isTheLastCharacterADot) {
-            sb.append(".");
-        } else if (trailingZeros > 0) {
-            // avoid adding second delimeter
-            if (sb.indexOf(".") == -1) {
-                sb.append(".");
+
+        // check for (1) last char is '.' and calculate amount of tralinig zeros
+        if (stage == OperationStage.TYPING_NUMBER) {
+            boolean isTheLastCharacterADot = doubleVal.charAt(doubleVal.length() - 1) == '.';
+            int trailingZeros = 0;
+            if (!isTheLastCharacterADot && doubleVal.contains(".")) {
+                char c = '0';
+                int idx = doubleVal.length() - 1;
+                while (c == '0') {
+                    c = doubleVal.charAt(idx--);
+                    if (c == '0') {
+                        trailingZeros++;
+                    }
+                }
             }
-            while (trailingZeros-- > 0) {
-                sb.append("0");
+
+            // appending decimal delimeter and trailing zeros
+            if (isTheLastCharacterADot) {
+                sb.append(".");
+            } else if (trailingZeros > 0) {
+                // avoid adding second delimeter
+                if (sb.indexOf(".") == -1) {
+                    sb.append(".");
+                }
+                while (trailingZeros-- > 0) {
+                    sb.append("0");
+                }
             }
         }
 

@@ -1,6 +1,7 @@
 package dev.gl.calc.main.actions;
 
 import dev.gl.calc.Operation;
+import dev.gl.calc.main.enums.OperationStage;
 import dev.gl.calc.main.gui.MainWindow;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
@@ -19,7 +20,10 @@ public class SignPressedAction extends AbstractAction {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        
         Operation operation = mw.getOperation();
+        operation.stage = OperationStage.USING_OPERATORS;
+        
         String operand = operation.getActiveOperand();
         if (operand == null) {
             operand = operation.operandLeft;

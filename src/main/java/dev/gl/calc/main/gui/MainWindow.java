@@ -363,10 +363,9 @@ public class MainWindow extends javax.swing.JFrame {
             showedOperand = operation.getActiveOperand() != null
                     ? operation.getActiveOperand()
                     : operation.operandLeft;
-            operandTextField.setText(NumberFormatter.format(showedOperand));
+            operandTextField.setText(NumberFormatter.format(showedOperand, operation.stage));
         } else {
-            showedOperand = operation.result.toString();
-            showedOperand = NumberFormatter.format(showedOperand);
+            showedOperand = NumberFormatter.format(operation.result.toString(), operation.stage);
             docFilter.ignoreLengthLimitForNextOperation(); // make it possible to show very big or very small numbers
             operandTextField.setText(showedOperand);
         }

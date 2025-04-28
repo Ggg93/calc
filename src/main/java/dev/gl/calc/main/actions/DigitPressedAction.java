@@ -1,5 +1,6 @@
 package dev.gl.calc.main.actions;
 
+import dev.gl.calc.main.enums.OperationStage;
 import dev.gl.calc.main.gui.MainWindow;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
@@ -22,6 +23,9 @@ public class DigitPressedAction extends AbstractAction {
     public void actionPerformed(ActionEvent e) {
 
         String pressedDigit = e.getActionCommand();
+        
+        mw.getOperation().stage = OperationStage.TYPING_NUMBER;
+        
         // clearing operation and start again from scratch if the previous operation ended by entering 'equals'
         if (mw.getOperation().result != null && mw.getOperation().operandRight != null) {
             mw.getButtonActions().clearPressedAction.actionPerformed(null);

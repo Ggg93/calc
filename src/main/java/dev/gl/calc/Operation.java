@@ -1,6 +1,7 @@
 package dev.gl.calc;
 
 import dev.gl.calc.main.enums.CalculatorState;
+import dev.gl.calc.main.enums.OperationStage;
 import dev.gl.calc.main.enums.OperatorType;
 import dev.gl.calc.main.gui.MainWindow;
 import dev.gl.calc.main.gui.NumberFormatter;
@@ -19,12 +20,12 @@ public class Operation {
     public String operandRight; // should be String?
     public BigDecimal result;
     public OperatorType operator;
-    public CalculatorState state;
+    public OperationStage stage;
 
     public Operation(MainWindow mw) {
         this.mw = mw;
-        this.state = mw.getCalculatorState();
 
+        this.stage = OperationStage.TYPING_NUMBER;
         operandLeft = "0";
     }
 
@@ -33,7 +34,6 @@ public class Operation {
         this.operandRight = operation.operandRight;
         this.result = operation.result;
         this.operator = operation.operator;
-        this.state = operation.state;
     }
 
     public void performOperation(OperatorType nextOperationType) {
@@ -89,13 +89,10 @@ public class Operation {
 
     @Override
     public String toString() {
-        if (state != CalculatorState.OK) {
-            return state.getMessage();
-        }
 
-        String showedOperandLeft = NumberFormatter.format(operandLeft);
+        String showedOperandLeft = NumberFormatter.format(operandLeft, OperationStage.USING_OPERATORS);
         String showedOperandRight = operandRight != null
-                ? showedOperandRight = NumberFormatter.format(operandRight)
+                ? showedOperandRight = NumberFormatter.format(operandRight, OperationStage.USING_OPERATORS)
                 : null;
 
         if (operator == null) {
