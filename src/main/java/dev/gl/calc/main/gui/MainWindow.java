@@ -528,5 +528,9 @@ public class MainWindow extends javax.swing.JFrame {
         mcButton.setEnabled(isEnabled);
         mrButton.setEnabled(isEnabled);
     }
+    
+    public void clearOperationTextField() {
+        operationTextField.setText("");
+    }
 
 }

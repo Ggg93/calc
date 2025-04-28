@@ -31,6 +31,13 @@ public class BackspacePressedAction extends AbstractAction {
         }
         
         Operation operation = mw.getOperation();
+        
+        // if DEL pressed after 'EQUALS' was pressed. Just clear the operation textField
+        if (operation.result != null) {
+            mw.clearOperationTextField();
+            return;
+        }
+        
         String operand = operation.getActiveOperand();
         if (operand == null) {
             operand = operation.operandLeft;
