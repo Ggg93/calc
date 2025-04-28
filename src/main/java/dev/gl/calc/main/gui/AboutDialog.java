@@ -18,7 +18,15 @@ import javax.swing.JLabel;
  */
 public class AboutDialog extends javax.swing.JDialog {
 
-    private static final String homeLink = "https://github.com/Ggg93";
+    private static final String HOME_LINK = "https://github.com/Ggg93";
+    private static final String CALCULATOR_LINK = "https://icons8.com/icon/53529/calculator";
+    private static final String CALCULATOR_IMAGE_LINK = """
+                                                        <html>
+                                                        <a href="https://icons8.com/icon/53529/calculator">Calculator</a>
+                                                        icon by 
+                                                        <a href="https://icons8.com">Icons8</a>
+                                                        </html>
+                                                        """;
     private Properties properties;
 
     public AboutDialog(java.awt.Frame parent, boolean modal) {
@@ -30,60 +38,77 @@ public class AboutDialog extends javax.swing.JDialog {
         addName();
         addVersion();
         addHomeLink();
+        addCreditsLink();
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
+        upperPanel = new javax.swing.JPanel();
+        upperMainSubpanel = new javax.swing.JPanel();
         logoPanel = new javax.swing.JPanel();
-        jPanel5 = new javax.swing.JPanel();
+        nameAndVersionSubpanel = new javax.swing.JPanel();
         nameLabel = new javax.swing.JLabel();
         versionLabel = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
+        upperInfoSubpanel = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        homeLabel = new javax.swing.JLabel();
         homeLinkLabel = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
+        creditsLabel = new javax.swing.JLabel();
+        creditsLinkLabel = new javax.swing.JLabel();
+        bottomPanel = new javax.swing.JPanel();
         okButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("About");
-        setMinimumSize(new java.awt.Dimension(400, 200));
-        setPreferredSize(new java.awt.Dimension(400, 200));
+        setMinimumSize(new java.awt.Dimension(400, 220));
+        setPreferredSize(new java.awt.Dimension(400, 220));
         setResizable(false);
 
-        jPanel1.setLayout(new java.awt.BorderLayout());
+        upperPanel.setLayout(new java.awt.BorderLayout());
 
-        jPanel3.setLayout(new java.awt.BorderLayout());
-        jPanel3.add(logoPanel, java.awt.BorderLayout.WEST);
+        upperMainSubpanel.setLayout(new java.awt.BorderLayout());
+        upperMainSubpanel.add(logoPanel, java.awt.BorderLayout.WEST);
 
-        jPanel5.setLayout(new java.awt.GridLayout(2, 1));
+        nameAndVersionSubpanel.setLayout(new java.awt.GridLayout(2, 1));
 
         nameLabel.setText("Calculator");
-        jPanel5.add(nameLabel);
+        nameAndVersionSubpanel.add(nameLabel);
 
         versionLabel.setText("Version:");
-        jPanel5.add(versionLabel);
+        nameAndVersionSubpanel.add(versionLabel);
 
-        jPanel3.add(jPanel5, java.awt.BorderLayout.CENTER);
+        upperMainSubpanel.add(nameAndVersionSubpanel, java.awt.BorderLayout.CENTER);
 
-        jPanel1.add(jPanel3, java.awt.BorderLayout.NORTH);
+        upperPanel.add(upperMainSubpanel, java.awt.BorderLayout.NORTH);
 
-        jPanel6.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+        upperInfoSubpanel.setLayout(new java.awt.GridLayout(2, 2));
 
-        jLabel3.setText("Home: ");
-        jPanel6.add(jLabel3);
+        jPanel1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+
+        homeLabel.setText("Home: ");
+        jPanel1.add(homeLabel);
 
         homeLinkLabel.setText("https://github.com/Ggg93");
-        jPanel6.add(homeLinkLabel);
+        jPanel1.add(homeLinkLabel);
 
-        jPanel1.add(jPanel6, java.awt.BorderLayout.CENTER);
+        upperInfoSubpanel.add(jPanel1);
 
-        getContentPane().add(jPanel1, java.awt.BorderLayout.NORTH);
+        jPanel2.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
-        jPanel2.setPreferredSize(new java.awt.Dimension(400, 40));
+        creditsLabel.setText("Credits: ");
+        jPanel2.add(creditsLabel);
+        jPanel2.add(creditsLinkLabel);
+
+        upperInfoSubpanel.add(jPanel2);
+
+        upperPanel.add(upperInfoSubpanel, java.awt.BorderLayout.CENTER);
+
+        getContentPane().add(upperPanel, java.awt.BorderLayout.NORTH);
+
+        bottomPanel.setPreferredSize(new java.awt.Dimension(400, 40));
 
         okButton.setText("OK");
         okButton.addActionListener(new java.awt.event.ActionListener() {
@@ -91,9 +116,9 @@ public class AboutDialog extends javax.swing.JDialog {
                 okButtonActionPerformed(evt);
             }
         });
-        jPanel2.add(okButton);
+        bottomPanel.add(okButton);
 
-        getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
+        getContentPane().add(bottomPanel, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -104,16 +129,20 @@ public class AboutDialog extends javax.swing.JDialog {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel bottomPanel;
+    private javax.swing.JLabel creditsLabel;
+    private javax.swing.JLabel creditsLinkLabel;
+    private javax.swing.JLabel homeLabel;
     private javax.swing.JLabel homeLinkLabel;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel logoPanel;
+    private javax.swing.JPanel nameAndVersionSubpanel;
     private javax.swing.JLabel nameLabel;
     private javax.swing.JButton okButton;
+    private javax.swing.JPanel upperInfoSubpanel;
+    private javax.swing.JPanel upperMainSubpanel;
+    private javax.swing.JPanel upperPanel;
     private javax.swing.JLabel versionLabel;
     // End of variables declaration//GEN-END:variables
 
@@ -128,21 +157,6 @@ public class AboutDialog extends javax.swing.JDialog {
         }
     }
 
-    private void addHomeLink() {
-        homeLinkLabel.setText("<html><a href=\"\">" + homeLink + "</a></html>");
-        homeLinkLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        homeLinkLabel.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                try {
-                    Desktop.getDesktop().browse(new URI(homeLink));
-                } catch (Exception ex) {
-                    ex.printStackTrace(System.err);
-                }
-            }
-        });
-    }
-
     private void loadProperties() {
         properties = new Properties();
         try {
@@ -150,7 +164,6 @@ public class AboutDialog extends javax.swing.JDialog {
         } catch (Exception e) {
             e.printStackTrace(System.err);
         }
-        
     }
     
     private void addName() {
@@ -159,5 +172,35 @@ public class AboutDialog extends javax.swing.JDialog {
 
     private void addVersion() {
         versionLabel.setText("Version: " + properties.getProperty("version"));
+    }
+    
+    private void addHomeLink() {
+        homeLinkLabel.setText("<html><a href=\"\">" + HOME_LINK + "</a></html>");
+        homeLinkLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        homeLinkLabel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                try {
+                    Desktop.getDesktop().browse(new URI(HOME_LINK));
+                } catch (Exception ex) {
+                    ex.printStackTrace(System.err);
+                }
+            }
+        });
+    }
+
+    private void addCreditsLink() {
+        creditsLinkLabel.setText(CALCULATOR_IMAGE_LINK);
+        creditsLinkLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        creditsLinkLabel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                try {
+                    Desktop.getDesktop().browse(new URI(CALCULATOR_LINK));
+                } catch (Exception ex) {
+                    ex.printStackTrace(System.err);
+                }
+            }
+        });
     }
 }
