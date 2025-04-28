@@ -5,6 +5,7 @@ import dev.gl.calc.Operation;
 import dev.gl.calc.menu.History;
 import dev.gl.calc.main.enums.CalculatorState;
 import dev.gl.calc.memory.Memory;
+import dev.gl.calc.menu.AboutButtonActionListener;
 import dev.gl.calc.menu.ExitButtonActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
@@ -259,6 +260,7 @@ public class MainWindow extends javax.swing.JFrame {
         saveMenuItem.setText("Save...");
         mainMenu.add(saveMenuItem);
 
+        aboutMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
         aboutMenuItem.setText("About");
         mainMenu.add(aboutMenuItem);
 
@@ -486,6 +488,7 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void initMenuItems() {
         exitMenuItem.addActionListener(new ExitButtonActionListener());
+        aboutMenuItem.addActionListener(new AboutButtonActionListener(this));
     }
 
     public Operation getOperation() {
