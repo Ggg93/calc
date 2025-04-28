@@ -24,7 +24,7 @@ public class LimitedLengthDocumentFilter extends DocumentFilter {
 
     private boolean isEnoughSpace(String text) {
         if (ignoreLimit) {
-            ignoreLimit = true;
+            ignoreLimit = false;
             return true;
         }
 

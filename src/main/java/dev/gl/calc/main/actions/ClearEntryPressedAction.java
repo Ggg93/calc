@@ -1,6 +1,7 @@
 package dev.gl.calc.main.actions;
 
 import dev.gl.calc.Operation;
+import dev.gl.calc.main.enums.CalculatorState;
 import dev.gl.calc.main.gui.MainWindow;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
@@ -19,6 +20,12 @@ public class ClearEntryPressedAction extends AbstractAction {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        
+        if (mw.getCalculatorState() != CalculatorState.OK) {
+            mw.getButtonActions().clearPressedAction.actionPerformed(null);
+            return;
+        }
+        
         Operation operation = mw.getOperation();
         if (operation.result == null) {
             mw.getOperation().setActiveOperand("0");

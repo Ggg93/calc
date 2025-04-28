@@ -5,6 +5,7 @@ import dev.gl.calc.main.enums.OperatorType;
 import dev.gl.calc.main.gui.MainWindow;
 import dev.gl.calc.main.gui.NumberFormatter;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 /**
  *
@@ -12,6 +13,7 @@ import java.math.BigDecimal;
  */
 public class Operation {
 
+    private static final BigDecimal MAX_VALUE = new BigDecimal("9.9E9999");
     private MainWindow mw;
     public String operandLeft; // should be String?
     public String operandRight; // should be String?
@@ -39,25 +41,39 @@ public class Operation {
         if (operator == null) {
             operator = nextOperationType;
         }
-        
+
+        BigDecimal left = new BigDecimal(operandLeft);
+        BigDecimal right = new BigDecimal(operandRight);
+
         switch (operator) {
             case ADDITION:
-                calculationResult = new BigDecimal(operandLeft)
-                        .add(new BigDecimal(operandRight));
+                calculationResult = left.add(right);
                 break;
             case SUBTRACTION:
-                calculationResult = new BigDecimal(operandLeft)
-                        .subtract(new BigDecimal(operandRight));
+                calculationResult = left.subtract(right);
                 break;
             case MULTIPLICATION:
-                calculationResult = new BigDecimal(operandLeft)
-                        .multiply(new BigDecimal(operandRight));
+                calculationResult = left.multiply(right);
                 break;
             case DIVISION:
-                calculationResult = new BigDecimal(operandLeft)
-                        .divide(new BigDecimal(operandRight));
+                if (left.compareTo(BigDecimal.ZERO) == 0
+                        && right.compareTo(BigDecimal.ZERO) == 0) {
+                    mw.setCalculatorState(CalculatorState.DIVIDING_ZERO_BY_ZERO);
+                    return;
+                } else if (right.compareTo(BigDecimal.ZERO) == 0) {
+                    mw.setCalculatorState(CalculatorState.DIVIDING_BY_ZERO);
+                    return;
+                }
+                calculationResult = left.divide(right, 10, RoundingMode.HALF_UP);
                 break;
         }
+
+        // check for overflow wrong state
+        if (calculationResult.compareTo(MAX_VALUE) > 0) {
+            mw.setCalculatorState(CalculatorState.OVERFLOW);
+            return;
+        }
+
         result = calculationResult;
         Operation finalizedOperation = new Operation(this);
         mw.getHistory().getOperations().add(finalizedOperation);

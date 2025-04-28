@@ -4,6 +4,7 @@ import dev.gl.calc.ButtonActions;
 import dev.gl.calc.Operation;
 import dev.gl.calc.menu.History;
 import dev.gl.calc.main.enums.CalculatorState;
+import dev.gl.calc.memory.Memory;
 import dev.gl.calc.menu.ExitButtonActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
@@ -25,6 +26,7 @@ public class MainWindow extends javax.swing.JFrame {
     private History history;
     private ButtonActions buttonActions;
     private LimitedLengthDocumentFilter docFilter;
+    private Memory memory;
 
     public MainWindow() {
         configureFrame();
@@ -34,7 +36,6 @@ public class MainWindow extends javax.swing.JFrame {
         bindActionsToButtons();
         createKeyBindings();
         initMenuItems();
-
     }
 
     @SuppressWarnings("unchecked")
@@ -348,6 +349,10 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     public void updateTextFields() {
+        // preventing update textField after wrong state message has been shown
+        if (calculatorState != CalculatorState.OK) {
+            return;
+        }
         // update text in operationTextField
         operationTextField.setText(operation.toString());
 
@@ -365,6 +370,11 @@ public class MainWindow extends javax.swing.JFrame {
             docFilter.ignoreLengthLimitForNextOperation(); // make it possible to show very big or very small numbers
             operandTextField.setText(showedOperand);
         }
+    }
+
+    private void showStateMessage(CalculatorState state) {
+        docFilter.ignoreLengthLimitForNextOperation(); // make it possible to show very big or very small numbers
+        operandTextField.setText(state.getMessage());
     }
 
     private void createKeyBindings() {
@@ -456,6 +466,7 @@ public class MainWindow extends javax.swing.JFrame {
         history = new History();
         buttonActions = new ButtonActions(this, OPERAND_LENGTH_LIMIT);
         docFilter = new LimitedLengthDocumentFilter(OPERAND_LENGTH_LIMIT);
+        memory = new Memory();
     }
 
     private void initMenuItems() {
@@ -474,8 +485,49 @@ public class MainWindow extends javax.swing.JFrame {
         return calculatorState;
     }
 
+    public void setCalculatorState(CalculatorState calculatorState) {
+        this.calculatorState = calculatorState;
+
+        changeState(calculatorState == CalculatorState.OK);
+
+        showStateMessage(calculatorState);
+    }
+
     public ButtonActions getButtonActions() {
         return buttonActions;
+    }
+
+    private void changeState(boolean isOk) {
+        // memory buttons
+        // enabling mc and mr only if there is some value in memory
+        if (isOk && memory.getValue() != null) {
+            mcButton.setEnabled(true);
+            mrButton.setEnabled(true);
+        } else {
+            mcButton.setEnabled(isOk);
+            mrButton.setEnabled(isOk);
+        }
+
+        mAddButton.setEnabled(isOk);
+        mSubtractButton.setEnabled(isOk);
+
+        // other buttons
+        percentButton.setEnabled(isOk);
+        dividerButton.setEnabled(isOk);
+        squaringButton.setEnabled(isOk);
+        squareRootButton.setEnabled(isOk);
+        multiplyButton.setEnabled(isOk);
+        divideButton.setEnabled(isOk);
+        addButton.setEnabled(isOk);
+        subtractButton.setEnabled(isOk);
+        signButton.setEnabled(isOk);
+        decimalButton.setEnabled(isOk);
+        percentButton.setEnabled(isOk);
+    }
+
+    public void changeStateForMemoryButtons(boolean isEnabled) {
+        mcButton.setEnabled(isEnabled);
+        mrButton.setEnabled(isEnabled);
     }
 
 }
