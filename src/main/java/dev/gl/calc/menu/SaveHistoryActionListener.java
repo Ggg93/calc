@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.Comparator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -51,6 +52,7 @@ public class SaveHistoryActionListener implements ActionListener {
             FileWriter fw = new FileWriter(file, StandardCharsets.UTF_8);
             BufferedWriter writer = new BufferedWriter(fw);
             history.getOperations().stream()
+                    .sorted(Comparator.reverseOrder())
                     .forEach(operation -> {
                         String line = operation.printForHistory();
                         try {

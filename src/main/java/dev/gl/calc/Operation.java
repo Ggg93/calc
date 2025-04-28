@@ -12,7 +12,7 @@ import java.math.RoundingMode;
  *
  * @author gl
  */
-public class Operation {
+public class Operation implements Comparable<Operation>{
 
     private static int counter = 0;
     private static final BigDecimal MAX_VALUE = new BigDecimal("9.9E9999");
@@ -138,6 +138,11 @@ public class Operation {
         } else {
             operandLeft = newValue;
         }
+    }
+
+    @Override
+    public int compareTo(Operation o) {
+        return this.id > o.id ? 1 : -1;
     }
 
 }
