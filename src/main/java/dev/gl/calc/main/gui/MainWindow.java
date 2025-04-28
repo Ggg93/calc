@@ -147,11 +147,13 @@ public class MainWindow extends javax.swing.JFrame {
         mcButton.setBackground(new java.awt.Color(204, 204, 204));
         mcButton.setForeground(new java.awt.Color(0, 0, 0));
         mcButton.setText("MC");
+        mcButton.setEnabled(false);
         memoryMenuPanel.add(mcButton);
 
         mrButton.setBackground(new java.awt.Color(204, 204, 204));
         mrButton.setForeground(new java.awt.Color(0, 0, 0));
         mrButton.setText("MR");
+        mrButton.setEnabled(false);
         memoryMenuPanel.add(mrButton);
 
         mAddButton.setBackground(new java.awt.Color(204, 204, 204));
@@ -412,6 +414,10 @@ public class MainWindow extends javax.swing.JFrame {
         this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_DIVIDE, 0), "division");
         this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_SLASH, 0), "division");
         this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "equals");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_P, InputEvent.CTRL_DOWN_MASK), "memory_add");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_Q, InputEvent.CTRL_DOWN_MASK), "memory_subtract");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_R, InputEvent.CTRL_DOWN_MASK), "memory_recall");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_L, InputEvent.CTRL_DOWN_MASK), "memory_clear");
 
         this.getRootPane().getActionMap().put("digit", buttonActions.digitPressedAction);
         this.getRootPane().getActionMap().put("back_space", buttonActions.backspacePressedAction);
@@ -424,6 +430,10 @@ public class MainWindow extends javax.swing.JFrame {
         this.getRootPane().getActionMap().put("multiplication", buttonActions.multiplyPressedAction);
         this.getRootPane().getActionMap().put("division", buttonActions.divisionPressedAction);
         this.getRootPane().getActionMap().put("equals", buttonActions.equalsPressedAction);
+        this.getRootPane().getActionMap().put("memory_add", buttonActions.addMemoryAction);
+        this.getRootPane().getActionMap().put("memory_subtract", buttonActions.subtractMemoryAction);
+        this.getRootPane().getActionMap().put("memory_recall", buttonActions.recallMemoryAction);
+        this.getRootPane().getActionMap().put("memory_clear", buttonActions.clearMemoryAction);
     }
 
     private void bindActionsToButtons() {
@@ -457,15 +467,21 @@ public class MainWindow extends javax.swing.JFrame {
         // auxiliary operators buttons
         //...
         // memory buttons
+        mAddButton.addActionListener(buttonActions.addMemoryAction);
+        mSubtractButton.addActionListener(buttonActions.subtractMemoryAction);
+        mrButton.addActionListener(buttonActions.recallMemoryAction);
+        mcButton.addActionListener(buttonActions.clearMemoryAction);
     }
 
     private void initClassFields() {
         calculatorState = CalculatorState.OK;
         operation = new Operation(this);
+        memory = new Memory(this);
         history = new History();
-        buttonActions = new ButtonActions(this, OPERAND_LENGTH_LIMIT);
+        
+        buttonActions = new ButtonActions(this, OPERAND_LENGTH_LIMIT, memory);
         docFilter = new LimitedLengthDocumentFilter(OPERAND_LENGTH_LIMIT);
-        memory = new Memory();
+        
     }
 
     private void initMenuItems() {

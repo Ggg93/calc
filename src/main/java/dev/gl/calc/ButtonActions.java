@@ -12,6 +12,11 @@ import dev.gl.calc.main.actions.MinusPressedAction;
 import dev.gl.calc.main.actions.MultiplyPressedAction;
 import dev.gl.calc.main.actions.SignPressedAction;
 import dev.gl.calc.main.gui.MainWindow;
+import dev.gl.calc.memory.AddMemoryAction;
+import dev.gl.calc.memory.ClearMemoryAction;
+import dev.gl.calc.memory.Memory;
+import dev.gl.calc.memory.RecallMemoryAction;
+import dev.gl.calc.memory.SubtractMemoryAction;
 
 /**
  *
@@ -31,7 +36,13 @@ public class ButtonActions {
     public DivisionPressedAction divisionPressedAction;
     public EqualsPressedAction equalsPressedAction;
 
-    public ButtonActions(MainWindow mw, int lengthLimit) {
+    // memory actions
+    public AddMemoryAction addMemoryAction;
+    public SubtractMemoryAction subtractMemoryAction;
+    public RecallMemoryAction recallMemoryAction;
+    public ClearMemoryAction clearMemoryAction;
+
+    public ButtonActions(MainWindow mw, int lengthLimit, Memory memory) {
         digitPressedAction = new DigitPressedAction(mw, lengthLimit);
         backspacePressedAction = new BackspacePressedAction(mw);
         decimalPressedAction = new DecimalPressedAction(mw);
@@ -43,6 +54,12 @@ public class ButtonActions {
         multiplyPressedAction = new MultiplyPressedAction(mw);
         divisionPressedAction = new DivisionPressedAction(mw);
         equalsPressedAction = new EqualsPressedAction(mw);
+        
+        // memory actions
+        addMemoryAction = new AddMemoryAction(mw, memory);
+        subtractMemoryAction = new SubtractMemoryAction(mw, memory);
+        recallMemoryAction = new RecallMemoryAction(mw, memory);
+        clearMemoryAction = new ClearMemoryAction(mw, memory);
     }
 
 }
