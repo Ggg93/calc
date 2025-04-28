@@ -7,10 +7,12 @@ import dev.gl.calc.main.enums.CalculatorState;
 import dev.gl.calc.memory.Memory;
 import dev.gl.calc.menu.AboutButtonActionListener;
 import dev.gl.calc.menu.ExitButtonActionListener;
+import dev.gl.calc.menu.SaveHistoryActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
+import javax.swing.JFileChooser;
 import javax.swing.KeyStroke;
 import javax.swing.text.PlainDocument;
 
@@ -28,6 +30,7 @@ public class MainWindow extends javax.swing.JFrame {
     private ButtonActions buttonActions;
     private LimitedLengthDocumentFilter docFilter;
     private Memory memory;
+    private JFileChooser fileChooser;
 
     public MainWindow() {
         configureFrame();
@@ -257,6 +260,7 @@ public class MainWindow extends javax.swing.JFrame {
         settingsMenuItem.setText("Settings");
         mainMenu.add(settingsMenuItem);
 
+        saveMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         saveMenuItem.setText("Save...");
         mainMenu.add(saveMenuItem);
 
@@ -480,6 +484,7 @@ public class MainWindow extends javax.swing.JFrame {
         operation = new Operation(this);
         memory = new Memory(this);
         history = new History();
+        fileChooser = new JFileChooser();
         
         buttonActions = new ButtonActions(this, OPERAND_LENGTH_LIMIT, memory);
         docFilter = new LimitedLengthDocumentFilter(OPERAND_LENGTH_LIMIT);
@@ -489,6 +494,7 @@ public class MainWindow extends javax.swing.JFrame {
     private void initMenuItems() {
         exitMenuItem.addActionListener(new ExitButtonActionListener());
         aboutMenuItem.addActionListener(new AboutButtonActionListener(this));
+        saveMenuItem.addActionListener(new SaveHistoryActionListener(this));
     }
 
     public Operation getOperation() {
@@ -552,4 +558,8 @@ public class MainWindow extends javax.swing.JFrame {
         operationTextField.setText("");
     }
 
+    public JFileChooser getFileChooser() {
+        return fileChooser;
+    }
+    
 }

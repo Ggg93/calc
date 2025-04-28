@@ -14,8 +14,10 @@ import java.math.RoundingMode;
  */
 public class Operation {
 
+    private static int counter = 0;
     private static final BigDecimal MAX_VALUE = new BigDecimal("9.9E9999");
     private MainWindow mw;
+    public int id;
     public String operandLeft; // should be String?
     public String operandRight; // should be String?
     public BigDecimal result;
@@ -34,6 +36,7 @@ public class Operation {
         this.operandRight = operation.operandRight;
         this.result = operation.result;
         this.operator = operation.operator;
+        this.id = operation.id;
     }
 
     public void performOperation(OperatorType nextOperationType) {
@@ -75,6 +78,7 @@ public class Operation {
         }
 
         result = calculationResult;
+        id = ++counter;
         Operation finalizedOperation = new Operation(this);
         mw.getHistory().getOperations().add(finalizedOperation);
 
@@ -111,6 +115,16 @@ public class Operation {
 
         sb.append(showedOperandRight);
         sb.append(" = ");
+        return sb.toString();
+    }
+    
+    public String printForHistory() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(id).append(": ")
+                .append(operandLeft).append(" ")
+                .append(operator.getCharacter()).append(" ")
+                .append(operandRight).append(" = ")
+                .append(result);
         return sb.toString();
     }
 
