@@ -81,8 +81,8 @@ public class Operation implements Comparable<Operation>{
         result = calculationResult;
         id = ++counter;
         Operation finalizedOperation = new Operation(this);
-        mw.getHistory().getOperations().add(finalizedOperation);
-        mw.getHistory().getOperationsById().put(id, finalizedOperation);
+//        mw.getHistory().getOperations().add(finalizedOperation);
+        mw.getHistory().getOperations().put(id, finalizedOperation);
 
         if (nextOperationType != null) {
             operandLeft = result.toString();

@@ -51,8 +51,8 @@ public class SaveHistoryActionListener implements ActionListener {
         try {
             FileWriter fw = new FileWriter(file, StandardCharsets.UTF_8);
             BufferedWriter writer = new BufferedWriter(fw);
-            history.getOperations().stream()
-                    .sorted(Comparator.reverseOrder())
+            history.getOperations().values().stream()
+//                    .sorted(Comparator.reverseOrder())
                     .forEach(operation -> {
                         String line = operation.printForHistory();
                         try {

@@ -122,7 +122,7 @@ public class HistoryDialog extends javax.swing.JDialog {
                     String operation = (String) model.getValueAt(modelRow, 0);
                     String idSubstring = operation.substring(0, operation.indexOf(Operation.ID_DELIMETER));
                     Integer operationId = Integer.parseInt(idSubstring);
-                    Operation historicalOperation = mw.getHistory().getOperationsById().get(operationId);
+                    Operation historicalOperation = mw.getHistory().getOperations().get(operationId);
                     
                     // adjusting the active operation, bringing it to state of the historical operation
                     mw.getOperation().operandLeft = historicalOperation.operandLeft;
@@ -147,7 +147,7 @@ public class HistoryDialog extends javax.swing.JDialog {
     }
 
     private void createTableModel() {
-        List<Operation> operations = new ArrayList<>(mw.getHistory().getOperationsById().values());
+        List<Operation> operations = new ArrayList<>(mw.getHistory().getOperations().values());
 //        Collections.reverse(operations);
 
         model = new DefaultTableModel(new Object[]{"Operation"},
