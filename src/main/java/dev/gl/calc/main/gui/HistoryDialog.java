@@ -2,20 +2,23 @@ package dev.gl.calc.main.gui;
 
 import dev.gl.calc.Operation;
 import dev.gl.calc.main.actions.OkButtonActionForDialogs;
-import java.awt.Image;
 import java.awt.Insets;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JTable;
 import javax.swing.KeyStroke;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -103,6 +106,36 @@ public class HistoryDialog extends javax.swing.JDialog {
 
         okButtonAction = new OkButtonActionForDialogs(this);
         okButton.addActionListener(okButtonAction);
+
+        operationsTable.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                JTable table = (JTable) e.getSource();
+                Point point = e.getPoint();
+                int row = table.rowAtPoint(point);
+                if (e.getClickCount() == 2
+                        && table.getSelectedRow() != -1
+                        && row != -1) {
+                    int modelRow = table.convertRowIndexToModel(row);
+                    
+                    // find the historical operation
+                    String operation = (String) model.getValueAt(modelRow, 0);
+                    String idSubstring = operation.substring(0, operation.indexOf(Operation.ID_DELIMETER));
+                    Integer operationId = Integer.parseInt(idSubstring);
+                    Operation historicalOperation = mw.getHistory().getOperationsById().get(operationId);
+                    
+                    // adjusting the active operation, bringing it to state of the historical operation
+                    mw.getOperation().operandLeft = historicalOperation.operandLeft;
+                    mw.getOperation().operandRight = historicalOperation.operandRight;
+                    mw.getOperation().operator = historicalOperation.operator;
+                    mw.getOperation().result = historicalOperation.result;
+                    mw.updateTextFields();
+                    
+                    // closing the dialog
+                    okButtonAction.actionPerformed(null);
+                }
+            }
+        });
     }
 
     private void bindKeyListenersToOkButton() {
@@ -114,15 +147,21 @@ public class HistoryDialog extends javax.swing.JDialog {
     }
 
     private void createTableModel() {
-        List<Operation> operations = mw.getHistory().getOperations();
-        Collections.reverse(operations);
+        List<Operation> operations = new ArrayList<>(mw.getHistory().getOperationsById().values());
+//        Collections.reverse(operations);
 
         model = new DefaultTableModel(new Object[]{"Operation"},
-                operations.size());
+                operations.size()) {
+
+            // disabling cell editing 
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
         for (int i = 0; i < operations.size(); i++) {
             model.setValueAt(operations.get(i).printForHistory(), i, 0);
         }
-        
         operationsTable.setModel(model);
     }
 

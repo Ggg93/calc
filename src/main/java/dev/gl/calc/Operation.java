@@ -14,6 +14,7 @@ import java.math.RoundingMode;
  */
 public class Operation implements Comparable<Operation>{
 
+    public static final String ID_DELIMETER = ":";
     private static int counter = 0;
     private static final BigDecimal MAX_VALUE = new BigDecimal("9.9E9999");
     private MainWindow mw;
@@ -81,6 +82,7 @@ public class Operation implements Comparable<Operation>{
         id = ++counter;
         Operation finalizedOperation = new Operation(this);
         mw.getHistory().getOperations().add(finalizedOperation);
+        mw.getHistory().getOperationsById().put(id, finalizedOperation);
 
         if (nextOperationType != null) {
             operandLeft = result.toString();
@@ -120,7 +122,7 @@ public class Operation implements Comparable<Operation>{
     
     public String printForHistory() {
         StringBuilder sb = new StringBuilder();
-        sb.append(id).append(": ")
+        sb.append(id).append(ID_DELIMETER).append(" ")
                 .append(NumberFormatter.format(operandLeft, OperationStage.USING_OPERATORS)).append(" ")
                 .append(operator.getCharacter()).append(" ")
                 .append(NumberFormatter.format(operandRight, OperationStage.USING_OPERATORS)).append(" = ")
