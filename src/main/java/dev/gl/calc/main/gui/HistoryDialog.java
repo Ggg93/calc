@@ -123,12 +123,6 @@ public class HistoryDialog extends javax.swing.JDialog {
             model.setValueAt(operations.get(i).printForHistory(), i, 0);
         }
         
-        model.addTableModelListener(new TableModelListener(){
-            @Override
-            public void tableChanged(TableModelEvent e) {
-            }
-        });
-
         operationsTable.setModel(model);
     }
 
