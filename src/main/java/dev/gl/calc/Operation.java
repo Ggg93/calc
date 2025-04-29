@@ -68,7 +68,7 @@ public class Operation implements Comparable<Operation>{
                     mw.setCalculatorState(CalculatorState.DIVIDING_BY_ZERO);
                     return;
                 }
-                calculationResult = left.divide(right, 10, RoundingMode.HALF_UP);
+                calculationResult = left.divide(right, Configuration.operationScale, RoundingMode.HALF_UP);
                 break;
         }
 

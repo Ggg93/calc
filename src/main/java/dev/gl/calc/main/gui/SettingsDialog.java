@@ -1,21 +1,25 @@
 package dev.gl.calc.main.gui;
 
-import dev.gl.calc.main.actions.OkButtonActionForDialogs;
+import dev.gl.calc.Configuration;
+import dev.gl.calc.main.actions.SettingsOkButtonAction;
 import java.awt.event.KeyEvent;
+import javax.swing.AbstractAction;
 import javax.swing.JComponent;
 import javax.swing.KeyStroke;
+import javax.swing.text.PlainDocument;
 
 /**
  *
  * @author gl
  */
 public class SettingsDialog extends javax.swing.JDialog {
-    
-    private OkButtonActionForDialogs okButtonAction;
+
+    private AbstractAction okButtonAction;
 
     public SettingsDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        initScaleTextField();
         this.setLocationRelativeTo(null);
         initListeners();
         bindKeyListenersToOkButton();
@@ -28,7 +32,7 @@ public class SettingsDialog extends javax.swing.JDialog {
         upperPanel = new javax.swing.JPanel();
         calculationsPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        scaleTextField = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         roundingModeComboBox = new javax.swing.JComboBox<>();
         IOPanel = new javax.swing.JPanel();
@@ -54,7 +58,7 @@ public class SettingsDialog extends javax.swing.JDialog {
 
         jLabel1.setText("Scale:");
         calculationsPanel.add(jLabel1);
-        calculationsPanel.add(jTextField1);
+        calculationsPanel.add(scaleTextField);
 
         jLabel2.setText("Rounding Mode:");
         calculationsPanel.add(jLabel2);
@@ -140,16 +144,16 @@ public class SettingsDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JButton okButton;
     private javax.swing.JComboBox<String> roundingModeComboBox;
+    private javax.swing.JTextField scaleTextField;
     private javax.swing.JCheckBox soundCheckBox;
     private javax.swing.JPanel upperPanel;
     private javax.swing.JCheckBox wrongStateCheckBox;
     // End of variables declaration//GEN-END:variables
 
     private void initListeners() {
-        okButtonAction = new OkButtonActionForDialogs(this);
+        okButtonAction = new SettingsOkButtonAction(this);
         okButton.addActionListener(okButtonAction);
     }
 
@@ -159,5 +163,22 @@ public class SettingsDialog extends javax.swing.JDialog {
         this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0), "ok");
 
         this.getRootPane().getActionMap().put("ok", okButtonAction);
+    }
+
+    private void initScaleTextField() {
+        scaleTextField.setText(String.valueOf(Configuration.operationScale));
+
+        ScaleDocumentFilter filter = new ScaleDocumentFilter();
+        PlainDocument pd = (PlainDocument) scaleTextField.getDocument();
+        pd.setDocumentFilter(filter);
+    }
+
+    public Integer getScale() {
+        if (scaleTextField.getText().isEmpty()) {
+            return Configuration.operationScale;
+        } else {
+            return Integer.parseInt(scaleTextField.getText());
+        }
+
     }
 }
