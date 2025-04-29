@@ -1,7 +1,9 @@
 package dev.gl.calc.main.gui;
 
+import dev.gl.calc.main.actions.OkButtonActionForDialogs;
 import java.awt.Cursor;
 import java.awt.Desktop;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -10,7 +12,9 @@ import java.net.URI;
 import java.util.Properties;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.KeyStroke;
 
 /**
  *
@@ -28,11 +32,14 @@ public class AboutDialog extends javax.swing.JDialog {
                                                         </html>
                                                         """;
     private Properties properties;
+    private OkButtonActionForDialogs okButtonAction;
 
     public AboutDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         this.setLocationRelativeTo(null);
         initComponents();
+        initListeners();
+        bindKeyListenersToOkButton();
         addLogo();
         loadProperties();
         addName();
@@ -111,21 +118,12 @@ public class AboutDialog extends javax.swing.JDialog {
         bottomPanel.setPreferredSize(new java.awt.Dimension(400, 40));
 
         okButton.setText("OK");
-        okButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                okButtonActionPerformed(evt);
-            }
-        });
         bottomPanel.add(okButton);
 
         getContentPane().add(bottomPanel, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
-        dispose();
-    }//GEN-LAST:event_okButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -202,5 +200,19 @@ public class AboutDialog extends javax.swing.JDialog {
                 }
             }
         });
+    }
+
+    private void bindKeyListenersToOkButton() {
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "ok");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "ok");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0), "ok");
+        
+        this.getRootPane().getActionMap().put("ok", okButtonAction);
+    }
+
+    private void initListeners() {
+        
+        okButtonAction = new OkButtonActionForDialogs(this);
+        okButton.addActionListener(okButtonAction);
     }
 }
