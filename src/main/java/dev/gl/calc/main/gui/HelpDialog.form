@@ -50,7 +50,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
             <Property name="columns" type="int" value="1"/>
-            <Property name="rows" type="int" value="8"/>
+            <Property name="rows" type="int" value="9"/>
             <Property name="verticalGap" type="int" value="3"/>
           </Layout>
           <SubComponents>
@@ -62,6 +62,11 @@
             <Component class="javax.swing.JLabel" name="jLabel2">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Settings: F2"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel22">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Help: F3"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel3">

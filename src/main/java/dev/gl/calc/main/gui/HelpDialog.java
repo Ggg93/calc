@@ -29,6 +29,7 @@ public class HelpDialog extends javax.swing.JDialog {
         menuPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -63,13 +64,16 @@ public class HelpDialog extends javax.swing.JDialog {
         upperPanel.setLayout(new javax.swing.BoxLayout(upperPanel, javax.swing.BoxLayout.PAGE_AXIS));
 
         menuPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Menu shortcuts"));
-        menuPanel.setLayout(new java.awt.GridLayout(8, 1, 0, 3));
+        menuPanel.setLayout(new java.awt.GridLayout(9, 1, 0, 3));
 
         jLabel1.setText("About: F1");
         menuPanel.add(jLabel1);
 
         jLabel2.setText("Settings: F2");
         menuPanel.add(jLabel2);
+
+        jLabel22.setText("Help: F3");
+        menuPanel.add(jLabel22);
 
         jLabel3.setText("Save: Ctrl+S");
         menuPanel.add(jLabel3);
@@ -169,6 +173,7 @@ public class HelpDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
