@@ -17,6 +17,7 @@ import dev.gl.calc.memory.ClearMemoryAction;
 import dev.gl.calc.memory.Memory;
 import dev.gl.calc.memory.RecallMemoryAction;
 import dev.gl.calc.memory.SubtractMemoryAction;
+import dev.gl.calc.menu.HistoryButtonAction;
 
 /**
  *
@@ -41,6 +42,9 @@ public class ButtonActions {
     public SubtractMemoryAction subtractMemoryAction;
     public RecallMemoryAction recallMemoryAction;
     public ClearMemoryAction clearMemoryAction;
+    
+    // other
+    public HistoryButtonAction historyButtonAction;
 
     public ButtonActions(MainWindow mw, int lengthLimit, Memory memory) {
         digitPressedAction = new DigitPressedAction(mw, lengthLimit);
@@ -60,6 +64,9 @@ public class ButtonActions {
         subtractMemoryAction = new SubtractMemoryAction(mw, memory);
         recallMemoryAction = new RecallMemoryAction(mw, memory);
         clearMemoryAction = new ClearMemoryAction(mw, memory);
+        
+        // other
+        historyButtonAction = new HistoryButtonAction(mw);
     }
 
 }

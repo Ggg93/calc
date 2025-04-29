@@ -7,6 +7,7 @@ import dev.gl.calc.main.enums.CalculatorState;
 import dev.gl.calc.memory.Memory;
 import dev.gl.calc.menu.AboutButtonActionListener;
 import dev.gl.calc.menu.ExitButtonActionListener;
+import dev.gl.calc.menu.HistoryButtonActionListener;
 import dev.gl.calc.menu.SaveHistoryActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
@@ -424,6 +425,7 @@ public class MainWindow extends javax.swing.JFrame {
         this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_Q, InputEvent.CTRL_DOWN_MASK), "memory_subtract");
         this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_R, InputEvent.CTRL_DOWN_MASK), "memory_recall");
         this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_L, InputEvent.CTRL_DOWN_MASK), "memory_clear");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_H, InputEvent.CTRL_DOWN_MASK), "history");
 
         this.getRootPane().getActionMap().put("digit", buttonActions.digitPressedAction);
         this.getRootPane().getActionMap().put("back_space", buttonActions.backspacePressedAction);
@@ -440,6 +442,7 @@ public class MainWindow extends javax.swing.JFrame {
         this.getRootPane().getActionMap().put("memory_subtract", buttonActions.subtractMemoryAction);
         this.getRootPane().getActionMap().put("memory_recall", buttonActions.recallMemoryAction);
         this.getRootPane().getActionMap().put("memory_clear", buttonActions.clearMemoryAction);
+        this.getRootPane().getActionMap().put("history", buttonActions.historyButtonAction);
     }
 
     private void bindActionsToButtons() {
@@ -495,6 +498,7 @@ public class MainWindow extends javax.swing.JFrame {
         exitMenuItem.addActionListener(new ExitButtonActionListener());
         aboutMenuItem.addActionListener(new AboutButtonActionListener(this));
         saveMenuItem.addActionListener(new SaveHistoryActionListener(this));
+        historyMenu.addMouseListener(new HistoryButtonActionListener(this));
     }
 
     public Operation getOperation() {
