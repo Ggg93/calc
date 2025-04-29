@@ -2,6 +2,7 @@ package dev.gl.calc.main.gui;
 
 import dev.gl.calc.Configuration;
 import dev.gl.calc.main.actions.SettingsOkButtonAction;
+import dev.gl.calc.main.enums.HistorySortingOrder;
 import java.awt.event.KeyEvent;
 import java.math.RoundingMode;
 import javax.swing.AbstractAction;
@@ -17,12 +18,16 @@ import javax.swing.text.PlainDocument;
 public class SettingsDialog extends javax.swing.JDialog {
 
     private AbstractAction okButtonAction;
+    private MainWindow mw;
 
     public SettingsDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        this.mw = (MainWindow) parent;
+        
         initComponents();
         initScaleTextField();
         initRoundingModeComboBox();
+        initSortingOrderComboBox();
         this.setLocationRelativeTo(null);
         initListeners();
         bindKeyListenersToOkButton();
@@ -40,7 +45,7 @@ public class SettingsDialog extends javax.swing.JDialog {
         roundingModeComboBox = new javax.swing.JComboBox();
         IOPanel = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        SortingOrderComboBox = new javax.swing.JComboBox<>();
+        SortingOrderComboBox = new javax.swing.JComboBox();
         GUIPanel = new javax.swing.JPanel();
         soundCheckBox = new javax.swing.JCheckBox();
         DebuggingPanel = new javax.swing.JPanel();
@@ -77,7 +82,7 @@ public class SettingsDialog extends javax.swing.JDialog {
         jLabel3.setText("Sorting order of operations:");
         IOPanel.add(jLabel3);
 
-        SortingOrderComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        SortingOrderComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         IOPanel.add(SortingOrderComboBox);
 
         upperPanel.add(IOPanel);
@@ -141,7 +146,7 @@ public class SettingsDialog extends javax.swing.JDialog {
     private javax.swing.JPanel DebuggingPanel;
     private javax.swing.JPanel GUIPanel;
     private javax.swing.JPanel IOPanel;
-    private javax.swing.JComboBox<String> SortingOrderComboBox;
+    private javax.swing.JComboBox SortingOrderComboBox;
     private javax.swing.JPanel bottomPanel;
     private javax.swing.JPanel calculationsPanel;
     private javax.swing.JLabel jLabel1;
@@ -156,7 +161,7 @@ public class SettingsDialog extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     private void initListeners() {
-        okButtonAction = new SettingsOkButtonAction(this);
+        okButtonAction = new SettingsOkButtonAction(this, mw);
         okButton.addActionListener(okButtonAction);
     }
 
@@ -193,6 +198,16 @@ public class SettingsDialog extends javax.swing.JDialog {
     
     public RoundingMode getRoundingMode() {
         return (RoundingMode) roundingModeComboBox.getSelectedItem();
+    }
+    
+    private void initSortingOrderComboBox() {
+        DefaultComboBoxModel<HistorySortingOrder> model = new DefaultComboBoxModel<>(HistorySortingOrder.values());
+        SortingOrderComboBox.setModel(model);
+        SortingOrderComboBox.setSelectedItem(Configuration.sortingOrder);
+    }
+    
+    public HistorySortingOrder getSortingOrder() {
+        return (HistorySortingOrder) SortingOrderComboBox.getSelectedItem();
     }
 
     
