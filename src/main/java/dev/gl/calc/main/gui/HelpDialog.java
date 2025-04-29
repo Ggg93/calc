@@ -15,7 +15,7 @@ public class HelpDialog extends javax.swing.JDialog {
 
     public HelpDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        this.setLocationRelativeTo(parent);
+        this.setLocationRelativeTo(null);
         initComponents();
         initListeners();
         bindKeyListenersToOkButton();

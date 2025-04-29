@@ -1,8 +1,9 @@
 package dev.gl.calc.main.gui;
 
 import dev.gl.calc.ButtonActions;
-import dev.gl.calc.HelpButtonActionListener;
+import dev.gl.calc.main.actions.HelpButtonActionListener;
 import dev.gl.calc.Operation;
+import dev.gl.calc.main.actions.SettingsButtonActionListener;
 import dev.gl.calc.menu.History;
 import dev.gl.calc.main.enums.CalculatorState;
 import dev.gl.calc.memory.Memory;
@@ -511,6 +512,7 @@ public class MainWindow extends javax.swing.JFrame {
         saveMenuItem.addActionListener(new SaveHistoryActionListener(this));
         historyMenu.addMouseListener(new HistoryButtonActionListener(this));
         helpMenuItem.addActionListener(new HelpButtonActionListener(this));
+        settingsMenuItem.addActionListener(new SettingsButtonActionListener(this));
     }
 
     public Operation getOperation() {

@@ -1,4 +1,4 @@
-package dev.gl.calc;
+package dev.gl.calc.main.actions;
 
 import dev.gl.calc.main.gui.HelpDialog;
 import dev.gl.calc.main.gui.MainWindow;
