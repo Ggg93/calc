@@ -486,7 +486,7 @@ public class MainWindow extends javax.swing.JFrame {
         calculatorState = CalculatorState.OK;
         operation = new Operation(this);
         memory = new Memory(this);
-        history = new History();
+        history = new History(this);
         fileChooser = new JFileChooser();
         
         buttonActions = new ButtonActions(this, OPERAND_LENGTH_LIMIT, memory);

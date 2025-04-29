@@ -31,6 +31,13 @@ public class AboutDialog extends javax.swing.JDialog {
                                                         <a href="https://icons8.com">Icons8</a>
                                                         </html>
                                                         """;
+    private static final String CLEAR_HISTORY_LINK = "https://icons8.com/icon/47576/broom";
+    private static final String CLEAR_HISTORY_IMAGE_LINK = """
+                                                        <html>
+                                                        <a href="https://icons8.com/icon/47576/broom">Clear</a> 
+                                                        icon by <a  href="https://icons8.com">Icons8</a>
+                                                        </html>
+                                                        """;
     private Properties properties;
     private OkButtonActionForDialogs okButtonAction;
 
@@ -59,19 +66,22 @@ public class AboutDialog extends javax.swing.JDialog {
         nameLabel = new javax.swing.JLabel();
         versionLabel = new javax.swing.JLabel();
         upperInfoSubpanel = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
+        homeLinkPanel = new javax.swing.JPanel();
         homeLabel = new javax.swing.JLabel();
         homeLinkLabel = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
         creditsLabel = new javax.swing.JLabel();
         creditsLinkLabel = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        clearHistoryLinkLabel = new javax.swing.JLabel();
         bottomPanel = new javax.swing.JPanel();
         okButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("About");
-        setMinimumSize(new java.awt.Dimension(400, 220));
-        setPreferredSize(new java.awt.Dimension(400, 220));
+        setMinimumSize(new java.awt.Dimension(400, 240));
+        setPreferredSize(new java.awt.Dimension(400, 240));
         setResizable(false);
 
         upperPanel.setLayout(new java.awt.BorderLayout());
@@ -91,23 +101,36 @@ public class AboutDialog extends javax.swing.JDialog {
 
         upperPanel.add(upperMainSubpanel, java.awt.BorderLayout.NORTH);
 
-        upperInfoSubpanel.setLayout(new java.awt.GridLayout(2, 2));
+        upperInfoSubpanel.setLayout(new javax.swing.BoxLayout(upperInfoSubpanel, javax.swing.BoxLayout.PAGE_AXIS));
 
-        jPanel1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+        homeLinkPanel.setMinimumSize(new java.awt.Dimension(191, 20));
+        homeLinkPanel.setPreferredSize(new java.awt.Dimension(191, 20));
+        homeLinkPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
         homeLabel.setText("Home: ");
-        jPanel1.add(homeLabel);
+        homeLinkPanel.add(homeLabel);
 
         homeLinkLabel.setText("https://github.com/Ggg93");
-        jPanel1.add(homeLinkLabel);
+        homeLinkPanel.add(homeLinkLabel);
 
-        upperInfoSubpanel.add(jPanel1);
+        upperInfoSubpanel.add(homeLinkPanel);
 
-        jPanel2.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+        jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.PAGE_AXIS));
+
+        jPanel3.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
         creditsLabel.setText("Credits: ");
-        jPanel2.add(creditsLabel);
-        jPanel2.add(creditsLinkLabel);
+        jPanel3.add(creditsLabel);
+        jPanel3.add(creditsLinkLabel);
+
+        jPanel2.add(jPanel3);
+
+        jPanel4.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+
+        clearHistoryLinkLabel.setText("jLabel1");
+        jPanel4.add(clearHistoryLinkLabel);
+
+        jPanel2.add(jPanel4);
 
         upperInfoSubpanel.add(jPanel2);
 
@@ -128,12 +151,15 @@ public class AboutDialog extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bottomPanel;
+    private javax.swing.JLabel clearHistoryLinkLabel;
     private javax.swing.JLabel creditsLabel;
     private javax.swing.JLabel creditsLinkLabel;
     private javax.swing.JLabel homeLabel;
     private javax.swing.JLabel homeLinkLabel;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel homeLinkPanel;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel logoPanel;
     private javax.swing.JPanel nameAndVersionSubpanel;
     private javax.swing.JLabel nameLabel;
@@ -163,7 +189,7 @@ public class AboutDialog extends javax.swing.JDialog {
             e.printStackTrace(System.err);
         }
     }
-    
+
     private void addName() {
         nameLabel.setText(properties.getProperty("name"));
     }
@@ -171,7 +197,7 @@ public class AboutDialog extends javax.swing.JDialog {
     private void addVersion() {
         versionLabel.setText("Version: " + properties.getProperty("version"));
     }
-    
+
     private void addHomeLink() {
         homeLinkLabel.setText("<html><a href=\"\">" + HOME_LINK + "</a></html>");
         homeLinkLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -188,6 +214,8 @@ public class AboutDialog extends javax.swing.JDialog {
     }
 
     private void addCreditsLink() {
+        
+        // calculator
         creditsLinkLabel.setText(CALCULATOR_IMAGE_LINK);
         creditsLinkLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
         creditsLinkLabel.addMouseListener(new MouseAdapter() {
@@ -200,18 +228,32 @@ public class AboutDialog extends javax.swing.JDialog {
                 }
             }
         });
+        
+        // clearing history
+        clearHistoryLinkLabel.setText(CLEAR_HISTORY_IMAGE_LINK);
+        clearHistoryLinkLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        clearHistoryLinkLabel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                try {
+                    Desktop.getDesktop().browse(new URI(CLEAR_HISTORY_LINK));
+                } catch (Exception ex) {
+                    ex.printStackTrace(System.err);
+                }
+            }
+        });
     }
 
     private void bindKeyListenersToOkButton() {
         this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "ok");
         this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "ok");
         this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0), "ok");
-        
+
         this.getRootPane().getActionMap().put("ok", okButtonAction);
     }
 
     private void initListeners() {
-        
+
         okButtonAction = new OkButtonActionForDialogs(this);
         okButton.addActionListener(okButtonAction);
     }

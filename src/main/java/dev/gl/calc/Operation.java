@@ -121,10 +121,10 @@ public class Operation implements Comparable<Operation>{
     public String printForHistory() {
         StringBuilder sb = new StringBuilder();
         sb.append(id).append(": ")
-                .append(operandLeft).append(" ")
+                .append(NumberFormatter.format(operandLeft, OperationStage.USING_OPERATORS)).append(" ")
                 .append(operator.getCharacter()).append(" ")
-                .append(operandRight).append(" = ")
-                .append(result);
+                .append(NumberFormatter.format(operandRight, OperationStage.USING_OPERATORS)).append(" = ")
+                .append(NumberFormatter.format(result.toString(), OperationStage.USING_OPERATORS));
         return sb.toString();
     }
 
@@ -143,6 +143,10 @@ public class Operation implements Comparable<Operation>{
     @Override
     public int compareTo(Operation o) {
         return this.id > o.id ? 1 : -1;
+    }
+    
+    public void resetCounter() {
+        counter = 0;
     }
 
 }
