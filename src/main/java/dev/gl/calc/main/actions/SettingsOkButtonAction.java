@@ -28,6 +28,9 @@ public class SettingsOkButtonAction extends AbstractAction {
         // changing sorting order for the shistory of operations
         Configuration.sortingOrder = parent.getSortingOrder();
         mw.getHistory().changeSortingOrderIfNecessary();
+        
+        // blocking 'equals' button if wrong state occured
+        Configuration.blockEqualsIfWrongStateOccured = parent.shouldEqualsButtonBeBlockedIfWrongStateOccured();
 
         // closing parent
         parent.dispose();

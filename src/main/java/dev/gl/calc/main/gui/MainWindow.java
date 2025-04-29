@@ -1,6 +1,7 @@
 package dev.gl.calc.main.gui;
 
 import dev.gl.calc.ButtonActions;
+import dev.gl.calc.Configuration;
 import dev.gl.calc.main.actions.HelpButtonActionListener;
 import dev.gl.calc.Operation;
 import dev.gl.calc.main.actions.SettingsButtonActionListener;
@@ -14,6 +15,7 @@ import dev.gl.calc.menu.SaveHistoryActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.KeyStroke;
@@ -540,7 +542,6 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     private void changeState(boolean isOk) {
-        // memory buttons
         // enabling mc and mr only if there is some value in memory
         if (isOk && memory.getValue() != null) {
             mcButton.setEnabled(true);
@@ -565,6 +566,14 @@ public class MainWindow extends javax.swing.JFrame {
         signButton.setEnabled(isOk);
         decimalButton.setEnabled(isOk);
         percentButton.setEnabled(isOk);
+        
+        if (Configuration.blockEqualsIfWrongStateOccured && !isOk) {
+            equalsButton.setEnabled(false);
+        }
+        
+        if (isOk && !equalsButton.isEnabled()) {
+            equalsButton.setEnabled(true);
+        }
     }
 
     public void changeStateForMemoryButtons(boolean isEnabled) {
@@ -578,6 +587,10 @@ public class MainWindow extends javax.swing.JFrame {
 
     public JFileChooser getFileChooser() {
         return fileChooser;
+    }
+
+    public JButton getEqualsButton() {
+        return equalsButton;
     }
     
 }

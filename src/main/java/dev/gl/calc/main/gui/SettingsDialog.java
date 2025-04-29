@@ -28,6 +28,7 @@ public class SettingsDialog extends javax.swing.JDialog {
         initScaleTextField();
         initRoundingModeComboBox();
         initSortingOrderComboBox();
+        initWrongStateCheckBox();
         this.setLocationRelativeTo(null);
         initListeners();
         bindKeyListenersToOkButton();
@@ -208,6 +209,14 @@ public class SettingsDialog extends javax.swing.JDialog {
     
     public HistorySortingOrder getSortingOrder() {
         return (HistorySortingOrder) SortingOrderComboBox.getSelectedItem();
+    }
+    
+    private void initWrongStateCheckBox() {
+        wrongStateCheckBox.setSelected(Configuration.blockEqualsIfWrongStateOccured);
+    }
+    
+    public Boolean shouldEqualsButtonBeBlockedIfWrongStateOccured() {
+        return wrongStateCheckBox.isSelected();
     }
 
     

@@ -23,6 +23,10 @@ public class EqualsPressedAction extends AbstractAction {
     @Override
     public void actionPerformed(ActionEvent e) {
         
+        if (!mw.getEqualsButton().isEnabled()) {
+            return;
+        }
+        
         if (mw.getCalculatorState() != CalculatorState.OK) {
             mw.getButtonActions().clearPressedAction.actionPerformed(null);
             return;
