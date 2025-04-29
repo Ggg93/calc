@@ -31,6 +31,8 @@ public class AudioPlayer {
             clip.open(ais);
             wrongStateSound = clip;
             
+            ais.close();
+            
         } catch (Exception e) {
             e.printStackTrace(System.err);
         }
