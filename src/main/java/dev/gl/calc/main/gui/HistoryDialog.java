@@ -6,12 +6,14 @@ import java.awt.Insets;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -27,6 +29,7 @@ public class HistoryDialog extends javax.swing.JDialog {
 
     private MainWindow mw;
     private OkButtonActionForDialogs okButtonAction;
+    private AbstractAction clearHistoryAction;
     private DefaultTableModel model;
 
     public HistoryDialog(java.awt.Frame parent, boolean modal) {
@@ -115,33 +118,57 @@ public class HistoryDialog extends javax.swing.JDialog {
                         && table.getSelectedRow() != -1
                         && row != -1) {
                     int modelRow = table.convertRowIndexToModel(row);
-                    
+
                     // find the historical operation
                     String operation = (String) model.getValueAt(modelRow, 0);
                     String idSubstring = operation.substring(0, operation.indexOf(Operation.ID_DELIMETER));
                     Integer operationId = Integer.parseInt(idSubstring);
                     Operation historicalOperation = mw.getHistory().getOperations().get(operationId);
-                    
+
                     // adjusting the active operation, bringing it to state of the historical operation
                     mw.getOperation().operandLeft = historicalOperation.operandLeft;
                     mw.getOperation().operandRight = historicalOperation.operandRight;
                     mw.getOperation().operator = historicalOperation.operator;
                     mw.getOperation().result = historicalOperation.result;
                     mw.updateTextFields();
-                    
+
                     // closing the dialog
                     okButtonAction.actionPerformed(null);
                 }
             }
         });
+
+        // init listener for clearing history button
+        clearHistoryAction = new AbstractAction() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mw.getHistory().clearHistory();
+
+                while (model.getRowCount() > 0) {
+                    model.removeRow(0);
+                }
+            }
+        };
     }
 
     private void bindKeyListenersToOkButton() {
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "ok");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "ok");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0), "ok");
+
+        // ok button
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT)
+                .put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "ok");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT)
+                .put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "ok");
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT)
+                .put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0), "ok");
+
+        // clear history button
+        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT)
+                .put(KeyStroke.getKeyStroke(KeyEvent.VK_D, InputEvent.CTRL_DOWN_MASK
+                        | InputEvent.SHIFT_DOWN_MASK), "clear");
 
         this.getRootPane().getActionMap().put("ok", okButtonAction);
+        this.getRootPane().getActionMap().put("clear", clearHistoryAction);
     }
 
     private void createTableModel() {
@@ -179,8 +206,6 @@ public class HistoryDialog extends javax.swing.JDialog {
                 while (model.getRowCount() > 0) {
                     model.removeRow(0);
                 }
-
-//                model.fireTableDataChanged(); // its strange, but this is not necessary
             }
         });
     }
