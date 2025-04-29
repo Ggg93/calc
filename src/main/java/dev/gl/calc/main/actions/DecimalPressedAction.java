@@ -37,6 +37,7 @@ public class DecimalPressedAction extends AbstractAction {
         sb.append(".");
         operation.setActiveOperand(sb.toString());
         
+        mw.getAudioPlayer().playClickSound();
         mw.updateTextFields();
     }
     

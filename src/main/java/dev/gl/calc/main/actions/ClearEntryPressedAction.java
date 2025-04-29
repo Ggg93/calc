@@ -32,6 +32,8 @@ public class ClearEntryPressedAction extends AbstractAction {
         Operation operation = mw.getOperation();
         if (operation.result == null) {
             mw.getOperation().setActiveOperand("0");
+            
+            mw.getAudioPlayer().playClickSound();
             mw.updateTextFields();
         } else {
             mw.getButtonActions().clearPressedAction.actionPerformed(e);

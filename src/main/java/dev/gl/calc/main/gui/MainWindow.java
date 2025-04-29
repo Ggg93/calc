@@ -1,5 +1,6 @@
 package dev.gl.calc.main.gui;
 
+import dev.gl.calc.AudioPlayer;
 import dev.gl.calc.ButtonActions;
 import dev.gl.calc.Configuration;
 import dev.gl.calc.main.actions.HelpButtonActionListener;
@@ -36,10 +37,12 @@ public class MainWindow extends javax.swing.JFrame {
     private LimitedLengthDocumentFilter docFilter;
     private Memory memory;
     private JFileChooser fileChooser;
+    private AudioPlayer audioPlayer;
 
     public MainWindow() {
         configureFrame();
         initComponents();
+        loadSounds();
         initClassFields();
         configureComponents();
         bindActionsToButtons();
@@ -574,6 +577,10 @@ public class MainWindow extends javax.swing.JFrame {
         if (isOk && !equalsButton.isEnabled()) {
             equalsButton.setEnabled(true);
         }
+        
+        if (!isOk) {
+            audioPlayer.playWrongStateSound();
+        }
     }
 
     public void changeStateForMemoryButtons(boolean isEnabled) {
@@ -591,6 +598,14 @@ public class MainWindow extends javax.swing.JFrame {
 
     public JButton getEqualsButton() {
         return equalsButton;
+    }
+
+    private void loadSounds() {
+        audioPlayer = new AudioPlayer();
+    }
+
+    public AudioPlayer getAudioPlayer() {
+        return audioPlayer;
     }
     
 }

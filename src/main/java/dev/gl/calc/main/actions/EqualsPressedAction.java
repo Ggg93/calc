@@ -50,6 +50,7 @@ public class EqualsPressedAction extends AbstractAction {
             operation.result = new BigDecimal(operation.operandLeft);
         }
 
+        mw.getAudioPlayer().playClickSound();
         mw.updateTextFields();
     }
 

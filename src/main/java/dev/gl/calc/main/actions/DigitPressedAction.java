@@ -47,6 +47,7 @@ public class DigitPressedAction extends AbstractAction {
             mw.getOperation().setActiveOperand(sb.toString());
         }
 
+        mw.getAudioPlayer().playClickSound();
         mw.updateTextFields();
     }
 }

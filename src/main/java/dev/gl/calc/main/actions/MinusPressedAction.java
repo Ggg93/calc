@@ -31,6 +31,7 @@ public class MinusPressedAction extends AbstractAction {
             operation.performOperation(OperatorType.SUBTRACTION);
         }
 
+        mw.getAudioPlayer().playClickSound();
         mw.updateTextFields();
     }
 

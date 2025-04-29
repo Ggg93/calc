@@ -31,6 +31,7 @@ public class PlusPressedAction extends AbstractAction {
             operation.performOperation(OperatorType.ADDITION);
         }
 
+        mw.getAudioPlayer().playClickSound();
         mw.updateTextFields();
     }
 

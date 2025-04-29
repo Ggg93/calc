@@ -59,6 +59,7 @@ public class BackspacePressedAction extends AbstractAction {
         }
         operation.setActiveOperand(sb.toString());
         
+        mw.getAudioPlayer().playClickSound();
         mw.updateTextFields();
     }
 

@@ -31,6 +31,7 @@ public class MultiplyPressedAction extends AbstractAction {
             operation.performOperation(OperatorType.MULTIPLICATION);
         }
 
+        mw.getAudioPlayer().playClickSound();
         mw.updateTextFields();
     }
 

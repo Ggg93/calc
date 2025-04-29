@@ -33,6 +33,7 @@ public class ClearPressedAction extends AbstractAction {
         operation.operandRight = null;
         operation.result = null;
         
+        mw.getAudioPlayer().playClickSound();
         mw.updateTextFields();
     }
 

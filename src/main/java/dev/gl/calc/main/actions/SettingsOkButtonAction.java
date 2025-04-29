@@ -31,6 +31,9 @@ public class SettingsOkButtonAction extends AbstractAction {
         
         // blocking 'equals' button if wrong state occured
         Configuration.blockEqualsIfWrongStateOccured = parent.shouldEqualsButtonBeBlockedIfWrongStateOccured();
+        
+        // updating sound setting
+        Configuration.soundIsOn = parent.isSoundOn();
 
         // closing parent
         parent.dispose();

@@ -29,6 +29,7 @@ public class SettingsDialog extends javax.swing.JDialog {
         initRoundingModeComboBox();
         initSortingOrderComboBox();
         initWrongStateCheckBox();
+        initSoundCheckBox();
         this.setLocationRelativeTo(null);
         initListeners();
         bindKeyListenersToOkButton();
@@ -218,6 +219,12 @@ public class SettingsDialog extends javax.swing.JDialog {
     public Boolean shouldEqualsButtonBeBlockedIfWrongStateOccured() {
         return wrongStateCheckBox.isSelected();
     }
-
     
+    private void initSoundCheckBox() {
+        soundCheckBox.setSelected(Configuration.soundIsOn);
+    }
+    
+    public Boolean isSoundOn() {
+        return soundCheckBox.isSelected();
+    }
 }

@@ -42,6 +42,7 @@ public class SignPressedAction extends AbstractAction {
 
         operation.setActiveOperand(sb.toString());
         
+        mw.getAudioPlayer().playClickSound();
         mw.updateTextFields();
     }
 }

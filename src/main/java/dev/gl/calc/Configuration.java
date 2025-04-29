@@ -12,4 +12,5 @@ public class Configuration {
     public static RoundingMode roundingMode = RoundingMode.HALF_UP;
     public static HistorySortingOrder sortingOrder = HistorySortingOrder.LAST_TO_FIRST;
     public static Boolean blockEqualsIfWrongStateOccured = false;
+    public static Boolean soundIsOn = false;
 }

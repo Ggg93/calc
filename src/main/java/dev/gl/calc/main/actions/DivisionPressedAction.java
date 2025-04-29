@@ -31,6 +31,7 @@ public class DivisionPressedAction extends AbstractAction {
             operation.performOperation(OperatorType.DIVISION);
         }
 
+        mw.getAudioPlayer().playClickSound();
         mw.updateTextFields();
     }
 
