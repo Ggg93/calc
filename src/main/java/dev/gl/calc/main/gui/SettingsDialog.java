@@ -3,7 +3,9 @@ package dev.gl.calc.main.gui;
 import dev.gl.calc.Configuration;
 import dev.gl.calc.main.actions.SettingsOkButtonAction;
 import java.awt.event.KeyEvent;
+import java.math.RoundingMode;
 import javax.swing.AbstractAction;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComponent;
 import javax.swing.KeyStroke;
 import javax.swing.text.PlainDocument;
@@ -20,6 +22,7 @@ public class SettingsDialog extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         initScaleTextField();
+        initRoundingModeComboBox();
         this.setLocationRelativeTo(null);
         initListeners();
         bindKeyListenersToOkButton();
@@ -34,7 +37,7 @@ public class SettingsDialog extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         scaleTextField = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        roundingModeComboBox = new javax.swing.JComboBox<>();
+        roundingModeComboBox = new javax.swing.JComboBox();
         IOPanel = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         SortingOrderComboBox = new javax.swing.JComboBox<>();
@@ -63,7 +66,7 @@ public class SettingsDialog extends javax.swing.JDialog {
         jLabel2.setText("Rounding Mode:");
         calculationsPanel.add(jLabel2);
 
-        roundingModeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        roundingModeComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         calculationsPanel.add(roundingModeComboBox);
 
         upperPanel.add(calculationsPanel);
@@ -145,7 +148,7 @@ public class SettingsDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JButton okButton;
-    private javax.swing.JComboBox<String> roundingModeComboBox;
+    private javax.swing.JComboBox roundingModeComboBox;
     private javax.swing.JTextField scaleTextField;
     private javax.swing.JCheckBox soundCheckBox;
     private javax.swing.JPanel upperPanel;
@@ -172,7 +175,7 @@ public class SettingsDialog extends javax.swing.JDialog {
         PlainDocument pd = (PlainDocument) scaleTextField.getDocument();
         pd.setDocumentFilter(filter);
     }
-
+    
     public Integer getScale() {
         if (scaleTextField.getText().isEmpty()) {
             return Configuration.operationScale;
@@ -181,4 +184,16 @@ public class SettingsDialog extends javax.swing.JDialog {
         }
 
     }
+    
+    private void initRoundingModeComboBox() {
+        DefaultComboBoxModel<RoundingMode> model = new DefaultComboBoxModel<>(RoundingMode.values());
+        roundingModeComboBox.setModel(model);
+        roundingModeComboBox.setSelectedItem(Configuration.roundingMode);
+    }
+    
+    public RoundingMode getRoundingMode() {
+        return (RoundingMode) roundingModeComboBox.getSelectedItem();
+    }
+
+    
 }

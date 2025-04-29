@@ -19,8 +19,8 @@ public class SettingsOkButtonAction extends AbstractAction {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        // update operation scale
         Configuration.operationScale = parent.getScale();
+        Configuration.roundingMode = parent.getRoundingMode();
 
         // closing parent
         parent.dispose();
