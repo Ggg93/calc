@@ -11,8 +11,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -33,7 +31,7 @@ public class HistoryDialog extends javax.swing.JDialog {
 
     public HistoryDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        this.setLocationRelativeTo(null);
+        this.setLocationRelativeTo(parent);
         this.mw = (MainWindow) parent;
         initComponents();
         createTableModel();

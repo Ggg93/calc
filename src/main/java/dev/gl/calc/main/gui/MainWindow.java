@@ -1,6 +1,7 @@
 package dev.gl.calc.main.gui;
 
 import dev.gl.calc.ButtonActions;
+import dev.gl.calc.HelpButtonActionListener;
 import dev.gl.calc.Operation;
 import dev.gl.calc.menu.History;
 import dev.gl.calc.main.enums.CalculatorState;
@@ -86,9 +87,10 @@ public class MainWindow extends javax.swing.JFrame {
         equalsButton = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
         mainMenu = new javax.swing.JMenu();
-        settingsMenuItem = new javax.swing.JMenuItem();
-        saveMenuItem = new javax.swing.JMenuItem();
         aboutMenuItem = new javax.swing.JMenuItem();
+        settingsMenuItem = new javax.swing.JMenuItem();
+        helpMenuItem = new javax.swing.JMenuItem();
+        saveMenuItem = new javax.swing.JMenuItem();
         exitMenuItem = new javax.swing.JMenuItem();
         historyMenu = new javax.swing.JMenu();
         langMenu = new javax.swing.JMenu();
@@ -258,17 +260,23 @@ public class MainWindow extends javax.swing.JFrame {
 
         mainMenu.setText("Main");
 
+        aboutMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
+        aboutMenuItem.setText("About");
+        mainMenu.add(aboutMenuItem);
+
+        settingsMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
         settingsMenuItem.setText("Settings");
         mainMenu.add(settingsMenuItem);
+
+        helpMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F3, 0));
+        helpMenuItem.setText("Help");
+        mainMenu.add(helpMenuItem);
 
         saveMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         saveMenuItem.setText("Save...");
         mainMenu.add(saveMenuItem);
 
-        aboutMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
-        aboutMenuItem.setText("About");
-        mainMenu.add(aboutMenuItem);
-
+        exitMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F12, 0));
         exitMenuItem.setText("Exit");
         mainMenu.add(exitMenuItem);
 
@@ -279,9 +287,11 @@ public class MainWindow extends javax.swing.JFrame {
 
         langMenu.setText("Lang");
 
+        langEnMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_1, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
         langEnMenuItem.setText("En");
         langMenu.add(langEnMenuItem);
 
+        langRuMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_2, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
         langRuMenuItem.setText("Ru");
         langMenu.add(langRuMenuItem);
 
@@ -308,6 +318,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JButton fiveButton;
     private javax.swing.JButton fourButton;
+    private javax.swing.JMenuItem helpMenuItem;
     private javax.swing.JPanel historyDataPanel;
     private javax.swing.JMenu historyMenu;
     private javax.swing.JSplitPane jSplitPane1;
@@ -499,6 +510,7 @@ public class MainWindow extends javax.swing.JFrame {
         aboutMenuItem.addActionListener(new AboutButtonActionListener(this));
         saveMenuItem.addActionListener(new SaveHistoryActionListener(this));
         historyMenu.addMouseListener(new HistoryButtonActionListener(this));
+        helpMenuItem.addActionListener(new HelpButtonActionListener(this));
     }
 
     public Operation getOperation() {
