@@ -1,5 +1,6 @@
 package dev.gl.calc.menu;
 
+import dev.gl.calc.Configuration;
 import dev.gl.calc.main.gui.MainWindow;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -35,8 +36,8 @@ public class SaveHistoryActionListener implements ActionListener {
 
         if (history.getOperations().isEmpty()) {
             JOptionPane.showMessageDialog(mw,
-                    "History of operations is empty. Nothing to save.",
-                    "History Manager",
+                    Configuration.getResourceBundle().getString("history_info_body"),
+                    Configuration.getResourceBundle().getString("history_info_title"),
                     JOptionPane.INFORMATION_MESSAGE);
             return;
         }

@@ -1,5 +1,6 @@
 package dev.gl.calc.main.gui;
 
+import dev.gl.calc.Configuration;
 import dev.gl.calc.main.actions.OkButtonActionForDialogs;
 import java.awt.event.KeyEvent;
 import javax.swing.JComponent;
@@ -55,7 +56,7 @@ public class HelpDialog extends javax.swing.JDialog {
         okButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Help");
+        setTitle(Configuration.getResourceBundle().getString("help_title")); // NOI18N
         setMinimumSize(new java.awt.Dimension(400, 580));
         setPreferredSize(new java.awt.Dimension(400, 580));
         setResizable(false);
@@ -63,83 +64,83 @@ public class HelpDialog extends javax.swing.JDialog {
 
         upperPanel.setLayout(new javax.swing.BoxLayout(upperPanel, javax.swing.BoxLayout.PAGE_AXIS));
 
-        menuPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Menu shortcuts"));
+        menuPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(Configuration.getResourceBundle().getString("help_menu"))); // NOI18N
         menuPanel.setLayout(new java.awt.GridLayout(9, 1, 0, 3));
 
-        jLabel1.setText("About: F1");
+        jLabel1.setText(Configuration.getResourceBundle().getString("help_about")); // NOI18N
         menuPanel.add(jLabel1);
 
-        jLabel2.setText("Settings: F2");
+        jLabel2.setText(Configuration.getResourceBundle().getString("help_settings")); // NOI18N
         menuPanel.add(jLabel2);
 
-        jLabel22.setText("Help: F3");
+        jLabel22.setText(Configuration.getResourceBundle().getString("help_help")); // NOI18N
         menuPanel.add(jLabel22);
 
-        jLabel3.setText("Save: Ctrl+S");
+        jLabel3.setText(Configuration.getResourceBundle().getString("help_save")); // NOI18N
         menuPanel.add(jLabel3);
 
-        jLabel4.setText("Exit: F12");
+        jLabel4.setText(Configuration.getResourceBundle().getString("help_exit")); // NOI18N
         menuPanel.add(jLabel4);
 
-        jLabel5.setText("History: Ctrl+H");
+        jLabel5.setText(Configuration.getResourceBundle().getString("help_history")); // NOI18N
         menuPanel.add(jLabel5);
 
-        jLabel17.setText("Clear History: Ctrl+Shift+D");
+        jLabel17.setText(Configuration.getResourceBundle().getString("help_clear_history")); // NOI18N
         menuPanel.add(jLabel17);
 
-        jLabel6.setText("Switch to English: Ctrl+Shift+1");
+        jLabel6.setText(Configuration.getResourceBundle().getString("help_en")); // NOI18N
         menuPanel.add(jLabel6);
 
-        jLabel7.setText("Switch to Russian: Ctrl+Shift+2");
+        jLabel7.setText(Configuration.getResourceBundle().getString("help_ru")); // NOI18N
         menuPanel.add(jLabel7);
 
         upperPanel.add(menuPanel);
 
-        memoryPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Memory shortcuts"));
+        memoryPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(Configuration.getResourceBundle().getString("help_memory"))); // NOI18N
         memoryPanel.setLayout(new java.awt.GridLayout(4, 1, 0, 3));
 
-        jLabel8.setText("Memory Add: Ctrl+P");
+        jLabel8.setText(Configuration.getResourceBundle().getString("help_memory_add")); // NOI18N
         memoryPanel.add(jLabel8);
 
-        jLabel9.setText("Memory Subtract: Ctrl+Q");
+        jLabel9.setText(Configuration.getResourceBundle().getString("help_memory_subtract")); // NOI18N
         memoryPanel.add(jLabel9);
 
-        jLabel10.setText("Memory Recall: Ctrl+R");
+        jLabel10.setText(Configuration.getResourceBundle().getString("help_memory_recall")); // NOI18N
         memoryPanel.add(jLabel10);
 
-        jLabel11.setText("Memory Clear: Ctrl+L");
+        jLabel11.setText(Configuration.getResourceBundle().getString("help_memory_clear")); // NOI18N
         memoryPanel.add(jLabel11);
 
         upperPanel.add(memoryPanel);
 
-        operatorsPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Operators shortcuts"));
+        operatorsPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(Configuration.getResourceBundle().getString("help_operators"))); // NOI18N
         operatorsPanel.setLayout(new java.awt.GridLayout(9, 1, 0, 3));
 
-        jLabel12.setText("Equals: Enter");
+        jLabel12.setText(Configuration.getResourceBundle().getString("help_operators_equals")); // NOI18N
         operatorsPanel.add(jLabel12);
 
-        jLabel13.setText("Change sign: F9");
+        jLabel13.setText(Configuration.getResourceBundle().getString("help_operators_sign")); // NOI18N
         operatorsPanel.add(jLabel13);
 
-        jLabel14.setText("DEL: Backspace");
+        jLabel14.setText(Configuration.getResourceBundle().getString("help_operators_del")); // NOI18N
         operatorsPanel.add(jLabel14);
 
-        jLabel15.setText("CE: Delete");
+        jLabel15.setText(Configuration.getResourceBundle().getString("help_operators_ce")); // NOI18N
         operatorsPanel.add(jLabel15);
 
-        jLabel16.setText("C: Escape");
+        jLabel16.setText(Configuration.getResourceBundle().getString("help_operators_c")); // NOI18N
         operatorsPanel.add(jLabel16);
 
-        jLabel18.setText("Percent: Shift+5");
+        jLabel18.setText(Configuration.getResourceBundle().getString("help_operators_percent")); // NOI18N
         operatorsPanel.add(jLabel18);
 
-        jLabel21.setText("1/x: R");
+        jLabel21.setText(Configuration.getResourceBundle().getString("help_operators_1x")); // NOI18N
         operatorsPanel.add(jLabel21);
 
-        jLabel19.setText("x^2: Q");
+        jLabel19.setText(Configuration.getResourceBundle().getString("help_operators_power")); // NOI18N
         operatorsPanel.add(jLabel19);
 
-        jLabel20.setText("2√x: Shift+2");
+        jLabel20.setText(Configuration.getResourceBundle().getString("help_operators_root")); // NOI18N
         operatorsPanel.add(jLabel20);
 
         upperPanel.add(operatorsPanel);

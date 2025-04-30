@@ -1,5 +1,6 @@
 package dev.gl.calc.main.gui;
 
+import dev.gl.calc.Configuration;
 import dev.gl.calc.main.actions.OkButtonActionForDialogs;
 import java.awt.Cursor;
 import java.awt.Desktop;
@@ -79,7 +80,7 @@ public class AboutDialog extends javax.swing.JDialog {
         okButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("About");
+        setTitle(Configuration.getResourceBundle().getString("about_title")); // NOI18N
         setMinimumSize(new java.awt.Dimension(400, 240));
         setPreferredSize(new java.awt.Dimension(400, 240));
         setResizable(false);
@@ -107,7 +108,7 @@ public class AboutDialog extends javax.swing.JDialog {
         homeLinkPanel.setPreferredSize(new java.awt.Dimension(191, 20));
         homeLinkPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
-        homeLabel.setText("Home: ");
+        homeLabel.setText(Configuration.getResourceBundle().getString("about_home")); // NOI18N
         homeLinkPanel.add(homeLabel);
 
         homeLinkLabel.setText("https://github.com/Ggg93");
@@ -119,7 +120,7 @@ public class AboutDialog extends javax.swing.JDialog {
 
         jPanel3.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
-        creditsLabel.setText("Credits: ");
+        creditsLabel.setText(Configuration.getResourceBundle().getString("about_credits")); // NOI18N
         jPanel3.add(creditsLabel);
         jPanel3.add(creditsLinkLabel);
 
@@ -195,7 +196,8 @@ public class AboutDialog extends javax.swing.JDialog {
     }
 
     private void addVersion() {
-        versionLabel.setText("Version: " + properties.getProperty("version"));
+        versionLabel.setText(Configuration.getResourceBundle().getString("about_version") 
+                + ": " + properties.getProperty("version"));
     }
 
     private void addHomeLink() {

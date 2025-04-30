@@ -3,7 +3,9 @@
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
-    <Property name="title" type="java.lang.String" value="Settings"/>
+    <Property name="title" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+      <ResourceString bundle="dict.properties" key="settings_title" replaceFormat="Configuration.getResourceBundle().getString(&quot;{key}&quot;)"/>
+    </Property>
     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
       <Dimension value="[400, 300]"/>
     </Property>
@@ -40,7 +42,9 @@
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                <TitledBorder title="Calculations"/>
+                <TitledBorder title="Calculations">
+                  <ResourceString PropertyName="titleX" bundle="dict.properties" key="settings_calculations" replaceFormat="Configuration.getResourceBundle().getString(&quot;{key}&quot;)"/>
+                </TitledBorder>
               </Border>
             </Property>
           </Properties>
@@ -53,14 +57,18 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="jLabel1">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Scale:"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="dict.properties" key="settings_scale" replaceFormat="Configuration.getResourceBundle().getString(&quot;{key}&quot;)"/>
+                </Property>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="scaleTextField">
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel2">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Rounding Mode:"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="dict.properties" key="settings_rm" replaceFormat="Configuration.getResourceBundle().getString(&quot;{key}&quot;)"/>
+                </Property>
               </Properties>
             </Component>
             <Component class="javax.swing.JComboBox" name="roundingModeComboBox">
@@ -84,7 +92,9 @@
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                <TitledBorder title="I/O"/>
+                <TitledBorder title="I/O">
+                  <ResourceString PropertyName="titleX" bundle="dict.properties" key="settings_io" replaceFormat="Configuration.getResourceBundle().getString(&quot;{key}&quot;)"/>
+                </TitledBorder>
               </Border>
             </Property>
           </Properties>
@@ -97,7 +107,9 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="jLabel3">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Sorting order of operations:"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="dict.properties" key="settings_sorting_order" replaceFormat="Configuration.getResourceBundle().getString(&quot;{key}&quot;)"/>
+                </Property>
               </Properties>
             </Component>
             <Component class="javax.swing.JComboBox" name="SortingOrderComboBox">
@@ -121,7 +133,9 @@
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                <TitledBorder title="GUI"/>
+                <TitledBorder title="GUI">
+                  <ResourceString PropertyName="titleX" bundle="dict.properties" key="settings_gui" replaceFormat="Configuration.getResourceBundle().getString(&quot;{key}&quot;)"/>
+                </TitledBorder>
               </Border>
             </Property>
           </Properties>
@@ -148,7 +162,9 @@
           <SubComponents>
             <Component class="javax.swing.JCheckBox" name="soundCheckBox">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Turn on/off sound"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="dict.properties" key="settings_sound" replaceFormat="Configuration.getResourceBundle().getString(&quot;{key}&quot;)"/>
+                </Property>
               </Properties>
             </Component>
           </SubComponents>
@@ -157,7 +173,9 @@
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                <TitledBorder title="Debugging"/>
+                <TitledBorder title="Debugging">
+                  <ResourceString PropertyName="titleX" bundle="dict.properties" key="settings_debugging" replaceFormat="Configuration.getResourceBundle().getString(&quot;{key}&quot;)"/>
+                </TitledBorder>
               </Border>
             </Property>
           </Properties>
@@ -184,7 +202,9 @@
           <SubComponents>
             <Component class="javax.swing.JCheckBox" name="wrongStateCheckBox">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Block &apos;Equals&apos; button if wrong state occurs"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="dict.properties" key="settings_equals_button" replaceFormat="Configuration.getResourceBundle().getString(&quot;{key}&quot;)"/>
+                </Property>
               </Properties>
             </Component>
           </SubComponents>

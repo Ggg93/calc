@@ -1,5 +1,6 @@
 package dev.gl.calc.main.gui;
 
+import dev.gl.calc.Configuration;
 import dev.gl.calc.Operation;
 import dev.gl.calc.main.actions.OkButtonActionForDialogs;
 import java.awt.Insets;
@@ -56,7 +57,7 @@ public class HistoryDialog extends javax.swing.JDialog {
         okButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("History");
+        setTitle(Configuration.getResourceBundle().getString("history_title")); // NOI18N
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.PAGE_AXIS));
 
         upperPanel.setLayout(new javax.swing.BoxLayout(upperPanel, javax.swing.BoxLayout.PAGE_AXIS));
@@ -175,7 +176,8 @@ public class HistoryDialog extends javax.swing.JDialog {
         List<Operation> operations = new ArrayList<>(mw.getHistory().getOperations().values());
 //        Collections.reverse(operations);
 
-        model = new DefaultTableModel(new Object[]{"Operation"},
+        model = new DefaultTableModel(new Object[]{Configuration.getResourceBundle()
+                .getString("history_table_column")},
                 operations.size()) {
 
             // disabling cell editing 

@@ -56,21 +56,21 @@ public class SettingsDialog extends javax.swing.JDialog {
         okButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Settings");
+        setTitle(Configuration.getResourceBundle().getString("settings_title")); // NOI18N
         setMinimumSize(new java.awt.Dimension(400, 300));
         setResizable(false);
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.PAGE_AXIS));
 
         upperPanel.setLayout(new javax.swing.BoxLayout(upperPanel, javax.swing.BoxLayout.PAGE_AXIS));
 
-        calculationsPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Calculations"));
+        calculationsPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(Configuration.getResourceBundle().getString("settings_calculations"))); // NOI18N
         calculationsPanel.setLayout(new java.awt.GridLayout(2, 2, 0, 5));
 
-        jLabel1.setText("Scale:");
+        jLabel1.setText(Configuration.getResourceBundle().getString("settings_scale")); // NOI18N
         calculationsPanel.add(jLabel1);
         calculationsPanel.add(scaleTextField);
 
-        jLabel2.setText("Rounding Mode:");
+        jLabel2.setText(Configuration.getResourceBundle().getString("settings_rm")); // NOI18N
         calculationsPanel.add(jLabel2);
 
         roundingModeComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -78,10 +78,10 @@ public class SettingsDialog extends javax.swing.JDialog {
 
         upperPanel.add(calculationsPanel);
 
-        IOPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("I/O"));
+        IOPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(Configuration.getResourceBundle().getString("settings_io"))); // NOI18N
         IOPanel.setLayout(new java.awt.GridLayout(1, 2, 0, 5));
 
-        jLabel3.setText("Sorting order of operations:");
+        jLabel3.setText(Configuration.getResourceBundle().getString("settings_sorting_order")); // NOI18N
         IOPanel.add(jLabel3);
 
         SortingOrderComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -89,9 +89,9 @@ public class SettingsDialog extends javax.swing.JDialog {
 
         upperPanel.add(IOPanel);
 
-        GUIPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("GUI"));
+        GUIPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(Configuration.getResourceBundle().getString("settings_gui"))); // NOI18N
 
-        soundCheckBox.setText("Turn on/off sound");
+        soundCheckBox.setText(Configuration.getResourceBundle().getString("settings_sound")); // NOI18N
 
         javax.swing.GroupLayout GUIPanelLayout = new javax.swing.GroupLayout(GUIPanel);
         GUIPanel.setLayout(GUIPanelLayout);
@@ -111,9 +111,9 @@ public class SettingsDialog extends javax.swing.JDialog {
 
         upperPanel.add(GUIPanel);
 
-        DebuggingPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Debugging"));
+        DebuggingPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(Configuration.getResourceBundle().getString("settings_debugging"))); // NOI18N
 
-        wrongStateCheckBox.setText("Block 'Equals' button if wrong state occurs");
+        wrongStateCheckBox.setText(Configuration.getResourceBundle().getString("settings_equals_button")); // NOI18N
 
         javax.swing.GroupLayout DebuggingPanelLayout = new javax.swing.GroupLayout(DebuggingPanel);
         DebuggingPanel.setLayout(DebuggingPanelLayout);
