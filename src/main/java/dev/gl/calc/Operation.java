@@ -41,6 +41,8 @@ public class Operation implements Comparable<Operation> {
     public Operation(Operation operation) {
         this.operandLeft = operation.operandLeft;
         this.operandRight = operation.operandRight;
+        this.operandLeftModificators = new ArrayList<>(operation.operandLeftModificators);
+        this.operandRightModificators = new ArrayList<>(operation.operandRightModificators);
         this.result = operation.result;
         this.operator = operation.operator;
         this.id = operation.id;
@@ -87,10 +89,11 @@ public class Operation implements Comparable<Operation> {
         result = calculationResult;
         id = ++counter;
         Operation finalizedOperation = new Operation(this);
-//        mw.getHistory().getOperations().add(finalizedOperation);
         mw.getHistory().getOperations().put(id, finalizedOperation);
 
         if (nextOperationType != null) {
+            operandLeftModificators.clear();
+            operandRightModificators.clear();
             operandLeft = result.toString();
             operandRight = null;
             result = null;
