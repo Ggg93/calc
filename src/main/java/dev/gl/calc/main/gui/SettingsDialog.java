@@ -3,6 +3,7 @@ package dev.gl.calc.main.gui;
 import dev.gl.calc.Configuration;
 import dev.gl.calc.main.actions.SettingsOkButtonAction;
 import dev.gl.calc.main.enums.HistorySortingOrder;
+import dev.gl.calc.main.enums.RoundingModeLocalized;
 import java.awt.event.KeyEvent;
 import java.math.RoundingMode;
 import javax.swing.AbstractAction;
@@ -193,13 +194,13 @@ public class SettingsDialog extends javax.swing.JDialog {
     }
     
     private void initRoundingModeComboBox() {
-        DefaultComboBoxModel<RoundingMode> model = new DefaultComboBoxModel<>(RoundingMode.values());
+        DefaultComboBoxModel<RoundingModeLocalized> model = new DefaultComboBoxModel<>(RoundingModeLocalized.values());
         roundingModeComboBox.setModel(model);
-        roundingModeComboBox.setSelectedItem(Configuration.roundingMode);
+        roundingModeComboBox.setSelectedItem(RoundingModeLocalized.getValueByRoundingMode(Configuration.roundingMode));
     }
     
     public RoundingMode getRoundingMode() {
-        return (RoundingMode) roundingModeComboBox.getSelectedItem();
+        return ((RoundingModeLocalized) roundingModeComboBox.getSelectedItem()).getRoundingMode();
     }
     
     private void initSortingOrderComboBox() {
