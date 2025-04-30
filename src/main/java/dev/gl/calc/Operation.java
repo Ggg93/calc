@@ -20,7 +20,7 @@ public class Operation implements Comparable<Operation> {
     private static final BigDecimal MAX_VALUE = new BigDecimal("9.9E9999");
     private static final BigDecimal ONE_HUNDRED = new BigDecimal(100);
     private static int counter = 0;
-    
+
     public int id;
     public String operandLeft;
     public String operandRight;
@@ -29,14 +29,17 @@ public class Operation implements Comparable<Operation> {
     public List<ModificationType> operandLeftModificators = new ArrayList<>();
     public List<ModificationType> operandRightModificators = new ArrayList<>();
     public OperationStage stage;
-    
+
+    private String initialValueOperandLeft;
+    private String initialValueOperandRight;
+
     private MainWindow mw;
 
     public Operation(MainWindow mw) {
         this.mw = mw;
 
         this.stage = OperationStage.TYPING_NUMBER;
-        operandLeft = "0";
+        setActiveOperand("0"); // it is operandLeft
     }
 
     public Operation(Operation operation) {
@@ -105,7 +108,8 @@ public class Operation implements Comparable<Operation> {
     public void performModification(ModificationType type) {
         String activeOperand = getActiveOperand();
         if (activeOperand == null) {
-            activeOperand = "0";
+            setActiveOperand("0");
+            activeOperand = getActiveOperand();
         }
 
         BigDecimal operand = new BigDecimal(activeOperand);
@@ -221,8 +225,14 @@ public class Operation implements Comparable<Operation> {
 
     public void setActiveOperand(String newValue) {
         if (operator != null) {
+            if (operandRight == null) {
+                initialValueOperandRight = newValue;
+            }
             operandRight = newValue;
         } else {
+            if (operandLeft == null) {
+                initialValueOperandLeft = newValue;
+            }
             operandLeft = newValue;
         }
     }
