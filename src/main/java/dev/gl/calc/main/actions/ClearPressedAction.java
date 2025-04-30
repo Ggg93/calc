@@ -5,6 +5,7 @@ import dev.gl.calc.main.enums.CalculatorState;
 import dev.gl.calc.main.enums.OperationStage;
 import dev.gl.calc.main.gui.MainWindow;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 import javax.swing.AbstractAction;
 
 /**
@@ -28,10 +29,16 @@ public class ClearPressedAction extends AbstractAction {
             mw.setCalculatorState(CalculatorState.OK);
         }
         Operation operation = mw.getOperation();
-        operation.operandLeft = "0";
+        operation.operandLeft = null;
         operation.operator = null;
         operation.operandRight = null;
         operation.result = null;
+        operation.initialValueOperandLeft = null;
+        operation.initialValueOperandRight = null;
+        operation.operandLeftModificators = new ArrayList<>();
+        operation.operandRightModificators = new ArrayList<>();
+        
+        operation.setActiveOperand("0");
         
         mw.getAudioPlayer().playClickSound();
         mw.updateTextFields();

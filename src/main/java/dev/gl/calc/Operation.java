@@ -29,9 +29,8 @@ public class Operation implements Comparable<Operation> {
     public List<ModificationType> operandLeftModificators = new ArrayList<>();
     public List<ModificationType> operandRightModificators = new ArrayList<>();
     public OperationStage stage;
-
-    private String initialValueOperandLeft;
-    private String initialValueOperandRight;
+    public String initialValueOperandLeft;
+    public String initialValueOperandRight;
 
     private MainWindow mw;
 
@@ -99,6 +98,8 @@ public class Operation implements Comparable<Operation> {
             operandLeftModificators.clear();
             operandRightModificators.clear();
             operandLeft = result.toString();
+            initialValueOperandLeft = operandLeft;
+            initialValueOperandRight = null;
             operandRight = null;
             result = null;
             operator = nextOperationType;
@@ -110,6 +111,13 @@ public class Operation implements Comparable<Operation> {
         if (activeOperand == null) {
             setActiveOperand("0");
             activeOperand = getActiveOperand();
+        }
+        
+        // assigning initial values
+        if (operandRight == null && operandLeftModificators.isEmpty()) {
+            initialValueOperandLeft = activeOperand;
+        } else if (operandRight != null && operandRightModificators.isEmpty()) {
+            initialValueOperandRight = activeOperand;
         }
 
         BigDecimal operand = new BigDecimal(activeOperand);
@@ -184,18 +192,36 @@ public class Operation implements Comparable<Operation> {
 
     @Override
     public String toString() {
-
-        String showedOperandLeft = NumberFormatter.format(operandLeft, OperationStage.USING_OPERATORS);
-        String showedOperandRight = operandRight != null
-                ? showedOperandRight = NumberFormatter.format(operandRight, OperationStage.USING_OPERATORS)
-                : null;
-
-        if (operator == null) {
+        String showedOperandLeft;
+        if (operandLeftModificators.isEmpty()) {
+            showedOperandLeft = NumberFormatter.format(operandLeft, OperationStage.USING_OPERATORS);
+        } else {
+            showedOperandLeft = ModificationType.showModificationAsSingleString(operandLeftModificators, initialValueOperandLeft);
+        }
+        
+        String showedOperandRight = null;
+        if (operandRight != null) {
+            if (operandRightModificators.isEmpty()) {
+                showedOperandRight = NumberFormatter.format(operandRight, OperationStage.USING_OPERATORS);
+            } else {
+                showedOperandRight = ModificationType.showModificationAsSingleString(operandRightModificators, initialValueOperandRight);
+            }
+        }
+        
+        if (operandLeftModificators.isEmpty() 
+                && operandRightModificators.isEmpty() 
+                && operator == null) {
             return result == null ? "" : showedOperandLeft + " = ";
         }
+        
+        
 
         StringBuilder sb = new StringBuilder();
         sb.append(showedOperandLeft);
+        if (operator == null) {
+            return sb.toString();
+        }
+        
         sb.append(" ");
         sb.append(operator.getCharacter());
         sb.append(" ");
