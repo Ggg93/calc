@@ -12,9 +12,13 @@ import dev.gl.calc.memory.Memory;
 import dev.gl.calc.menu.AboutButtonActionListener;
 import dev.gl.calc.menu.ExitButtonActionListener;
 import dev.gl.calc.menu.HistoryButtonActionListener;
+import dev.gl.calc.menu.LangEnActionListener;
+import dev.gl.calc.menu.LangRuActionListener;
 import dev.gl.calc.menu.SaveHistoryActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -38,6 +42,8 @@ public class MainWindow extends javax.swing.JFrame {
     private Memory memory;
     private JFileChooser fileChooser;
     private AudioPlayer audioPlayer;
+//    private ResourceBundle resourceBundle = ResourceBundle.getBundle("dict", 
+//            new Locale.Builder().setLanguageTag(Configuration.locale).build());
 
     public MainWindow() {
         configureFrame();
@@ -104,7 +110,7 @@ public class MainWindow extends javax.swing.JFrame {
         langRuMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Calculator");
+        setTitle(Configuration.getResourceBundle().getString("mw_title")); // NOI18N
         setMinimumSize(new java.awt.Dimension(450, 350));
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
 
@@ -264,41 +270,41 @@ public class MainWindow extends javax.swing.JFrame {
 
         getContentPane().add(jSplitPane1);
 
-        mainMenu.setText("Main");
+        mainMenu.setText(Configuration.getResourceBundle().getString("menu_main")); // NOI18N
 
         aboutMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
-        aboutMenuItem.setText("About");
+        aboutMenuItem.setText(Configuration.getResourceBundle().getString("menu_about")); // NOI18N
         mainMenu.add(aboutMenuItem);
 
         settingsMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
-        settingsMenuItem.setText("Settings");
+        settingsMenuItem.setText(Configuration.getResourceBundle().getString("menu_settings")); // NOI18N
         mainMenu.add(settingsMenuItem);
 
         helpMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F3, 0));
-        helpMenuItem.setText("Help");
+        helpMenuItem.setText(Configuration.getResourceBundle().getString("menu_help")); // NOI18N
         mainMenu.add(helpMenuItem);
 
         saveMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        saveMenuItem.setText("Save...");
+        saveMenuItem.setText(Configuration.getResourceBundle().getString("menu_save")); // NOI18N
         mainMenu.add(saveMenuItem);
 
         exitMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F12, 0));
-        exitMenuItem.setText("Exit");
+        exitMenuItem.setText(Configuration.getResourceBundle().getString("menu_exit")); // NOI18N
         mainMenu.add(exitMenuItem);
 
         menuBar.add(mainMenu);
 
-        historyMenu.setText("History");
+        historyMenu.setText(Configuration.getResourceBundle().getString("menu_history")); // NOI18N
         menuBar.add(historyMenu);
 
-        langMenu.setText("Lang");
+        langMenu.setText(Configuration.getResourceBundle().getString("menu_lang")); // NOI18N
 
         langEnMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_1, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        langEnMenuItem.setText("En");
+        langEnMenuItem.setText(Configuration.getResourceBundle().getString("menu_en")); // NOI18N
         langMenu.add(langEnMenuItem);
 
         langRuMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_2, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        langRuMenuItem.setText("Ru");
+        langRuMenuItem.setText(Configuration.getResourceBundle().getString("menu_ru")); // NOI18N
         langMenu.add(langRuMenuItem);
 
         menuBar.add(langMenu);
@@ -518,6 +524,10 @@ public class MainWindow extends javax.swing.JFrame {
         historyMenu.addMouseListener(new HistoryButtonActionListener(this));
         helpMenuItem.addActionListener(new HelpButtonActionListener(this));
         settingsMenuItem.addActionListener(new SettingsButtonActionListener(this));
+        langEnMenuItem.addActionListener(new LangEnActionListener(this));
+        langRuMenuItem.addActionListener(new LangRuActionListener(this));
+        System.out.println("lang: " + Configuration.getResourceBundle().getLocale().getLanguage());
+        System.out.println("menu_main: " + Configuration.getResourceBundle().getString("menu_main"));
     }
 
     public Operation getOperation() {
