@@ -1,28 +1,34 @@
 package dev.gl.calc;
 
 import dev.gl.calc.main.enums.CalculatorState;
+import dev.gl.calc.main.enums.ModificationType;
 import dev.gl.calc.main.enums.OperationStage;
 import dev.gl.calc.main.enums.OperatorType;
 import dev.gl.calc.main.gui.MainWindow;
 import dev.gl.calc.main.gui.NumberFormatter;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
+import java.math.MathContext;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author gl
  */
-public class Operation implements Comparable<Operation>{
+public class Operation implements Comparable<Operation> {
 
     public static final String ID_DELIMETER = ":";
     private static int counter = 0;
     private static final BigDecimal MAX_VALUE = new BigDecimal("9.9E9999");
+    private static final BigDecimal ONE_HUNDRED = new BigDecimal(100);
     private MainWindow mw;
     public int id;
     public String operandLeft; // should be String?
     public String operandRight; // should be String?
     public BigDecimal result;
     public OperatorType operator;
+    public List<ModificationType> operandLeftModificators = new ArrayList<>();
+    public List<ModificationType> operandRightModificators = new ArrayList<>();
     public OperationStage stage;
 
     public Operation(MainWindow mw) {
@@ -90,7 +96,82 @@ public class Operation implements Comparable<Operation>{
             result = null;
             operator = nextOperationType;
         }
+    }
 
+    public void performModification(ModificationType type) {
+        String activeOperand = getActiveOperand();
+        if (activeOperand == null) {
+            activeOperand = "0";
+        }
+
+        BigDecimal operand = new BigDecimal(activeOperand);
+
+        switch (type) {
+            case MAKING_DECIMAL:
+                if (operand.compareTo(BigDecimal.ZERO) == 0) {
+                    mw.setCalculatorState(CalculatorState.DIVIDING_BY_ZERO);
+                    return;
+                }
+
+                operand = BigDecimal.ONE.divide(operand, Configuration.operationScale, Configuration.roundingMode);
+                if (isLeftOperandActive()) {
+                    operandLeftModificators.add(type);
+                } else {
+                    operandRightModificators.add(type);
+                }
+                break;
+
+            case ROOT:
+                operand = operand.sqrt(MathContext.DECIMAL64);
+                if (isLeftOperandActive()) {
+                    operandLeftModificators.add(type);
+                } else {
+                    operandRightModificators.add(type);
+                }
+                break;
+
+            case SQUARING:
+                operand = operand.pow(2);
+                if (isLeftOperandActive()) {
+                    operandLeftModificators.add(type);
+                } else {
+                    operandRightModificators.add(type);
+                }
+                break;
+
+            case PERCENT:
+                if (operator == null) {
+                    operand = BigDecimal.ZERO; // this is left operand
+                    break;
+                }
+
+                switch (operator) {
+                    case ADDITION:
+                    case SUBTRACTION: {
+                        if (operandRight == null) {
+                            operandRight = "0";
+                        }
+
+                        BigDecimal leftOperand = new BigDecimal(operandLeft);
+                        operand = new BigDecimal(getActiveOperand());
+                        operand = leftOperand.multiply(operand).divide(ONE_HUNDRED);
+                        break;
+                    }
+                    case DIVISION:
+                    case MULTIPLICATION:
+                        operand = new BigDecimal(getActiveOperand());
+                        operand = operand.divide(ONE_HUNDRED);
+                        break;
+                }
+        }
+
+        // check for overflow wrong state
+        if (operand.compareTo(MAX_VALUE) > 0) {
+            mw.setCalculatorState(CalculatorState.OVERFLOW);
+            return;
+        }
+
+        setActiveOperand(operand.toString());
     }
 
     @Override
@@ -119,7 +200,7 @@ public class Operation implements Comparable<Operation>{
         sb.append(" = ");
         return sb.toString();
     }
-    
+
     public String printForHistory() {
         StringBuilder sb = new StringBuilder();
         sb.append(id).append(ID_DELIMETER).append(" ")
@@ -142,11 +223,15 @@ public class Operation implements Comparable<Operation>{
         }
     }
 
+    private Boolean isLeftOperandActive() {
+        return operator == null;
+    }
+
     @Override
     public int compareTo(Operation o) {
         return this.id > o.id ? 1 : -1;
     }
-    
+
     public void resetCounter() {
         counter = 0;
     }
