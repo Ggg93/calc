@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
  * @author gl
  */
 public class Configuration {
+    public static final String ID_DELIMETER = ":";
     public static Integer operationScale = 10;
     public static RoundingMode roundingMode = RoundingMode.HALF_UP;
     public static HistorySortingOrder sortingOrder = HistorySortingOrder.LAST_TO_FIRST;

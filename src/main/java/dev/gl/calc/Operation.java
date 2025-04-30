@@ -17,19 +17,20 @@ import java.util.List;
  */
 public class Operation implements Comparable<Operation> {
 
-    public static final String ID_DELIMETER = ":";
-    private static int counter = 0;
     private static final BigDecimal MAX_VALUE = new BigDecimal("9.9E9999");
     private static final BigDecimal ONE_HUNDRED = new BigDecimal(100);
-    private MainWindow mw;
+    private static int counter = 0;
+    
     public int id;
-    public String operandLeft; // should be String?
-    public String operandRight; // should be String?
+    public String operandLeft;
+    public String operandRight;
     public BigDecimal result;
     public OperatorType operator;
     public List<ModificationType> operandLeftModificators = new ArrayList<>();
     public List<ModificationType> operandRightModificators = new ArrayList<>();
     public OperationStage stage;
+    
+    private MainWindow mw;
 
     public Operation(MainWindow mw) {
         this.mw = mw;
@@ -206,7 +207,7 @@ public class Operation implements Comparable<Operation> {
 
     public String printForHistory() {
         StringBuilder sb = new StringBuilder();
-        sb.append(id).append(ID_DELIMETER).append(" ")
+        sb.append(id).append(Configuration.ID_DELIMETER).append(" ")
                 .append(NumberFormatter.format(operandLeft, OperationStage.USING_OPERATORS)).append(" ")
                 .append(operator.getCharacter()).append(" ")
                 .append(NumberFormatter.format(operandRight, OperationStage.USING_OPERATORS)).append(" = ")

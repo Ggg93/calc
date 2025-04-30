@@ -122,7 +122,7 @@ public class HistoryDialog extends javax.swing.JDialog {
 
                     // find the historical operation
                     String operation = (String) model.getValueAt(modelRow, 0);
-                    String idSubstring = operation.substring(0, operation.indexOf(Operation.ID_DELIMETER));
+                    String idSubstring = operation.substring(0, operation.indexOf(Configuration.ID_DELIMETER));
                     Integer operationId = Integer.parseInt(idSubstring);
                     Operation historicalOperation = mw.getHistory().getOperations().get(operationId);
 
