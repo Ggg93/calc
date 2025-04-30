@@ -11,11 +11,11 @@ import javax.swing.AbstractAction;
  *
  * @author gl
  */
-public class MakingDecimalAction extends AbstractAction {
-    
+public class RootAction extends AbstractAction {
+
     private MainWindow mw;
 
-    public MakingDecimalAction(MainWindow mw) {
+    public RootAction(MainWindow mw) {
         this.mw = mw;
     }
 
@@ -23,11 +23,10 @@ public class MakingDecimalAction extends AbstractAction {
     public void actionPerformed(ActionEvent e) {
         Operation operation = mw.getOperation();
         operation.stage = OperationStage.USING_OPERATORS;
-        
-        operation.performModification(ModificationType.MAKING_DECIMAL);
+
+        operation.performModification(ModificationType.ROOT);
         
         mw.getAudioPlayer().playClickSound();
         mw.updateTextFields();
     }
-    
 }

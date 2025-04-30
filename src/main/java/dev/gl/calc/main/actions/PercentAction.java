@@ -11,11 +11,11 @@ import javax.swing.AbstractAction;
  *
  * @author gl
  */
-public class MakingDecimalAction extends AbstractAction {
-    
+public class PercentAction extends AbstractAction {
+
     private MainWindow mw;
 
-    public MakingDecimalAction(MainWindow mw) {
+    public PercentAction(MainWindow mw) {
         this.mw = mw;
     }
 
@@ -23,11 +23,11 @@ public class MakingDecimalAction extends AbstractAction {
     public void actionPerformed(ActionEvent e) {
         Operation operation = mw.getOperation();
         operation.stage = OperationStage.USING_OPERATORS;
-        
-        operation.performModification(ModificationType.MAKING_DECIMAL);
-        
+
+        operation.performModification(ModificationType.PERCENT);
+
         mw.getAudioPlayer().playClickSound();
         mw.updateTextFields();
     }
-    
+
 }

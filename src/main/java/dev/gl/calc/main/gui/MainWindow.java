@@ -17,9 +17,9 @@ import dev.gl.calc.menu.LangRuActionListener;
 import dev.gl.calc.menu.SaveHistoryActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
-import java.util.Locale;
-import java.util.ResourceBundle;
+import javax.swing.ActionMap;
 import javax.swing.ImageIcon;
+import javax.swing.InputMap;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
@@ -42,8 +42,6 @@ public class MainWindow extends javax.swing.JFrame {
     private Memory memory;
     private JFileChooser fileChooser;
     private AudioPlayer audioPlayer;
-//    private ResourceBundle resourceBundle = ResourceBundle.getBundle("dict", 
-//            new Locale.Builder().setLanguageTag(Configuration.locale).build());
 
     public MainWindow() {
         configureFrame();
@@ -409,63 +407,73 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     private void createKeyBindings() {
+        InputMap inputMap = this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+        ActionMap actionMap = this.getRootPane().getActionMap();
 
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("0"), "digit");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("1"), "digit");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("2"), "digit");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("3"), "digit");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("4"), "digit");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("5"), "digit");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("6"), "digit");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("7"), "digit");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("8"), "digit");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("9"), "digit");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD0, 0), "digit");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD1, 0), "digit");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD2, 0), "digit");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD3, 0), "digit");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD4, 0), "digit");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD5, 0), "digit");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD6, 0), "digit");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD7, 0), "digit");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD8, 0), "digit");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD9, 0), "digit");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_BACK_SPACE, 0), "back_space");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_DECIMAL, 0), "decimal");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0), "clear_entry");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "clear");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_F9, 0), "sign");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_PLUS, 0), "addition");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_ADD, 0), "addition");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_MINUS, 0), "subtraction");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_SUBTRACT, 0), "subtraction");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_MULTIPLY, 0), "multiplication");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_8, InputEvent.SHIFT_DOWN_MASK), "multiplication");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_DIVIDE, 0), "division");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_SLASH, 0), "division");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "equals");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_P, InputEvent.CTRL_DOWN_MASK), "memory_add");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_Q, InputEvent.CTRL_DOWN_MASK), "memory_subtract");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_R, InputEvent.CTRL_DOWN_MASK), "memory_recall");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_L, InputEvent.CTRL_DOWN_MASK), "memory_clear");
-        this.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_H, InputEvent.CTRL_DOWN_MASK), "history");
+        inputMap.put(KeyStroke.getKeyStroke("0"), "digit");
+        inputMap.put(KeyStroke.getKeyStroke("1"), "digit");
+        inputMap.put(KeyStroke.getKeyStroke("2"), "digit");
+        inputMap.put(KeyStroke.getKeyStroke("3"), "digit");
+        inputMap.put(KeyStroke.getKeyStroke("4"), "digit");
+        inputMap.put(KeyStroke.getKeyStroke("5"), "digit");
+        inputMap.put(KeyStroke.getKeyStroke("6"), "digit");
+        inputMap.put(KeyStroke.getKeyStroke("7"), "digit");
+        inputMap.put(KeyStroke.getKeyStroke("8"), "digit");
+        inputMap.put(KeyStroke.getKeyStroke("9"), "digit");
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD0, 0), "digit");
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD1, 0), "digit");
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD2, 0), "digit");
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD3, 0), "digit");
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD4, 0), "digit");
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD5, 0), "digit");
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD6, 0), "digit");
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD7, 0), "digit");
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD8, 0), "digit");
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD9, 0), "digit");
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_BACK_SPACE, 0), "back_space");
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_DECIMAL, 0), "decimal");
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0), "clear_entry");
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "clear");
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_F9, 0), "sign");
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_PLUS, 0), "addition");
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ADD, 0), "addition");
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_MINUS, 0), "subtraction");
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_SUBTRACT, 0), "subtraction");
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_MULTIPLY, 0), "multiplication");
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_8, InputEvent.SHIFT_DOWN_MASK), "multiplication");
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_DIVIDE, 0), "division");
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_SLASH, 0), "division");
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "equals");
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_P, InputEvent.CTRL_DOWN_MASK), "memory_add");
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_Q, InputEvent.CTRL_DOWN_MASK), "memory_subtract");
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_R, InputEvent.CTRL_DOWN_MASK), "memory_recall");
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_L, InputEvent.CTRL_DOWN_MASK), "memory_clear");
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_H, InputEvent.CTRL_DOWN_MASK), "history");
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_5, InputEvent.SHIFT_DOWN_MASK), "percent");
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_R, 0), "making_decimal");
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_Q, 0), "squaring");
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_2, InputEvent.SHIFT_DOWN_MASK), "root");
 
-        this.getRootPane().getActionMap().put("digit", buttonActions.digitPressedAction);
-        this.getRootPane().getActionMap().put("back_space", buttonActions.backspacePressedAction);
-        this.getRootPane().getActionMap().put("decimal", buttonActions.decimalPressedAction);
-        this.getRootPane().getActionMap().put("clear_entry", buttonActions.clearEntryPressedAction);
-        this.getRootPane().getActionMap().put("clear", buttonActions.clearPressedAction);
-        this.getRootPane().getActionMap().put("sign", buttonActions.signPressedAction);
-        this.getRootPane().getActionMap().put("addition", buttonActions.plusPressedAction);
-        this.getRootPane().getActionMap().put("subtraction", buttonActions.minusPressedAction);
-        this.getRootPane().getActionMap().put("multiplication", buttonActions.multiplyPressedAction);
-        this.getRootPane().getActionMap().put("division", buttonActions.divisionPressedAction);
-        this.getRootPane().getActionMap().put("equals", buttonActions.equalsPressedAction);
-        this.getRootPane().getActionMap().put("memory_add", buttonActions.addMemoryAction);
-        this.getRootPane().getActionMap().put("memory_subtract", buttonActions.subtractMemoryAction);
-        this.getRootPane().getActionMap().put("memory_recall", buttonActions.recallMemoryAction);
-        this.getRootPane().getActionMap().put("memory_clear", buttonActions.clearMemoryAction);
-        this.getRootPane().getActionMap().put("history", buttonActions.historyButtonAction);
+        actionMap.put("digit", buttonActions.digitPressedAction);
+        actionMap.put("back_space", buttonActions.backspacePressedAction);
+        actionMap.put("decimal", buttonActions.decimalPressedAction);
+        actionMap.put("clear_entry", buttonActions.clearEntryPressedAction);
+        actionMap.put("clear", buttonActions.clearPressedAction);
+        actionMap.put("sign", buttonActions.signPressedAction);
+        actionMap.put("addition", buttonActions.plusPressedAction);
+        actionMap.put("subtraction", buttonActions.minusPressedAction);
+        actionMap.put("multiplication", buttonActions.multiplyPressedAction);
+        actionMap.put("division", buttonActions.divisionPressedAction);
+        actionMap.put("equals", buttonActions.equalsPressedAction);
+        actionMap.put("memory_add", buttonActions.addMemoryAction);
+        actionMap.put("memory_subtract", buttonActions.subtractMemoryAction);
+        actionMap.put("memory_recall", buttonActions.recallMemoryAction);
+        actionMap.put("memory_clear", buttonActions.clearMemoryAction);
+        actionMap.put("history", buttonActions.historyButtonAction);
+        actionMap.put("percent", buttonActions.percentAction);
+        actionMap.put("making_decimal", buttonActions.makingDecimalAction);
+        actionMap.put("squaring", buttonActions.squaringAction);
+        actionMap.put("root", buttonActions.rootAction);
     }
 
     private void bindActionsToButtons() {
@@ -497,7 +505,11 @@ public class MainWindow extends javax.swing.JFrame {
         equalsButton.addActionListener(buttonActions.equalsPressedAction);
 
         // auxiliary operators buttons
-        //...
+        percentButton.addActionListener(buttonActions.percentAction);
+        dividerButton.addActionListener(buttonActions.makingDecimalAction);
+        squaringButton.addActionListener(buttonActions.squaringAction);
+        squareRootButton.addActionListener(buttonActions.rootAction);
+
         // memory buttons
         mAddButton.addActionListener(buttonActions.addMemoryAction);
         mSubtractButton.addActionListener(buttonActions.subtractMemoryAction);
@@ -511,10 +523,10 @@ public class MainWindow extends javax.swing.JFrame {
         memory = new Memory(this);
         history = new History(this);
         fileChooser = new JFileChooser();
-        
+
         buttonActions = new ButtonActions(this, OPERAND_LENGTH_LIMIT, memory);
         docFilter = new LimitedLengthDocumentFilter(OPERAND_LENGTH_LIMIT);
-        
+
     }
 
     private void initMenuItems() {
@@ -526,8 +538,6 @@ public class MainWindow extends javax.swing.JFrame {
         settingsMenuItem.addActionListener(new SettingsButtonActionListener(this));
         langEnMenuItem.addActionListener(new LangEnActionListener(this));
         langRuMenuItem.addActionListener(new LangRuActionListener(this));
-        System.out.println("lang: " + Configuration.getResourceBundle().getLocale().getLanguage());
-        System.out.println("menu_main: " + Configuration.getResourceBundle().getString("menu_main"));
     }
 
     public Operation getOperation() {
@@ -579,15 +589,15 @@ public class MainWindow extends javax.swing.JFrame {
         signButton.setEnabled(isOk);
         decimalButton.setEnabled(isOk);
         percentButton.setEnabled(isOk);
-        
+
         if (Configuration.blockEqualsIfWrongStateOccured && !isOk) {
             equalsButton.setEnabled(false);
         }
-        
+
         if (isOk && !equalsButton.isEnabled()) {
             equalsButton.setEnabled(true);
         }
-        
+
         if (!isOk) {
             audioPlayer.playWrongStateSound();
         }
@@ -597,7 +607,7 @@ public class MainWindow extends javax.swing.JFrame {
         mcButton.setEnabled(isEnabled);
         mrButton.setEnabled(isEnabled);
     }
-    
+
     public void clearOperationTextField() {
         operationTextField.setText("");
     }
@@ -617,5 +627,5 @@ public class MainWindow extends javax.swing.JFrame {
     public AudioPlayer getAudioPlayer() {
         return audioPlayer;
     }
-    
+
 }

@@ -8,9 +8,13 @@ import dev.gl.calc.main.actions.ClearEntryPressedAction;
 import dev.gl.calc.main.actions.BackspacePressedAction;
 import dev.gl.calc.main.actions.DivisionPressedAction;
 import dev.gl.calc.main.actions.EqualsPressedAction;
+import dev.gl.calc.main.actions.MakingDecimalAction;
 import dev.gl.calc.main.actions.MinusPressedAction;
 import dev.gl.calc.main.actions.MultiplyPressedAction;
+import dev.gl.calc.main.actions.PercentAction;
+import dev.gl.calc.main.actions.RootAction;
 import dev.gl.calc.main.actions.SignPressedAction;
+import dev.gl.calc.main.actions.SquaringAction;
 import dev.gl.calc.main.gui.MainWindow;
 import dev.gl.calc.memory.AddMemoryAction;
 import dev.gl.calc.memory.ClearMemoryAction;
@@ -45,8 +49,13 @@ public class ButtonActions {
     
     // other
     public HistoryButtonAction historyButtonAction;
+    public PercentAction percentAction;
+    public MakingDecimalAction makingDecimalAction;
+    public SquaringAction squaringAction;
+    public RootAction rootAction;
 
     public ButtonActions(MainWindow mw, int lengthLimit, Memory memory) {
+        
         digitPressedAction = new DigitPressedAction(mw, lengthLimit);
         backspacePressedAction = new BackspacePressedAction(mw);
         decimalPressedAction = new DecimalPressedAction(mw);
@@ -67,6 +76,10 @@ public class ButtonActions {
         
         // other
         historyButtonAction = new HistoryButtonAction(mw);
+        percentAction = new PercentAction(mw);
+        makingDecimalAction = new MakingDecimalAction(mw);
+        squaringAction = new SquaringAction(mw);
+        rootAction = new RootAction(mw);
     }
 
 }
