@@ -52,6 +52,9 @@ public class MainWindow extends javax.swing.JFrame {
         bindActionsToButtons();
         createKeyBindings();
         initMenuItems();
+        
+        // set location of frame in the middle of screen
+        this.setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked")
@@ -364,9 +367,6 @@ public class MainWindow extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void configureFrame() {
-        // set location of frame in the middle of screen
-        this.setLocationRelativeTo(null);
-
         // set frame icon
         ImageIcon icon = new ImageIcon(".\\src\\main\\resources\\icons8-calculator-40.png");
         this.setIconImage(icon.getImage());

@@ -31,9 +31,10 @@ public class SettingsDialog extends javax.swing.JDialog {
         initSortingOrderComboBox();
         initWrongStateCheckBox();
         initSoundCheckBox();
-        this.setLocationRelativeTo(null);
         initListeners();
         bindKeyListenersToOkButton();
+        
+        this.setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked")

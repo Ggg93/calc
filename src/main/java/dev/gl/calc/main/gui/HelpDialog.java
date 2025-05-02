@@ -16,10 +16,10 @@ public class HelpDialog extends javax.swing.JDialog {
 
     public HelpDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        this.setLocationRelativeTo(null);
         initComponents();
         initListeners();
         bindKeyListenersToOkButton();
+        this.setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked")

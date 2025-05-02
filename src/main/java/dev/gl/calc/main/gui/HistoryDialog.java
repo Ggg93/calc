@@ -35,13 +35,13 @@ public class HistoryDialog extends javax.swing.JDialog {
 
     public HistoryDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        this.setLocationRelativeTo(parent);
         this.mw = (MainWindow) parent;
         initComponents();
         createTableModel();
         initClearHistoryButton();
         initListeners();
         bindKeyListenersToOkButton();
+        this.setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked")
