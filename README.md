@@ -17,6 +17,10 @@ In addition, the calculator has a number of additional features:
 - all buttons has a shortcut so it is possible to use all functions without mouse;
 - allows to choose a language (english/russian).
 
+## Versions
+
+- 0.1.1: first published version. There are some known issues that need to be fixed.
+
 ## Overview
 
 Main window:<br/>
@@ -35,6 +39,12 @@ Shortcuts:<br/>
 
 - [ ] After "Equals" button has been pressed the operation in a history displayed twice
 - [ ] After "Equals" button has been pressed the squaring, calc reprocal number and calc the square root functions change the right operand instead of result
+
+## Development plan
+
+- [ ] Reorder the project structure to keep it in line with MVC architectural pattern
+- [ ] Add tests
+- [ ] Reordering classes: allocate arithmetic operations to the "engine" and add memory and history operations to it
 
 ## Credits
 
