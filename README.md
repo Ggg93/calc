@@ -24,16 +24,16 @@ In addition, the calculator has a number of additional features:
 ## Overview
 
 Main window:<br/>
-![main_window](/src/main/resources/screenshots/main_window.png)
+<img src="/src/main/resources/screenshots/main_window.png" width="400" height="324">
 
 Settings:<br/>
-![settings](/src/main/resources/screenshots/settings.png)
+<img src="/src/main/resources/screenshots/settings.png" width="400" height="324">
 
 Operations history:<br/>
-![history](/src/main/resources/screenshots/history.png)
+<img src="/src/main/resources/screenshots/history.png" width="400" height="324">
 
 Shortcuts:<br/>
-![help](/src/main/resources/screenshots/help.png)
+<img src="/src/main/resources/screenshots/help.png" width="400" height="600">
 
 ## Known issues
 
